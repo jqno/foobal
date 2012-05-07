@@ -1,0 +1,12 @@
+# Eclipse files
+.metadata/
+.classpath
+.project
+.settings/
+target/
+.cache
+
+# OS specific files
+.DS_Store
+desktop.ini
+Thumbs.db
