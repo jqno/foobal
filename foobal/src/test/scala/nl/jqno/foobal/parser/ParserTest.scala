@@ -15,9 +15,9 @@ class ParserTest extends FlatSpec with ShouldMatchers {
   
   it should "parse valid data" in {
     val expected = Set(
-        Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2012, 10, 24)),
-        Outcome("Ajax", "NAC", 1, 2, new LocalDate(2012, 11, 11)))
-    parser.parse(VALID_SAMPLE_1) should be (expected)
+        Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 24)),
+        Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11)))
+    parser.parse(VALID_1, 2011) should be (expected)
   }
   
   it should "parse valid data in multiple tables" in {
@@ -26,8 +26,10 @@ class ParserTest extends FlatSpec with ShouldMatchers {
         Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)),
         Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 5, 24)),
         Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 5, 25)))
-    parser.parse(VALID_SAMPLE_2) should be (expected)
+    parser.parse(VALID_2, 2012) should be (expected)
   }
   
-  it should "ignore the dtd" in (pending)
+  it should "ignore the dtd" in {
+    parser.parse(DTD, 0)
+  }
 }

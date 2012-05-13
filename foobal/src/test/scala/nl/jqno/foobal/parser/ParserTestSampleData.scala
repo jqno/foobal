@@ -1,7 +1,7 @@
 package nl.jqno.foobal.parser
 
 object ParserTestSampleData {
-  val VALID_SAMPLE_1 = {
+  val VALID_1 = {
     val result = """
         |<html><body><div id=""><div id="">
         |<table cellspacing="1" class="schema">
@@ -25,7 +25,7 @@ object ParserTestSampleData {
       result.stripMargin
   }
   
-  val VALID_SAMPLE_2 = {
+  val VALID_2 = {
     val result = """
         |<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl"
         |  xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
@@ -59,6 +59,13 @@ object ParserTestSampleData {
         |</tr>
         |</table>
         |</div></div></body></html>
+    """
+    result.stripMargin
+  }
+  
+  val DTD = {
+    val result = """|<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+      |<body><table></table></body>
     """
     result.stripMargin
   }
