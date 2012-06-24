@@ -1,6 +1,6 @@
-package nl.jqno.foobal.parser
+package nl.jqno.foobal.io
 
-object ParserTestSampleData {
+object HtmlParserTestSampleData {
   val VALID_1 = {
     val result = """
         |<html><body><div id=""><div id="">

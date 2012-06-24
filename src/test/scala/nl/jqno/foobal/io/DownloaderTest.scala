@@ -1,4 +1,4 @@
-package nl.jqno.foobal.parser
+package nl.jqno.foobal.io
 
 import java.io.IOException
 import java.io.ByteArrayInputStream

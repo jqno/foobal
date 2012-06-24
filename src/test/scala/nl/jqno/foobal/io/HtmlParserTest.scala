@@ -1,4 +1,4 @@
-package nl.jqno.foobal.parser
+package nl.jqno.foobal.io
 
 import nl.jqno.foobal.domain.Outcome
 
@@ -8,11 +8,11 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.joda.time.LocalDate
 
-import ParserTestSampleData._
+import HtmlParserTestSampleData._
 
 @RunWith(classOf[JUnitRunner])
-class ParserTest extends FlatSpec with ShouldMatchers {
-  val parser = new Parser
+class HtmlParserTest extends FlatSpec with ShouldMatchers {
+  val parser = new HtmlParser
   
   behavior of "A Parser"
   
