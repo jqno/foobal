@@ -17,19 +17,11 @@ class HtmlParserTest extends FlatSpec with ShouldMatchers {
   behavior of "A Parser"
   
   it should "parse valid data" in {
-    val expected = Set(
-        Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 24)),
-        Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11)))
-    parser.parse(VALID_1, 2011) should be (expected)
+    parser.parse(VALID_1_HTML, 2011) should be (VALID_1_OUTCOMES)
   }
   
   it should "parse valid data in multiple tables" in {
-    val expected = Set(
-        Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
-        Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)),
-        Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 5, 24)),
-        Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 5, 25)))
-    parser.parse(VALID_2, 2012) should be (expected)
+    parser.parse(VALID_2_HTML, 2012) should be (VALID_2_OUTCOMES)
   }
   
   it should "ignore the dtd" in {

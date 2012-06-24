@@ -1,7 +1,15 @@
 package nl.jqno.foobal.io
 
+import nl.jqno.foobal.domain.Outcome
+import org.joda.time.LocalDate
+
 object HtmlParserTestSampleData {
-  val VALID_1 = {
+  val VALID_1_OUTCOMES = Set(
+    Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 24)),
+    Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
+  )
+
+  val VALID_1_HTML = {
     val result = """
         |<html><body><div id=""><div id="">
         |<table cellspacing="1" class="schema">
@@ -25,7 +33,14 @@ object HtmlParserTestSampleData {
       result.stripMargin
   }
   
-  val VALID_2 = {
+  val VALID_2_OUTCOMES = Set(
+    Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
+    Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)),
+    Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 5, 24)),
+    Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 5, 25))
+  )
+  
+  val VALID_2_HTML = {
     val result = """
         |<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl"
         |  xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
