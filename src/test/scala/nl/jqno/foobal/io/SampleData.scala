@@ -3,12 +3,18 @@ package nl.jqno.foobal.io
 import nl.jqno.foobal.domain.Outcome
 import org.joda.time.LocalDate
 
-object HtmlParserTestSampleData {
+object SampleData {
   val VALID_1_OUTCOMES = Set(
     Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 24)),
     Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
   )
 
+  val VALID_1_XML =
+    <outcomes>
+      <outcome><homeTeam>Ajax</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>2</outScore><date>2010-11-11</date></outcome>
+      <outcome><homeTeam>PSV</homeTeam><outTeam>Feyenoord</outTeam><homeScore>10</homeScore><outScore>0</outScore><date>2010-10-24</date></outcome>
+    </outcomes>
+  
   val VALID_1_HTML = {
     val result = """
         |<html><body><div id=""><div id="">
@@ -39,6 +45,14 @@ object HtmlParserTestSampleData {
     Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 5, 24)),
     Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 5, 25))
   )
+  
+  val VALID_2_XML =
+    <outcomes>
+      <outcome><homeTeam>NAC</homeTeam><outTeam>PSV</outTeam><homeScore>2</homeScore><outScore>0</outScore><date>2012-5-17</date></outcome>
+      <outcome><homeTeam>FC Appelmoesboerdonk</homeTeam><outTeam>Willem II</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-05-18</date></outcome>
+      <outcome><homeTeam>PSV</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>1</outScore><date>2012-05-24</date></outcome>
+      <outcome><homeTeam>Willem II</homeTeam><outTeam>FC Appelmoesboerdonk</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-05-25</date></outcome>
+    </outcomes>
   
   val VALID_2_HTML = {
     val result = """

@@ -8,7 +8,7 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.joda.time.LocalDate
 
-import HtmlParserTestSampleData._
+import SampleData._
 
 @RunWith(classOf[JUnitRunner])
 class HtmlParserTest extends FlatSpec with ShouldMatchers {
