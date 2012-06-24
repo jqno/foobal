@@ -4,6 +4,8 @@ import scala.xml.XML
 
 import org.joda.time.LocalDate
 
+import nl.jqno.foobal.domain.Outcome
+
 class Parser {
   def parse(input: String, seasonEndYear: Int): Set[Outcome] = {
     val xml = toXml(input)

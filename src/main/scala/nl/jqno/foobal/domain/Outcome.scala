@@ -1,4 +1,4 @@
-package nl.jqno.foobal.parser
+package nl.jqno.foobal.domain
 
 import org.joda.time.LocalDate
 
