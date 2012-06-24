@@ -7,7 +7,7 @@ import org.joda.time.LocalDate
 import nl.jqno.foobal.domain.Outcome
 
 class HtmlParser {
-  def parse(input: String, seasonEndYear: Int): Set[Outcome] = {
+  def parse(input: String, seasonEndYear: Int): List[Outcome] = {
     val xml = toXml(input)
     
     val x = (xml \\ "body" \\ "table" \\ "tr").map { elem =>
@@ -16,7 +16,7 @@ class HtmlParser {
       Outcome(data(1), data(2), scores(0), scores(1), parseDate(data(0), seasonEndYear))
     }
     
-    x.toSet
+    x.toList
   }
   
   private def toXml(input: String): scala.xml.Elem = {

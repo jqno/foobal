@@ -1,7 +1,6 @@
 package nl.jqno.foobal.io
 
 import java.io.IOException
-import java.io.File
 import java.io.InputStream
 import java.net.URL
 
@@ -9,7 +8,10 @@ import scala.xml.XML
 
 class Xml {
   @throws(classOf[IOException])
-  def loadFile(fileName: String): scala.xml.Elem = XML.loadFile(fileName)
+  def loadFile(fileName: String): scala.xml.Node = XML.loadFile(fileName)
+  
+  @throws(classOf[IOException])
+  def saveFile(fileName: String, node: scala.xml.Node): Unit = XML.save(fileName, node)
 }
 
 class Url(val spec: String) {

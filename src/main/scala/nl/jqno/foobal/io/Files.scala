@@ -1,16 +1,24 @@
 package nl.jqno.foobal.io
 
-import java.io.File
+import java.io.IOException
+
+import scala.xml.Utility.trim
+
 import com.nummulus.boite._
+
 import nl.jqno.foobal.domain.Outcome
-import scala.xml.XML
 
 class Files(val xml: Xml) {
-  def importFrom(fileName: String): Box[Set[Outcome]] = Box.wrap {
+  def importFrom(fileName: String): Box[List[Outcome]] = Box.wrap {
     val content = xml.loadFile(fileName)
     
     val outcomes = (content \\ "outcomes" \\ "outcome").flatMap { Outcome(_).toList }
     
-    if (outcomes.size == 0) null else outcomes.toSet
+    if (outcomes.size == 0) null else outcomes.toList
+  }
+  
+  def exportTo(fileName: String, outcomes: List[Outcome]): Unit = {
+    val data = <outcomes>{outcomes.map(_.toXml)}</outcomes>
+    xml.saveFile(fileName, trim(data))
   }
 }

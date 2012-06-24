@@ -1,13 +1,10 @@
 package nl.jqno.foobal.io
 
 import java.io.FileNotFoundException
-import java.io.ByteArrayInputStream
-import java.io.File
-
-import scala.io.BufferedSource
+import java.io.IOException
 
 import org.junit.runner.RunWith
-import org.mockito.Mockito.when
+import org.mockito.Mockito._
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
@@ -47,6 +44,27 @@ class FilesTest extends FlatSpec with ShouldMatchers with OneInstancePerTest wit
     files.importFrom(nonExistingFile) should be a (failure containing classOf[FileNotFoundException])
   }
   
-  private def writeToFile(content: scala.xml.Elem) = 
+  private def writeToFile(content: scala.xml.Node) = 
     when(xml.loadFile(someFile)).thenReturn(content)
+  
+  
+  behavior of "File.exportTo"
+  
+  it should "export XML data to a file" in {
+    files.exportTo(someFile, VALID_1_OUTCOMES)
+    verify(xml).saveFile(someFile, VALID_1_XML)
+  }
+  
+  it should "export other XML data to a file" in {
+    files.exportTo(someFile, VALID_2_OUTCOMES)
+    verify(xml).saveFile(someFile, VALID_2_XML)
+  }
+  
+  it should "throw an IOException if the file could not be written to" in {
+    val failingFile = "will fail"
+    when(xml.saveFile(failingFile, VALID_1_XML)).thenThrow(new IOException())
+    intercept[IOException] {
+      files.exportTo(failingFile, VALID_1_OUTCOMES)
+    }
+  }
 }
