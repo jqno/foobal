@@ -1,10 +1,14 @@
 package nl.jqno.foobal.io
 
 import java.io.IOException
+
 import java.io.InputStream
 import java.net.URL
 
 import scala.xml.XML
+
+import org.joda.time.LocalDate
+
 
 class Xml {
   @throws(classOf[IOException])
@@ -29,4 +33,8 @@ class UrlConnection(url: URL) {
   
   @throws(classOf[IOException])
   def getInputStream: InputStream = con.getInputStream
+}
+
+class DateFactory {
+  def today = new LocalDate
 }
