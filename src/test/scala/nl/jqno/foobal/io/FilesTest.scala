@@ -40,12 +40,12 @@ class FilesTest extends FlatSpec with ShouldMatchers with OneInstancePerTest wit
   
   it should "result in a Failure if the file could not be found" in {
     val nonExistingFile = "does not exist"
-    when(xml.loadFile(nonExistingFile)).thenThrow(new FileNotFoundException())
+    when(xml.loadFile(nonExistingFile)) thenThrow (new FileNotFoundException)
     files.importFrom(nonExistingFile) should be a (failure containing classOf[FileNotFoundException])
   }
   
   private def writeToFile(content: scala.xml.Node) = 
-    when(xml.loadFile(someFile)).thenReturn(content)
+    when(xml.loadFile(someFile)) thenReturn content
   
   
   behavior of "File.exportTo"
@@ -62,7 +62,7 @@ class FilesTest extends FlatSpec with ShouldMatchers with OneInstancePerTest wit
   
   it should "throw an IOException if the file could not be written to" in {
     val failingFile = "will fail"
-    when(xml.saveFile(failingFile, VALID_1_XML)).thenThrow(new IOException())
+    when(xml.saveFile(failingFile, VALID_1_XML)) thenThrow (new IOException)
     intercept[IOException] {
       files.exportTo(failingFile, VALID_1_OUTCOMES)
     }

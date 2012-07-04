@@ -20,7 +20,7 @@ class DownloaderTest extends FlatSpec with ShouldMatchers with OneInstancePerTes
   val url = mock[Url]
   val con = mock[UrlConnection]
   val downloader = new Downloader(url)
-  when(url.openConnection).thenReturn(con)
+  when(url.openConnection) thenReturn con
 
   behavior of "A Downloader"
   
@@ -41,7 +41,7 @@ class DownloaderTest extends FlatSpec with ShouldMatchers with OneInstancePerTes
     verify(con).setReadTimeout(3000)
   }
   
-  private def upload(s: String) = when(con.getInputStream).thenReturn(new ByteArrayInputStream(s.getBytes))
+  private def upload(s: String) = when(con.getInputStream) thenReturn (new ByteArrayInputStream(s.getBytes))
   
-  private def timeout = when(con.getInputStream).thenThrow(new SocketTimeoutException())
+  private def timeout = when(con.getInputStream) thenThrow (new SocketTimeoutException)
 }
