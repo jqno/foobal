@@ -8,7 +8,7 @@ import com.nummulus.boite._
 
 import nl.jqno.foobal.domain.Outcome
 
-class Files(val xml: Xml) {
+class Files(xml: Xml) {
   def importFrom(fileName: String): Box[List[Outcome]] = Box.wrap {
     val content = xml.loadFile(fileName)
     

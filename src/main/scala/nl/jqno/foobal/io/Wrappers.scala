@@ -14,13 +14,13 @@ class Xml {
   def saveFile(fileName: String, node: scala.xml.Node): Unit = XML.save(fileName, node)
 }
 
-class Url(val spec: String) {
+class Url(spec: String) {
   private val url = new URL(spec)
   
   def openConnection: UrlConnection = new UrlConnection(url)
 }
 
-class UrlConnection(val url: URL) {
+class UrlConnection(url: URL) {
   private val con = url.openConnection
   
   def setConnectTimeout(millis: Int) = con.setConnectTimeout(millis)

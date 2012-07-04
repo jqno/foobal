@@ -6,7 +6,7 @@ import scala.io.Source
 
 import com.nummulus.boite._
 
-class Downloader(val url: Url) {
+class Downloader(url: Url) {
   private val CONNECT_TIMEOUT = 3000
   private val READ_TIMEOUT = 3000
   
