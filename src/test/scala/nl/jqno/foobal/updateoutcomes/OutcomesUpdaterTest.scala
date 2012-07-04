@@ -36,7 +36,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     val fileName = "/some/file_name"
     upload(Full(VALID_1_HTML), VALID_1_OUTCOMES)
     
-    updater.update(fileName, 2011)
+    updater.update(fileName)
     
     verify(files).exportTo(fileName, VALID_1_OUTCOMES)
   }
@@ -45,7 +45,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     val fileName = "/another/file_name"
     upload(Full(VALID_2_HTML), VALID_2_OUTCOMES)
     
-    updater.update(fileName, 2012)
+    updater.update(fileName)
     
     verify(files).exportTo(fileName, VALID_2_OUTCOMES)
   }
@@ -53,7 +53,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   it should "not update the XML if the downloader fails" in {
     upload(Failure("uh-oh"))
     
-    updater.update("", 0)
+    updater.update("")
     
     verify(files, never).exportTo(anyString, any(classOf[List[Outcome]]))
   }

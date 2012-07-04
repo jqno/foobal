@@ -6,7 +6,7 @@ import nl.jqno.foobal.io.HtmlParser
 import nl.jqno.foobal.io.DateFactory
 
 class OutcomesUpdater(downloader: Downloader, parser: HtmlParser, files: Files) {
-  def update(fileName: String, seasonEndYear: Int): Unit = {
+  def update(fileName: String): Unit = {
     downloader.fetch foreach { html =>
       val outcomes = parser.parse(html)
       files.exportTo(fileName, outcomes)
