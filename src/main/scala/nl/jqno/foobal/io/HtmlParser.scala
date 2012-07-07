@@ -6,7 +6,7 @@ import nl.jqno.foobal.domain.Outcome
 import com.nummulus.boite.Box
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
 
-class HtmlParser(clock: DateFactory) {
+class HtmlParser(clock: DateFactory = new DateFactory) {
   def parse(input: String): List[Outcome] = {
     val xml = toXml(input)
     

@@ -2,10 +2,6 @@ package nl.jqno.foobal
 
 import nl.jqno.foobal.io.Downloader
 import nl.jqno.foobal.io.Url
-import nl.jqno.foobal.io.HtmlParser
-import nl.jqno.foobal.io.DateFactory
-import nl.jqno.foobal.io.Files
-import nl.jqno.foobal.io.Xml
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
 
 object Main {
@@ -14,11 +10,7 @@ object Main {
 
   def main(args: Array[String]) {
     val downloader = new Downloader(new Url(URL))
-    val clock = new DateFactory
-    val parser = new HtmlParser(clock)
-    val xml = new Xml
-    val files = new Files(xml)
-    val updater = new OutcomesUpdater(downloader, parser, files)
+    val updater = new OutcomesUpdater(downloader)
     updater.update(FILE_NAME)
   }
 }
