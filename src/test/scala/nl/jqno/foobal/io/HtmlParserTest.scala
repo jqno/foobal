@@ -27,8 +27,13 @@ class HtmlParserTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     parser.parse(VALID_2_HTML) should be (VALID_2_OUTCOMES)
   }
   
-  it should "ignore the dtd" in {
-    parser.parse(DTD)
+  it should "ignore table elements not marked with class 'schema'" in {
+    seasonEndYear(2012)
+    parser.parse(HTML_WITH_NON_SCHEMA_TABLES) should be (OUTCOMES_WITH_NON_SCHEMA_TABLES)
+  }
+  
+  it should "not fail on the dtd" in {
+    parser.parse(WITH_DTD)
   }
   
   def seasonEndYear(year: Int) = when(clock.today) thenReturn (new LocalDate(year, 1, 1))

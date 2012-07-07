@@ -10,11 +10,15 @@ class HtmlParser(clock: DateFactory) {
   def parse(input: String): List[Outcome] = {
     val xml = toXml(input)
     
-    val x = (xml \\ "body" \\ "table" \\ "tr").map { elem =>
-      val data = (elem \\ "td").map(_.text.trim)
-      val scores = data(3).split("-").map(_.toInt)
-      Outcome(data(1), data(2), scores(0), scores(1), parseDate(data(0)))
-    }
+    val x = (xml \\ "body" \\ "table")
+      .filter  { table => (table \\ "@class").text startsWith "schema" }
+      .flatMap { table =>
+        (table \\ "tr").map { elem =>
+          val data = (elem \\ "td").map(_.text.trim)
+          val scores = data(3).split("-").map(_.toInt)
+          Outcome(data(1), data(2), scores(0), scores(1), parseDate(data(0)))
+        }
+      }
     
     x.toList
   }

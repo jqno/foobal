@@ -97,7 +97,50 @@ object SampleData {
     result.stripMargin
   }
   
-  val DTD = {
+  val OUTCOMES_WITH_NON_SCHEMA_TABLES = List(
+    Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
+    Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18))
+  )
+  
+  val HTML_WITH_NON_SCHEMA_TABLES = {
+    val result = """
+        |<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl"
+        |  xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
+        |<body><div id="body"><div id="middle_container">
+        |<table cellspacing="1" class="schema">
+        |<tr class="odd">
+        |  <td style="font-size: 11px; width:88px;">do 17 mei, 20:00</td>
+        |  <td><a href="/blablabla/nac">NAC</a></td>
+        |  <td><a href="/blablabla/psv">PSV</a></td>
+        |  <td style="text-align:center;"><a href="/blablabla/nac-psv">2-0</a></td>
+        |</tr>
+        |<tr class="even">
+        |  <td style="font-size: 11px; width:88px;">vr 18 mei, 18:45</td>
+        |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
+        |  <td><a href="/tralala/willem-ii">Willem II</a></td>
+        |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>
+        |</tr>
+        |</table>
+        |<table cellspacing="1">
+        |<tr class="odd">
+        |  <td style="font-size: 11px; width:88px;">do 24 mei, 20:00</td>
+        |  <td><a href="/blablabla/psv">PSV</a></td>
+        |  <td><a href="/blablabla/nac">NAC</a></td>
+        |  <td style="text-align:center;"><a href="/blablabla/nac-psv">1-1</a></td>
+        |</tr>
+        |<tr class="even">
+        |  <td style="font-size: 11px; width:88px;">vr 25 mei, 18:45</td>
+        |  <td><a href="/tralala/willem-ii">Willem II</a></td>
+        |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
+        |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>
+        |</tr>
+        |</table>
+        |</div></div></body></html>
+    """
+    result.stripMargin
+  }
+  
+  val WITH_DTD = {
     val result = """|<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       |<body><table></table></body>
     """
