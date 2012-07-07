@@ -43,6 +43,37 @@ object SampleData {
       result.stripMargin
   }
   
+  val VALID_1_HTML_WITH_HEADERS = {
+    val result = """
+        |<html><body><div id=""><div id="">
+        |<table cellspacing="1" class="schema">
+        |<tr>
+        |  <th style="width: 85px">Datum</th>
+        |  <th style="width: 138px">Thuis</th>
+        |  <th style="width: 138px">Uit</th>
+        |  <th style="width: 40px; text-align:center;">Uitslag</th>
+        |  <th></th>
+        |</tr> 
+        |<tr class="odd">
+        |  <td style="">zo 24 okt, 20:00</td>
+        |  <td><a href="">PSV</a></td>
+        |  <td><a href="">Feyenoord</a></td>
+        |  <td style=""><a href="">10-0</a></td>
+        |  <td style=""><a href="" title=""><img src="" width="" height="" alt="" style="" /></a><a href=""><img src="" width="" height="" alt="" title="" style="" /></a></td>
+        |</tr>
+        |<tr class="even">
+        |  <td style="">vr 11 nov, 18:45</td>
+        |  <td><a href="">Ajax</a></td>
+        |  <td><a href="">NAC</a></td>
+        |  <td style=""><a href="">1-2</a></td>
+        |  <td style=""><a href="" title=""><img src="" width="" height="" alt="" style="" /></a><a href=""><img src="" width="" height="" alt="" title="" style="" /></a></td>
+        |</tr>
+        |</table>
+        |</div></div></body></html>
+      """
+      result.stripMargin
+  }
+  
   val VALID_2_OUTCOMES = List(
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
     Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)),

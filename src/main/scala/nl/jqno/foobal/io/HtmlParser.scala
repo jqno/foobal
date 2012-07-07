@@ -1,10 +1,9 @@
 package nl.jqno.foobal.io
 
 import scala.xml.XML
-
 import org.joda.time.LocalDate
-
 import nl.jqno.foobal.domain.Outcome
+import com.nummulus.boite.Box
 
 class HtmlParser(clock: DateFactory) {
   def parse(input: String): List[Outcome] = {
@@ -14,13 +13,16 @@ class HtmlParser(clock: DateFactory) {
       .filter  { table => (table \\ "@class").text startsWith "schema" }
       .flatMap { table =>
         (table \\ "tr").map { elem =>
-          val data = (elem \\ "td").map(_.text.trim)
-          val scores = data(3).split("-").map(_.toInt)
-          Outcome(data(1), data(2), scores(0), scores(1), parseDate(data(0)))
+          Box.wrap {
+            val data = (elem \\ "td").map(_.text.trim)
+            val scores = data(3).split("-").map(_.toInt)
+            Outcome(data(1), data(2), scores(0), scores(1), parseDate(data(0)))
+          }
         }
       }
     
-    x.toList
+    // TODO: fix this line once Boite's flatten bug is fixed.
+    x.toList.flatMap(b => Option(b.getOrElse(null)))
   }
   
   private def toXml(input: String): scala.xml.Elem = {
