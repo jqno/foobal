@@ -4,6 +4,7 @@ import scala.xml.XML
 import org.joda.time.LocalDate
 import nl.jqno.foobal.domain.Outcome
 import com.nummulus.boite.Box
+import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
 
 class HtmlParser(clock: DateFactory) {
   def parse(input: String): List[Outcome] = {
@@ -26,8 +27,8 @@ class HtmlParser(clock: DateFactory) {
   }
   
   private def toXml(input: String): scala.xml.Elem = {
-    val withoutDtd = input.dropWhile(_ != '\n')
-    XML.loadString(withoutDtd)
+    val parser = new SAXFactoryImpl().newSAXParser
+    XML.withSAXParser(parser).loadString(input)
   }
   
   private def parseDate(input: String): LocalDate = {

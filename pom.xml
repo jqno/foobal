@@ -33,6 +33,11 @@
 			<artifactId>boite</artifactId>
 			<version>0.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.ccil.cowan.tagsoup</groupId>
+			<artifactId>tagsoup</artifactId>
+			<version>1.2.1</version>
+		</dependency>
 		
 		<!-- Test dependencies -->
 		<dependency>

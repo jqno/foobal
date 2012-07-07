@@ -27,6 +27,11 @@ class HtmlParserTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     parser.parse(VALID_1_HTML_WITH_HEADERS) should be (VALID_1_OUTCOMES)
   }
   
+  it should "be able to cope with slightly malformed html" in {
+    seasonEndYear(2011)
+    parser.parse(VALID_1_MALFORMED_HTML) should be (VALID_1_OUTCOMES)
+  }
+  
   it should "parse valid data in multiple tables" in {
     seasonEndYear(2012)
     parser.parse(VALID_2_HTML) should be (VALID_2_OUTCOMES)
