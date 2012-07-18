@@ -4,7 +4,7 @@ import nl.jqno.foobal.io.Downloader
 import nl.jqno.foobal.io.Url
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
 
-object Main {
+object MainForManualTesting {
   val URL = "http://www.fcupdate.nl/programma-uitslagen/s724/nederland-eredivisie-2011-2012/"
   val FILE_NAME = "/tmp/outcomes.xml"
 
