@@ -18,10 +18,17 @@ class Xml {
   def saveFile(fileName: String, node: scala.xml.Node): Unit = XML.save(fileName, node)
 }
 
-class Url(spec: String) {
+class Url(private val spec: String) {
   private val url = new URL(spec)
   
   def openConnection: UrlConnection = new UrlConnection(url)
+  
+  override final def equals(obj: Any): Boolean = obj match {
+    case other: Url => spec == other.spec
+    case _          => false
+  }
+  
+  override final def hashCode: Int = spec.##
 }
 
 class UrlConnection(url: URL) {
