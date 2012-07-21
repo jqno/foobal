@@ -22,9 +22,11 @@ import nl.jqno.foobal.io.Downloader
 import nl.jqno.foobal.io.Files
 import nl.jqno.foobal.io.HtmlParser
 import com.nummulus.boite.Box
+import nl.jqno.foobal.io.Url
 
 @RunWith(classOf[JUnitRunner])
 class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstancePerTest with MockitoSugar {
+  val url = mock[Url]
   val files = mock[Files]
   val parser = mock[HtmlParser]
   val downloader = mock[Downloader]
@@ -36,7 +38,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     val fileName = "/some/file_name"
     upload(Full(VALID_1_HTML), VALID_1_OUTCOMES)
     
-    updater.update(fileName)
+    updater.update(url, fileName)
     
     verify(files).exportTo(fileName, VALID_1_OUTCOMES)
   }
@@ -45,7 +47,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     val fileName = "/another/file_name"
     upload(Full(VALID_2_HTML), VALID_2_OUTCOMES)
     
-    updater.update(fileName)
+    updater.update(url, fileName)
     
     verify(files).exportTo(fileName, VALID_2_OUTCOMES)
   }
@@ -53,13 +55,13 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   it should "not update the XML if the downloader fails" in {
     upload(Failure("uh-oh"))
     
-    updater.update("")
+    updater.update(url, "")
     
     verify(files, never).exportTo(anyString, any(classOf[List[Outcome]]))
   }
   
   def upload(content: Box[String], result: List[Outcome] = Nil) = {
-    when(downloader.fetch) thenReturn content
-    content.foreach { s => when(parser.parse(s)) thenReturn result }
+    when(downloader fetch url) thenReturn content
+    content.foreach { s => when(parser parse s) thenReturn result }
   }
 }

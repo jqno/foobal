@@ -6,11 +6,11 @@ import scala.io.Source
 
 import com.nummulus.boite._
 
-class Downloader(url: Url) {
+class Downloader {
   private val CONNECT_TIMEOUT = 3000
   private val READ_TIMEOUT = 3000
   
-  def fetch: Box[String] = {
+  def fetch(url: Url): Box[String] = {
     val con = url.openConnection
     con.setConnectTimeout(CONNECT_TIMEOUT)
     con.setReadTimeout(READ_TIMEOUT)
