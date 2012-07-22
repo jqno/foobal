@@ -17,11 +17,17 @@ class Main(
       "OK"
     case Array("predict", homeTeam, outTeam) =>
       predicter predict (homeTeam, outTeam, clock.today) toString
-    case _ => throw new IllegalArgumentException(args mkString)
+    case _ =>
+      Main.HELP_TEXT
   }
 }
 
 object Main {
+  val HELP_TEXT = """foobal.sh
+    |  update <url> <file>
+    |  predict "<homeTeam>" "<outTeam>"
+    |""".stripMargin
+  
   def main(args: Array[String]) {
     println(new Main().start(args))
   }

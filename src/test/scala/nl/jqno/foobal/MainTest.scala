@@ -42,15 +42,15 @@ class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   }
   
   it should "fail when the first parameter is incorrect" in {
-    evaluating { main.start(Array("this", "should", "fail")) } should produce [IllegalArgumentException]
+    main.start(Array("this", "should", "fail")) should be (Main.HELP_TEXT)
   }
   
   it should "fail when not enough parameters are given" in {
-    evaluating { main.start(Array()) } should produce [IllegalArgumentException]
+    main.start(Array()) should be (Main.HELP_TEXT)
   }
   
   it should "fail when too many parameters are given" in {
-    evaluating { main.start(Array("update", "one", "two", "three")) } should produce [IllegalArgumentException]
+    main.start(Array("update", "one", "two", "three")) should be (Main.HELP_TEXT)
   }
   
   def predict(homeTeam: String, outTeam: String, homeScore: Int, outScore: Int) =
