@@ -46,7 +46,7 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
     if (today.monthOfYear.get > SEASON_END_MONTH) thisYear + 1 else thisYear
   }
   
-  private val SEASON_END_MONTH = 6
+  private val SEASON_END_MONTH = 7
   private val MONTHS = Map(
       "jan" -> 1, "feb" ->  2, "mrt" ->  3, "apr" ->  4,
       "mei" -> 5, "jun" ->  6, "jul" ->  7, "aug" ->  8,
