@@ -23,7 +23,7 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
       }
     
     // TODO: fix this line once Boite's flatten bug is fixed.
-    x.toList.flatMap(b => Option(b.getOrElse(null)))
+    x.toList.flatMap(b => Option(b getOrElse null))
   }
   
   private def toXml(input: String): scala.xml.Elem = {
