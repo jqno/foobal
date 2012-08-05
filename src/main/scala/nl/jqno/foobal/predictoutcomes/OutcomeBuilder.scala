@@ -8,7 +8,7 @@ import com.nummulus.boite.Full
 
 import nl.jqno.foobal.domain.Outcome
 
-class OutcomeBuilder(homeTeam: String, outTeam: String, date: LocalDate) {
+class OutcomeBuilder(val homeTeam: String, val outTeam: String, val date: LocalDate) {
   var home: Box[Int] = Empty
   var out:  Box[Int] = Empty
   
