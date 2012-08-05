@@ -4,29 +4,34 @@ import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.when
+import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-import org.scalatest.FlatSpec
-
+import com.nummulus.boite.Full
 import nl.jqno.foobal.domain.Outcome
 import nl.jqno.foobal.io.DateFactory
+import nl.jqno.foobal.io.Files
 import nl.jqno.foobal.io.Url
 import nl.jqno.foobal.predictoutcomes.Predicter
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
+import com.nummulus.boite.Failure
+import java.io.IOException
 
 @RunWith(classOf[JUnitRunner])
 class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
+  val clock     = mock[DateFactory]
+  val files     = mock[Files]
   val predicter = mock[Predicter]
-  val updater = mock[OutcomesUpdater]
-  val clock = mock[DateFactory]
-  val today = new LocalDate(2012, 7, 20)
+  val updater   = mock[OutcomesUpdater]
+  val main      = new Main(clock, files, updater, predicter)
+  
+  val today     = new LocalDate(2012, 7, 20)
+  val url       = "http://www.google.com"
+  val outfile   = "/tmp/foobal.xml"
+
   when(clock.today) thenReturn today
-  
-  val main = new Main(clock, updater, predicter)
-  
-  val url = "http://www.google.com"
-  val outfile = "/tmp/foobal.xml"
+  when(files.importFrom(outfile)) thenReturn Full(List())
   
   behavior of "Main"
   
@@ -37,8 +42,15 @@ class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   
   it should "be able to start the predicter" in {
     predict("NAC", "PSV", 10, 10)
-    main.start(Array("predict", "NAC", "PSV")) should be (Outcome("NAC", "PSV", 10, 10, today) toString)
+    main.start(Array("predict", outfile, "NAC", "PSV")) should be (Outcome("NAC", "PSV", 10, 10, today) toString)
+    verify(files).importFrom(outfile)
     verify(predicter).predict(List(), "NAC", "PSV", today)
+  }
+  
+  it should "fail when the predicter can't find the file" in {
+    val nonExistentFile = "/tmp/does_not_exist"
+    when(files.importFrom(nonExistentFile)) thenReturn Failure(new IOException)
+    main.start(Array("predict", nonExistentFile, "NAC", "PSV")) should be (Main.FILE_NOT_FOUND_TEXT)
   }
   
   it should "fail when the first parameter is incorrect" in {
