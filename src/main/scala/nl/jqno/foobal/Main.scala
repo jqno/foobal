@@ -1,18 +1,19 @@
 package nl.jqno.foobal
 
 import com.nummulus.boite.Full
+
 import nl.jqno.foobal.io.DateFactory
 import nl.jqno.foobal.io.Files
 import nl.jqno.foobal.io.Url
+import nl.jqno.foobal.predictoutcomes.DroolsPredicter
 import nl.jqno.foobal.predictoutcomes.Predicter
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
-import nl.jqno.foobal.predictoutcomes.NilNilPredicter
 
 class Main(
     clock: DateFactory = new DateFactory,
     files: Files = new Files,
     updater: OutcomesUpdater = new OutcomesUpdater,
-    predicter: Predicter = new NilNilPredicter) {
+    predicter: Predicter = new DroolsPredicter("drl/rules.drl")) {
   
   def start(args: Array[String]): String = args match {
     case Array("update", url, file) =>
