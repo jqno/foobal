@@ -1,17 +1,17 @@
 package nl.jqno.foobal.domain
 
-import com.nummulus.boite._
-import org.joda.time.format.DateTimeFormat
 import org.joda.time.LocalDate
+import org.joda.time.format.DateTimeFormat
+
+import com.nummulus.boite.Box
 
 case class Outcome(
     homeTeam: String,
     outTeam: String,
     homeScore: Int,
     outScore: Int,
-    date: LocalDate
-)
-{
+    date: LocalDate) {
+  
   def toXml =
     <outcome>
       <homeTeam>{homeTeam}</homeTeam>

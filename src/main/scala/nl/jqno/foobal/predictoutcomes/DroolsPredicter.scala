@@ -29,7 +29,7 @@ class DroolsPredicter(input: String) extends Predicter {
   
   private def createBuilder = {
     val builder = KnowledgeBuilderFactory.newKnowledgeBuilder
-    val url = getClass.getClassLoader.getResource("nl/jqno/foobal/predictoutcomes/test.drl")
+    val url = getClass.getClassLoader.getResource(input)
     builder.add(ResourceFactory.newUrlResource(url), ResourceType.DRL)
     if (builder.hasErrors)
       throw new RuntimeException(builder.getErrors.toString)

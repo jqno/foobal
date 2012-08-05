@@ -11,7 +11,7 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers {
   behavior of "A DroolsPredicter"
   
   it should "round-trip through the rule engine" in {
-    val p = new DroolsPredicter("test.drl")
+    val p = new DroolsPredicter("drl/fail.drl")
     val ex = evaluating { p.predict("", "", null) } should produce [ConsequenceException]
     ex.getCause.getClass should be (classOf[IllegalStateException])
   }
