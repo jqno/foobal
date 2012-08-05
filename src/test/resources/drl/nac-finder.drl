@@ -1,0 +1,14 @@
+package nl.jqno.foobal.predictoutcomes;
+
+import nl.jqno.foobal.domain.Outcome;
+import nl.jqno.foobal.predictoutcomes.OutcomeBuilder;
+
+dialect "mvel"
+
+rule "Outcome where home team is NAC"
+	when
+		$result  : OutcomeBuilder()
+		$outcome : Outcome( homeTeam == "NAC" )
+	then
+		$result.setOutcome($outcome.homeScore, $outcome.outScore);
+end

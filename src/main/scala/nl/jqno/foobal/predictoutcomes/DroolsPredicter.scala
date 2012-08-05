@@ -11,13 +11,18 @@ import org.joda.time.LocalDate
 
 import nl.jqno.foobal.domain.Outcome
 
-class DroolsPredicter(input: String) extends Predicter {
+class DroolsPredicter(input: String, history: List[Outcome]) extends Predicter {
   val engine = createEngine
   
   override def predict(homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
     val session = engine.newStatefulKnowledgeSession
+    val result  = new OutcomeBuilder(homeTeam, outTeam, date)
+    
+    session insert result
+    history.foreach(session insert _)
     session.fireAllRules
-    null
+    
+    result.build
   }
   
   private def createEngine: KnowledgeBase = {
