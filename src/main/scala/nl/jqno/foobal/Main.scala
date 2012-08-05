@@ -23,10 +23,13 @@ class Main(
 }
 
 object Main {
-  val HELP_TEXT = """foobal.sh
-    |  update <url> <file>
-    |  predict "<homeTeam>" "<outTeam>"
-    |""".stripMargin
+  val HELP_TEXT = {
+    val s = """foobal.sh
+      |  update <url> <file>
+      |  predict "<homeTeam>" "<outTeam>"
+      |"""
+    s.stripMargin
+  }
   
   def main(args: Array[String]) {
     println(new Main().start(args))
