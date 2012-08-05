@@ -15,6 +15,6 @@ class NilNilPredicterTest extends FlatSpec with ShouldMatchers {
   behavior of "A NilNilPredicter"
   
   it should "always predict 0-0" in {
-    predicter.predict("NAC", "PSV", date) should be (Outcome("NAC", "PSV", 0, 0, date))
+    predicter.predict(List(), "NAC", "PSV", date) should be (Outcome("NAC", "PSV", 0, 0, date))
   }
 }

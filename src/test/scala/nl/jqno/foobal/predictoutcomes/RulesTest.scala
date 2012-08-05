@@ -34,9 +34,9 @@ class RulesTest extends FlatSpec with ShouldMatchers {
   }
   
   private def assertLatestOutcome(history: List[Outcome], homeScore: Int, outScore: Int) = {
-    val p = new DroolsPredicter("drl/rules.drl", history)
+    val p = new DroolsPredicter("drl/rules.drl")
     
-    val result = p.predict("NAC", "Willem II", new LocalDate(2012, 8, 20))
+    val result = p.predict(history, "NAC", "Willem II", new LocalDate(2012, 8, 20))
     
     result should be (Outcome("NAC", "Willem II", homeScore, outScore, new LocalDate(2012, 8, 20)))
   }

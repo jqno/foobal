@@ -16,7 +16,8 @@ class Main(
       updater update (new Url(url), file)
       "OK"
     case Array("predict", homeTeam, outTeam) =>
-      predicter predict (homeTeam, outTeam, clock.today) toString
+      val history = List()
+      predicter predict (history, homeTeam, outTeam, clock.today) toString
     case _ =>
       Main.HELP_TEXT
   }

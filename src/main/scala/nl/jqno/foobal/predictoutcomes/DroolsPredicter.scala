@@ -11,10 +11,10 @@ import org.joda.time.LocalDate
 
 import nl.jqno.foobal.domain.Outcome
 
-class DroolsPredicter(input: String, history: List[Outcome]) extends Predicter {
+class DroolsPredicter(input: String) extends Predicter {
   val engine = createEngine
   
-  override def predict(homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
+  override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
     val session = engine.newStatefulKnowledgeSession
     val result  = new OutcomeBuilder(homeTeam, outTeam, date)
     

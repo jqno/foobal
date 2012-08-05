@@ -5,5 +5,5 @@ import org.joda.time.LocalDate
 import nl.jqno.foobal.domain.Outcome
 
 trait Predicter {
-  def predict(homeTeam: String, outTeam: String, date: LocalDate): Outcome
+  def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome
 }

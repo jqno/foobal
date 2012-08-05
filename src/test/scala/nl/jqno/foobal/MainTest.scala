@@ -38,7 +38,7 @@ class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   it should "be able to start the predicter" in {
     predict("NAC", "PSV", 10, 10)
     main.start(Array("predict", "NAC", "PSV")) should be (Outcome("NAC", "PSV", 10, 10, today) toString)
-    verify(predicter).predict("NAC", "PSV", today)
+    verify(predicter).predict(List(), "NAC", "PSV", today)
   }
   
   it should "fail when the first parameter is incorrect" in {
@@ -54,5 +54,5 @@ class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   }
   
   def predict(homeTeam: String, outTeam: String, homeScore: Int, outScore: Int) =
-    when(predicter.predict(homeTeam, outTeam, today)) thenReturn Outcome(homeTeam, outTeam, homeScore, outScore, today)
+    when(predicter.predict(List(), homeTeam, outTeam, today)) thenReturn Outcome(homeTeam, outTeam, homeScore, outScore, today)
 }
