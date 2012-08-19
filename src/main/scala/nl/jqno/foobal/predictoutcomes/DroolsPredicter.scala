@@ -11,7 +11,7 @@ import nl.jqno.foobal.domain.Outcome
 import org.drools.builder.KnowledgeBuilder
 
 class DroolsPredicter(input: String) extends Predicter {
-  val engine = createEngine
+  private val engine = createEngine
   
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
     val session = engine.newStatefulKnowledgeSession
