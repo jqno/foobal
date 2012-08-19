@@ -21,11 +21,10 @@ class OutcomeBuilder(val homeTeam: String, val outTeam: String, val date: LocalD
   }
   
   def build: Outcome =
-    Outcome(homeTeam, outTeam, get(home), get(out), date)
-  
-  // TODO Remove this method when Box gets a get method.
-  private def get(b: Box[Int]) = b match {
-    case Full(value) => value  
-    case _ => throw new IllegalStateException(b + " doesn't have a value")
-  }
+    try {
+      Outcome(homeTeam, outTeam, home.get, out.get, date)
+    }
+    catch {
+      case e: NoSuchElementException => throw new IllegalStateException(e)
+    }
 }
