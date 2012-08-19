@@ -20,8 +20,10 @@ class DownloaderTest extends FlatSpec with ShouldMatchers with OneInstancePerTes
   val url = mock[Url]
   val con = mock[UrlConnection]
   val downloader = new Downloader
-  when(url.openConnection) thenReturn con
-
+  
+  when (url.openConnection) thenReturn con
+  
+  
   behavior of "A Downloader"
   
   it should "fetch text from a url" in {
@@ -37,11 +39,15 @@ class DownloaderTest extends FlatSpec with ShouldMatchers with OneInstancePerTes
   it should "return None when the connection times out" in {
     timeout
     downloader.fetch(url) should be a (failure containing classOf[SocketTimeoutException])
-    verify(con).setConnectTimeout(3000)
-    verify(con).setReadTimeout(3000)
+    verify (con).setConnectTimeout(3000)
+    verify (con).setReadTimeout(3000)
   }
   
-  private def upload(s: String) = when(con.getInputStream) thenReturn (new ByteArrayInputStream(s.getBytes))
+  private def upload(s: String) {
+    when (con.getInputStream) thenReturn (new ByteArrayInputStream(s.getBytes))
+  }
   
-  private def timeout = when(con.getInputStream) thenThrow (new SocketTimeoutException)
+  private def timeout {
+    when (con.getInputStream) thenThrow (new SocketTimeoutException)
+  }
 }

@@ -1,5 +1,7 @@
 package nl.jqno.foobal.predictoutcomes
 
 object DroolsTestHelper {
-  def fail: Unit = throw new IllegalStateException
+  def fail {
+    throw new IllegalStateException
+  }
 }

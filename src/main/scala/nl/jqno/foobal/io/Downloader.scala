@@ -7,17 +7,19 @@ import scala.io.Source
 import com.nummulus.boite._
 
 class Downloader {
-  private val CONNECT_TIMEOUT = 3000
-  private val READ_TIMEOUT = 3000
+  private val ConnectTimeout = 3000
+  private val ReadTimeout = 3000
   
-  def fetch(url: Url): Box[String] = {
+  def fetch(url: Url): Box[String] = Box wrap {
+    val con = createConnection(url)
+    val stream = Source.fromInputStream(con.getInputStream)
+    stream.getLines mkString "\n"
+  }
+  
+  private def createConnection(url: Url) = {
     val con = url.openConnection
-    con.setConnectTimeout(CONNECT_TIMEOUT)
-    con.setReadTimeout(READ_TIMEOUT)
-    
-    Box.wrap {
-      val stream = Source.fromInputStream(con.getInputStream)
-      stream.getLines.mkString("\n")
-    }
+    con.setConnectTimeout(ConnectTimeout)
+    con.setReadTimeout(ReadTimeout)
+    con
   }
 }

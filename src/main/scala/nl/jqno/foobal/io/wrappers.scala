@@ -12,10 +12,13 @@ import org.joda.time.LocalDate
 
 class Xml {
   @throws(classOf[IOException])
-  def loadFile(fileName: String): scala.xml.Node = XML.loadFile(fileName)
+  def loadFile(fileName: String): scala.xml.Node =
+    XML.loadFile(fileName)
   
   @throws(classOf[IOException])
-  def saveFile(fileName: String, node: scala.xml.Node): Unit = XML.save(fileName, node)
+  def saveFile(fileName: String, node: scala.xml.Node) {
+    XML.save(fileName, node)
+  }
 }
 
 class Url(private val spec: String) {
@@ -32,14 +35,19 @@ class Url(private val spec: String) {
 }
 
 class UrlConnection(url: URL) {
-  private val con = url.openConnection
+  private val Connection = url.openConnection
   
-  def setConnectTimeout(millis: Int) = con.setConnectTimeout(millis)
+  def setConnectTimeout(millis: Int) {
+    Connection.setConnectTimeout(millis)
+  }
   
-  def setReadTimeout(millis: Int) = con.setReadTimeout(millis)
+  def setReadTimeout(millis: Int) {
+    Connection.setReadTimeout(millis)
+  }
   
   @throws(classOf[IOException])
-  def getInputStream: InputStream = con.getInputStream
+  def getInputStream: InputStream =
+    Connection.getInputStream
 }
 
 class DateFactory {

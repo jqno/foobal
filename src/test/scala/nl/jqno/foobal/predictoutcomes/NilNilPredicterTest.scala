@@ -9,12 +9,13 @@ import nl.jqno.foobal.domain.Outcome
 
 @RunWith(classOf[JUnitRunner])
 class NilNilPredicterTest extends FlatSpec with ShouldMatchers {
-  val date = LocalDate.now
+  val Date = LocalDate.now
   val predicter = new NilNilPredicter
+  
   
   behavior of "A NilNilPredicter"
   
   it should "always predict 0-0" in {
-    predicter.predict(List(), "NAC", "PSV", date) should be (Outcome("NAC", "PSV", 0, 0, date))
+    predicter.predict(List(), "NAC", "PSV", Date) should be (Outcome("NAC", "PSV", 0, 0, Date))
   }
 }

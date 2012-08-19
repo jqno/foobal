@@ -12,19 +12,19 @@ case class Outcome(
     outScore: Int,
     date: LocalDate) {
   
-  def toXml =
+  def toXml: scala.xml.Node =
     <outcome>
       <homeTeam>{homeTeam}</homeTeam>
       <outTeam>{outTeam}</outTeam>
       <homeScore>{homeScore.toString}</homeScore>
       <outScore>{outScore.toString}</outScore>
-      <date>{date.toString(DateTimeFormat.forPattern("YYYY-MM-dd"))}</date>
+      <date>{date.toString(DateTimeFormat forPattern "YYYY-MM-dd")}</date>
     </outcome>
 }
 
 object Outcome {
-  def apply(xml: scala.xml.Node): Box[Outcome] = Box.wrap {
-    val outcome = xml \\ "outcome"
+  def apply(xml: scala.xml.Node): Box[Outcome] = Box wrap {
+    val outcome   = xml \\ "outcome"
     val homeTeam  = (outcome \\ "homeTeam").text
     val outTeam   = (outcome \\ "outTeam").text
     val homeScore = (outcome \\ "homeScore").text.toInt

@@ -15,36 +15,39 @@ class HtmlParserTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val clock = mock[DateFactory]
   val parser = new HtmlParser(clock)
   
+  
   behavior of "A Parser"
   
   it should "parse valid data" in {
     seasonEndYear(2011)
-    parser.parse(VALID_1_HTML) should be (VALID_1_OUTCOMES)
+    parser.parse(ValidHtml_1) should be (ValidOutcomes_1)
   }
   
   it should "ignore the header columns" in {
     seasonEndYear(2011)
-    parser.parse(VALID_1_HTML_WITH_HEADERS) should be (VALID_1_OUTCOMES)
+    parser.parse(ValidHtmlWithHeaders_1) should be (ValidOutcomes_1)
   }
   
   it should "be able to cope with slightly malformed html" in {
     seasonEndYear(2011)
-    parser.parse(VALID_1_MALFORMED_HTML) should be (VALID_1_OUTCOMES)
+    parser.parse(ValidButMalformedHtml_1) should be (ValidOutcomes_1)
   }
   
   it should "parse valid data in multiple tables" in {
     seasonEndYear(2012)
-    parser.parse(VALID_2_HTML) should be (VALID_2_OUTCOMES)
+    parser.parse(ValidHtml_2) should be (ValidOutcomes_2)
   }
   
   it should "ignore table elements not marked with class 'schema'" in {
     seasonEndYear(2012)
-    parser.parse(HTML_WITH_NON_SCHEMA_TABLES) should be (OUTCOMES_WITH_NON_SCHEMA_TABLES)
+    parser.parse(HtmlWithNonSchemaTables) should be (OutcomesWithNonSchemaTables)
   }
   
   it should "not fail on the dtd" in {
-    parser.parse(WITH_DTD)
+    parser.parse(HtmlWithDtd)
   }
   
-  def seasonEndYear(year: Int) = when(clock.today) thenReturn (new LocalDate(year, 1, 1))
+  def seasonEndYear(year: Int) {
+    when (clock.today) thenReturn (new LocalDate(year, 1, 1))
+  }
 }

@@ -16,29 +16,30 @@ class Main(
     predicter: Predicter = new DroolsPredicter("drl/rules.drl")) {
   
   def start(args: Array[String]): String = args match {
-    case Array("update", url, file) =>
-      updater update (new Url(url), file)
-      "OK"
-    case Array("predict", file, homeTeam, outTeam) =>
+    case Array("update", url, file) => {
+      updater.update(new Url(url), file)
+      Main.OkText
+    }
+    case Array("predict", file, homeTeam, outTeam) => {
       files.importFrom(file) match {
         case Full(history) => predicter predict (history, homeTeam, outTeam, clock.today) toString
-        case _ => Main.FILE_NOT_FOUND_TEXT
+        case _ => Main.FileNotFoundText
       }
-    case _ =>
-      Main.HELP_TEXT
+    }
+    case _ => Main.HelpText
   }
 }
 
 object Main {
-  val HELP_TEXT = {
+  val OkText = "OK"
+  val FileNotFoundText = "Could not find file!"
+  val HelpText = {
     val s = """foobal.sh
       |  update <url> <file>
       |  predict <file> "<homeTeam>" "<outTeam>"
       |"""
     s.stripMargin
   }
-  
-  val FILE_NOT_FOUND_TEXT = "Could not find file!"
   
   def main(args: Array[String]) {
     println(new Main().start(args))

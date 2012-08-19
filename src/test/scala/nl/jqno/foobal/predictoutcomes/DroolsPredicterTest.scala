@@ -21,9 +21,9 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers {
   }
   
   it should "generate output based on input" in {
-    val result = VALID_2_OUTCOMES(0)
+    val result = ValidOutcomes_2(0)
     val p = new DroolsPredicter("drl/nac-finder.drl")
-    val out = p.predict(VALID_2_OUTCOMES, result.homeTeam, result.outTeam, result.date);
+    val out = p.predict(ValidOutcomes_2, result.homeTeam, result.outTeam, result.date);
     out should be (result)
   }
 }

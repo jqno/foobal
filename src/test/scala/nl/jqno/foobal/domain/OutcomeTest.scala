@@ -11,8 +11,8 @@ import scala.xml.Utility.trim
 @RunWith(classOf[JUnitRunner])
 class OutcomeTest extends FlatSpec with ShouldMatchers {
   
-  val outcome = Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
-  val xml = 
+  val Example = Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
+  val Xml = 
     trim(<outcome>
       <homeTeam>Ajax</homeTeam>
       <outTeam>NAC</outTeam>
@@ -25,11 +25,11 @@ class OutcomeTest extends FlatSpec with ShouldMatchers {
   behavior of "An Outcome"
   
   it should "convert to xml" in {
-    trim(outcome.toXml) should be (xml)
+    trim(Example.toXml) should be (Xml)
   }
   
   it should "convert from xml" in {
-    Outcome(xml) should be a (full containing outcome)
+    Outcome(Xml) should be a (full containing Example)
   }
   
   it should "fail to convert from invalid xml" in {

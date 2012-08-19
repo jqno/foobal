@@ -11,22 +11,23 @@ import nl.jqno.foobal.domain.Outcome
 
 @RunWith(classOf[JUnitRunner])
 class OutcomeBuilderTest extends FlatSpec with ShouldMatchers with OneInstancePerTest {
-  val home = "Willem II"
-  val out  = "NAC"
-  val date = new LocalDate(2012, 8, 10)
+  val Home = "Willem II"
+  val Out  = "NAC"
+  val Date = new LocalDate(2012, 8, 10)
+  
 
-  val builder = new OutcomeBuilder(home, out, date)
+  val builder = new OutcomeBuilder(Home, Out, Date)
   
   behavior of "An OutcomeBuilder"
   
   it should "build an Outcome" in {
     builder.setOutcome(0, 2)
-    builder.build should be (Outcome(home, out, 0, 2, date))
+    builder.build should be (Outcome(Home, Out, 0, 2, Date))
   }
   
   it should "build another Outcome" in {
     builder.setOutcome(2, 0)
-    builder.build should be (Outcome(home, out, 2, 0, date))
+    builder.build should be (Outcome(Home, Out, 2, 0, Date))
   }
   
   it should "fail if built without a score" in {

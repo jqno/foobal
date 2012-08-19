@@ -14,10 +14,10 @@ import org.scalatest.OneInstancePerTest
 import com.nummulus.boite.Failure
 import com.nummulus.boite.Full
 import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.io.SampleData.VALID_1_HTML
-import nl.jqno.foobal.io.SampleData.VALID_1_OUTCOMES
-import nl.jqno.foobal.io.SampleData.VALID_2_HTML
-import nl.jqno.foobal.io.SampleData.VALID_2_OUTCOMES
+import nl.jqno.foobal.io.SampleData.ValidHtml_1
+import nl.jqno.foobal.io.SampleData.ValidOutcomes_1
+import nl.jqno.foobal.io.SampleData.ValidHtml_2
+import nl.jqno.foobal.io.SampleData.ValidOutcomes_2
 import nl.jqno.foobal.io.Downloader
 import nl.jqno.foobal.io.Files
 import nl.jqno.foobal.io.HtmlParser
@@ -33,44 +33,45 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   val downloader = mock[Downloader]
   val updater = new OutcomesUpdater(downloader, parser, files)
   
+  
   behavior of "An OutcomesUpdater"
   
   it should "download outcomes and update the XML file" in {
     createEmptyFile
-    upload(Full(VALID_1_HTML), VALID_1_OUTCOMES)
+    upload(Full(ValidHtml_1), ValidOutcomes_1)
     
     update
     
-    verifyWritten(VALID_1_OUTCOMES)
+    verifyWritten(ValidOutcomes_1)
   }
   
   it should "download other outcomes and update the XML file" in {
     createEmptyFile
-    upload(Full(VALID_2_HTML), VALID_2_OUTCOMES)
+    upload(Full(ValidHtml_2), ValidOutcomes_2)
     
     update
     
-    verifyWritten(VALID_2_OUTCOMES)
+    verifyWritten(ValidOutcomes_2)
   }
   
   it should "update the XML if a file is already present" in {
-    createFile(VALID_1_OUTCOMES)
-    upload(Full(VALID_2_HTML), VALID_2_OUTCOMES)
+    createFile(ValidOutcomes_1)
+    upload(Full(ValidHtml_2), ValidOutcomes_2)
     
     update
     
-    verifyWritten(VALID_1_OUTCOMES ++ VALID_2_OUTCOMES);
+    verifyWritten(ValidOutcomes_1 ++ ValidOutcomes_2);
   }
   
   it should "update an existing XML without duplicates" in {
     val anotherOne = Outcome("Club A", "Club B", 2, 2, new LocalDate(2012, 7, 23))
     
-    createFile(List(anotherOne, VALID_1_OUTCOMES(0)))
-    upload(Full(VALID_1_HTML), VALID_1_OUTCOMES)
+    createFile(List(anotherOne, ValidOutcomes_1(0)))
+    upload(Full(ValidHtml_1), ValidOutcomes_1)
     
     update
     
-    verifyWritten(anotherOne :: VALID_1_OUTCOMES)
+    verifyWritten(anotherOne :: ValidOutcomes_1)
   }
   
   it should "not update the XML if the downloader fails" in {
@@ -82,25 +83,31 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     verifyNothingWritten
   }
   
-  val url = mock[Url]
-  val fileName = "/some/filename"
+  private val FileName = "/some/filename"
+  private val url = mock[Url]
   
-  private def createEmptyFile =
-    when(files importFrom fileName) thenReturn Failure(new FileNotFoundException)
-  
-  private def createFile(result: List[Outcome]) =
-    when(files importFrom fileName) thenReturn Full(result)
-  
-  private def upload(content: Box[String], result: List[Outcome] = Nil) {
-    when(downloader fetch url) thenReturn content
-    content.foreach { s => when(parser parse s) thenReturn result }
+  private def createEmptyFile {
+    when (files importFrom FileName) thenReturn Failure(new FileNotFoundException)
   }
   
-  private def update = updater.update(url, fileName)
+  private def createFile(result: List[Outcome]) {
+    when (files importFrom FileName) thenReturn Full(result)
+  }
   
-  private def verifyWritten(xs: List[Outcome]) =
-    verify(files).exportTo(fileName, xs)
+  private def upload(content: Box[String], result: List[Outcome] = Nil) {
+    when (downloader fetch url) thenReturn content
+    content foreach { s => when (parser parse s) thenReturn result }
+  }
   
-  private def verifyNothingWritten =
-    verify(files, never).exportTo(anyString, any(classOf[List[Outcome]]))
+  private def update {
+    updater.update(url, FileName)
+  }
+  
+  private def verifyWritten(xs: List[Outcome]) {
+    verify (files).exportTo(FileName, xs)
+  }
+  
+  private def verifyNothingWritten {
+    verify (files, never).exportTo(anyString, any(classOf[List[Outcome]]))
+  }
 }

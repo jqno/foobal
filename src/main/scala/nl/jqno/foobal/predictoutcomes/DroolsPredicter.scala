@@ -1,15 +1,14 @@
 package nl.jqno.foobal.predictoutcomes
 
 import java.io.File
-
 import org.drools.KnowledgeBase
 import org.drools.KnowledgeBaseFactory
 import org.drools.builder.KnowledgeBuilderFactory
 import org.drools.builder.ResourceType
 import org.drools.io.ResourceFactory
 import org.joda.time.LocalDate
-
 import nl.jqno.foobal.domain.Outcome
+import org.drools.builder.KnowledgeBuilder
 
 class DroolsPredicter(input: String) extends Predicter {
   val engine = createEngine
@@ -18,8 +17,8 @@ class DroolsPredicter(input: String) extends Predicter {
     val session = engine.newStatefulKnowledgeSession
     val result  = new OutcomeBuilder(homeTeam, outTeam, date)
     
-    session insert result
-    history.foreach(session insert _)
+    session.insert(result)
+    history foreach { session.insert(_) }
     session.fireAllRules
     
     result.build
@@ -32,13 +31,16 @@ class DroolsPredicter(input: String) extends Predicter {
     base
   }
   
-  private def createBuilder = {
+  private def createBuilder: KnowledgeBuilder = {
     val builder = KnowledgeBuilderFactory.newKnowledgeBuilder
     val url = getClass.getClassLoader.getResource(input)
     builder.add(ResourceFactory.newUrlResource(url), ResourceType.DRL)
-    if (builder.hasErrors)
+    
+    if (builder.hasErrors) {
       throw new RuntimeException(builder.getErrors.toString)
-    else
+    }
+    else {
       builder
+    }
   }
 }

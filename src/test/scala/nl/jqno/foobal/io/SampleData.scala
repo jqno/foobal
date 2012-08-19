@@ -7,19 +7,19 @@ import org.joda.time.LocalDate
 import nl.jqno.foobal.domain.Outcome
 
 object SampleData {
-  val VALID_1_OUTCOMES = List(
+  val ValidOutcomes_1 = List(
     Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 24)),
     Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
   )
 
-  val VALID_1_XML = trim(
+  val ValidXml_1 = trim(
     <outcomes>
       <outcome><homeTeam>PSV</homeTeam><outTeam>Feyenoord</outTeam><homeScore>10</homeScore><outScore>0</outScore><date>2010-10-24</date></outcome>
       <outcome><homeTeam>Ajax</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>2</outScore><date>2010-11-11</date></outcome>
     </outcomes>
   )
   
-  val VALID_1_HTML = {
+  val ValidHtml_1 = {
     val result = """
         |<html><body><div id=""><div id="">
         |<table cellspacing="1" class="schema">
@@ -43,7 +43,7 @@ object SampleData {
       result.stripMargin
   }
   
-  val VALID_1_HTML_WITH_HEADERS = {
+  val ValidHtmlWithHeaders_1 = {
     val result = """
         |<html><body><div id=""><div id="">
         |<table cellspacing="1" class="schema">
@@ -74,7 +74,7 @@ object SampleData {
       result.stripMargin
   }
   
-  val VALID_1_MALFORMED_HTML = {
+  val ValidButMalformedHtml_1 = {
     // contains an &nbsp; and a missing </tr> tag
     val result = """
         |<html><body><div id=""><div id="">
@@ -98,14 +98,14 @@ object SampleData {
       result.stripMargin
   }
   
-  val VALID_2_OUTCOMES = List(
+  val ValidOutcomes_2 = List(
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
     Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)),
     Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 5, 24)),
     Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 5, 25))
   )
   
-  val VALID_2_XML = trim(
+  val ValidXml_2 = trim(
     <outcomes>
       <outcome><homeTeam>NAC</homeTeam><outTeam>PSV</outTeam><homeScore>2</homeScore><outScore>0</outScore><date>2012-05-17</date></outcome>
       <outcome><homeTeam>FC Appelmoesboerdonk</homeTeam><outTeam>Willem II</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-05-18</date></outcome>
@@ -114,7 +114,7 @@ object SampleData {
     </outcomes>
   )
   
-  val VALID_2_HTML = {
+  val ValidHtml_2 = {
     val result = """
         |<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl"
         |  xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
@@ -152,12 +152,12 @@ object SampleData {
     result.stripMargin
   }
   
-  val OUTCOMES_WITH_NON_SCHEMA_TABLES = List(
+  val OutcomesWithNonSchemaTables = List(
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
     Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18))
   )
   
-  val HTML_WITH_NON_SCHEMA_TABLES = {
+  val HtmlWithNonSchemaTables = {
     val result = """
         |<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl"
         |  xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
@@ -195,7 +195,7 @@ object SampleData {
     result.stripMargin
   }
   
-  val WITH_DTD = {
+  val HtmlWithDtd = {
     val result = """|<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       |<body><table></table></body>
     """
