@@ -1,4 +1,4 @@
-package nl.jqno.foobal.predictoutcomes
+package nl.jqno.foobal.predictoutcomes.rules
 
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
@@ -7,10 +7,14 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 
 import nl.jqno.foobal.domain.Outcome
+import nl.jqno.foobal.predictoutcomes.DroolsPredicter
 
 @RunWith(classOf[JUnitRunner])
-class RulesTest extends FlatSpec with ShouldMatchers {
-  behavior of "The Rules"
+class LastYearRuleTest extends FlatSpec with ShouldMatchers {
+  private val FileName = "last_year.drl"
+  
+  
+  behavior of """Rule "Last year's outcome""""
   
   it should "predict a previous outcome" in {
     val history = List(
@@ -34,7 +38,7 @@ class RulesTest extends FlatSpec with ShouldMatchers {
   }
   
   private def assertLatestOutcome(history: List[Outcome], homeScore: Int, outScore: Int) = {
-    val p = new DroolsPredicter("drl/rules.drl")
+    val p = new DroolsPredicter("drl/rules/" + FileName)
     val result = p.predict(history, "NAC", "Willem II", new LocalDate(2012, 8, 20))
     
     result should be (Outcome("NAC", "Willem II", homeScore, outScore, new LocalDate(2012, 8, 20)))
