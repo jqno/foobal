@@ -1,9 +1,9 @@
-package nl.jqno.foobal.predictoutcomes;
+package drl;
 
 import function nl.jqno.foobal.predictoutcomes.DroolsTestHelper.fail;
 
 rule "Fail"
-	when
-	then
-	    fail();
+when
+then
+    fail();
 end
