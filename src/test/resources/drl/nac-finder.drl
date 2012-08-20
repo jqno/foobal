@@ -1,14 +1,13 @@
 package drl;
 
-import nl.jqno.foobal.domain.Outcome;
-import nl.jqno.foobal.predictoutcomes.OutcomeBuilder;
+import nl.jqno.foobal.domain.*;
 
 dialect "mvel"
 
 rule "Outcome where home team is NAC"
 when
-	$result  : OutcomeBuilder()
+	$result  : ScoreKeeper()
 	$outcome : Outcome( homeTeam == "NAC" )
 then
-	$result.setOutcome($outcome.homeScore, $outcome.outScore);
+	$result.add($outcome.homeScore, $outcome.outScore);
 end

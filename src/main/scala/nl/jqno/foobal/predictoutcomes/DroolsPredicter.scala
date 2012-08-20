@@ -1,27 +1,28 @@
 package nl.jqno.foobal.predictoutcomes
 
-import java.io.File
 import org.drools.KnowledgeBase
 import org.drools.KnowledgeBaseFactory
+import org.drools.builder.KnowledgeBuilder
 import org.drools.builder.KnowledgeBuilderFactory
 import org.drools.builder.ResourceType
 import org.drools.io.ResourceFactory
 import org.joda.time.LocalDate
+
 import nl.jqno.foobal.domain.Outcome
-import org.drools.builder.KnowledgeBuilder
+import nl.jqno.foobal.domain.ScoreKeeper
 
 class DroolsPredicter(input: String) extends Predicter {
   private val engine = createEngine
   
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
     val session = engine.newStatefulKnowledgeSession
-    val result  = new OutcomeBuilder(homeTeam, outTeam, date)
+    val result  = new ScoreKeeper(homeTeam, outTeam, date)
     
     session.insert(result)
     history foreach { session.insert(_) }
     session.fireAllRules
     
-    result.build
+    result.guess
   }
   
   private def createEngine: KnowledgeBase = {

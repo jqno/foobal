@@ -1,13 +1,12 @@
 package drl;
 
-import nl.jqno.foobal.domain.Outcome;
-import nl.jqno.foobal.predictoutcomes.OutcomeBuilder;
+import nl.jqno.foobal.domain.*;
 
 dialect "mvel"
 
 rule "Last year's outcome"
 when
-	$result  : OutcomeBuilder()
+	$result  : ScoreKeeper()
 	$outcome : Outcome( homeTeam == $result.homeTeam,
 	                    outTeam  == $result.outTeam,
 	                    $latestDate : date )
@@ -15,14 +14,14 @@ when
 	             outTeam  == $result.outTeam,
 	             $latestDate < date )
 then
-	$result.setOutcome($outcome.homeScore, $outcome.outScore);
+	$result.add($outcome.homeScore, $outcome.outScore);
 end
 
 rule "There was no outcome last year"
 when
-	$result : OutcomeBuilder()
+	$result : ScoreKeeper()
 	not Outcome( homeTeam == $result.homeTeam,
 	             outTeam  == $result.outTeam )
 then
-	$result.setOutcome(0, 0)
+	$result.add(0, 0)
 end
