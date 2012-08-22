@@ -1,0 +1,12 @@
+package drl;
+
+import nl.jqno.foobal.domain.*;
+
+dialect "mvel"
+
+rule "Fire 3"
+when
+	$result : ScoreKeeper()
+then
+	$result.add(3, 3)
+end

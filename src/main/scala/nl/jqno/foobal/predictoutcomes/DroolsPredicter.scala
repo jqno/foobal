@@ -7,16 +7,17 @@ import org.drools.builder.KnowledgeBuilderFactory
 import org.drools.builder.ResourceType
 import org.drools.io.ResourceFactory
 import org.joda.time.LocalDate
-
 import nl.jqno.foobal.domain.Outcome
 import nl.jqno.foobal.domain.ScoreKeeper
+import com.nummulus.boite.Empty
+import com.nummulus.boite.Box
 
-class DroolsPredicter(input: String) extends Predicter {
+class DroolsPredicter(inputFiles: List[String], scoreKeeper: Box[ScoreKeeper] = Empty) extends Predicter {
   private val engine = createEngine
   
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
     val session = engine.newStatefulKnowledgeSession
-    val result  = new ScoreKeeper(homeTeam, outTeam, date)
+    val result  = scoreKeeper getOrElse new ScoreKeeper(homeTeam, outTeam, date)
     
     session.insert(result)
     history foreach { session.insert(_) }
@@ -34,8 +35,10 @@ class DroolsPredicter(input: String) extends Predicter {
   
   private def createBuilder: KnowledgeBuilder = {
     val builder = KnowledgeBuilderFactory.newKnowledgeBuilder
-    val url = getClass.getClassLoader.getResource(input)
-    builder.add(ResourceFactory.newUrlResource(url), ResourceType.DRL)
+    inputFiles foreach { file =>
+      val url = getClass.getClassLoader.getResource(file)
+      builder.add(ResourceFactory.newUrlResource(url), ResourceType.DRL)
+    }
     
     if (builder.hasErrors) {
       throw new RuntimeException(builder.getErrors.toString)
