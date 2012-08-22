@@ -8,6 +8,5 @@ rule "Fire 1"
 when
 	$result : ScoreKeeper()
 then
-System.out.println("hallo!");
 	$result.add(1, 1)
 end
