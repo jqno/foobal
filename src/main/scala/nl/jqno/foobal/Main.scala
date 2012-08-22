@@ -13,11 +13,7 @@ class Main(
     clock: DateFactory = new DateFactory,
     files: Files = new Files,
     updater: OutcomesUpdater = new OutcomesUpdater,
-<<<<<<< HEAD
     predicter: Predicter = new DroolsPredicter(Main.Files)) {
-=======
-    predicter: Predicter = new DroolsPredicter("drl")) {
->>>>>>> origin/master
   
   def start(args: Array[String]): String = args match {
     case Array("update", url, file) => {

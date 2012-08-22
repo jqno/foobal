@@ -20,21 +20,22 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers with MockitoSugar
   behavior of "A DroolsPredicter"
   
   it should "round-trip through the rule engine" in {
-    val p = new DroolsPredicter("drl/fail.drl")
+    val p = new DroolsPredicter(List("drl/fail.drl"))
     val ex = evaluating { p.predict(List(), "", "", null) } should produce [ConsequenceException]
     ex.getCause.getClass should be (classOf[IllegalStateException])
   }
   
   it should "generate output based on input" in {
     val result = ValidOutcomes_2(0)
-    val p = new DroolsPredicter("drl/nac-finder.drl")
+    val p = new DroolsPredicter(List("drl/nac-finder.drl"))
     val out = p.predict(ValidOutcomes_2, result.homeTeam, result.outTeam, result.date);
     out should be (result)
   }
   
   it should "execute multiple files" in {
     val scoreKeeper = mock[ScoreKeeper]
-    val p = new DroolsPredicter("drl/multiple_files", Full(scoreKeeper))
+    val files = (1 to 3) map { "drl/multiple_files/" + _ + ".drl" } toList
+    val p = new DroolsPredicter(files, Full(scoreKeeper))
     
     p.predict(List(), "", "", null)
     
