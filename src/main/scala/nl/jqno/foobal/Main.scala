@@ -13,7 +13,7 @@ class Main(
     clock: DateFactory = new DateFactory,
     files: Files = new Files,
     updater: OutcomesUpdater = new OutcomesUpdater,
-    predicter: Predicter = new DroolsPredicter(List("drl/rules.drl"))) {
+    predicter: Predicter = new DroolsPredicter(Main.Files)) {
   
   def start(args: Array[String]): String = args match {
     case Array("update", url, file) => {
@@ -31,6 +31,8 @@ class Main(
 }
 
 object Main {
+  val Files = List("last_year", "average_of_last_6_matches") map { "drl/" + _ + ".drl" }
+  
   val OkText = "OK"
   val FileNotFoundText = "Could not find file!"
   val HelpText = {
