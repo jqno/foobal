@@ -12,6 +12,8 @@ case class Outcome(
     outScore: Int,
     date: LocalDate) {
   
+  def millis: Long = date.toDate.getTime
+    
   def toXml: scala.xml.Node =
     <outcome>
       <homeTeam>{homeTeam}</homeTeam>

@@ -14,7 +14,7 @@ when
 	             outTeam  == $result.outTeam,
 	             $latestDate < date )
 then
-	$result.add($outcome.homeScore, $outcome.outScore);
+	$result.add($outcome.homeScore, $outcome.outScore)
 end
 
 rule "There was no outcome last year"

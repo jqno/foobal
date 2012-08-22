@@ -4,9 +4,79 @@ import nl.jqno.foobal.domain.*;
 
 dialect "mvel"
 
-rule "Average of last 6 matches"
+rule "Average of home team's last 6 matches"
 when
 	$result : ScoreKeeper()
+	
+	$h1     : Outcome( homeTeam == $result.homeTeam,
+	                   $h1Date : millis )
+	$h2     : Outcome( homeTeam == $result.homeTeam,
+	                   millis < $h1Date, $h2Date : millis )
+	$h3     : Outcome( homeTeam == $result.homeTeam,
+	                   millis < $h2Date, $h3Date : millis )
+	$o1     : Outcome( outTeam == $result.homeTeam,
+	                   $o1Date : millis )
+	$o2     : Outcome( outTeam == $result.homeTeam,
+	                   millis < $o1Date, $o2Date : millis )
+	$o3     : Outcome( outTeam == $result.homeTeam,
+	                   millis < $o2Date, $o3Date : millis )
+	                   
+	not Outcome( homeTeam == $result.homeTeam,
+	             millis > $h1Date )
+	not Outcome( homeTeam == $result.homeTeam,
+	             millis > $h2Date && millis < $h1Date )
+	not Outcome( homeTeam == $result.homeTeam,
+	             millis > $h3Date && millis < $h2Date )
+	
+	not Outcome( outTeam == $result.homeTeam,
+	             millis > $o1Date )
+	not Outcome( outTeam == $result.homeTeam,
+	             millis > $o2Date && millis < $o1Date )
+	not Outcome( outTeam == $result.homeTeam,
+	             millis > $o3Date && millis < $o2Date )
 then
-	$result.add(4, 1)
+	insert( new HomeScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore ) / 6 ) )
+end
+
+rule "Average of out team's last 6 matches"
+when
+	$result : ScoreKeeper()
+	
+	$h1     : Outcome( homeTeam == $result.outTeam,
+	                   $h1Date : millis )
+	$h2     : Outcome( homeTeam == $result.outTeam,
+	                   millis < $h1Date, $h2Date : millis )
+	$h3     : Outcome( homeTeam == $result.outTeam,
+	                   millis < $h2Date, $h3Date : millis )
+	$o1     : Outcome( outTeam == $result.outTeam,
+	                   $o1Date : millis )
+	$o2     : Outcome( outTeam == $result.outTeam,
+	                   millis < $o1Date, $o2Date : millis )
+	$o3     : Outcome( outTeam == $result.outTeam,
+	                   millis < $o2Date, $o3Date : millis )
+	                   
+	not Outcome( homeTeam == $result.outTeam,
+	             millis > $h1Date )
+	not Outcome( homeTeam == $result.outTeam,
+	             millis > $h2Date && millis < $h1Date )
+	not Outcome( homeTeam == $result.outTeam,
+	             millis > $h3Date && millis < $h2Date )
+	
+	not Outcome( outTeam == $result.outTeam,
+	             millis > $o1Date )
+	not Outcome( outTeam == $result.outTeam,
+	             millis > $o2Date && millis < $o1Date )
+	not Outcome( outTeam == $result.outTeam,
+	             millis > $o3Date && millis < $o2Date )
+then
+	insert( new OutScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore ) / 6 ) )
+end
+
+rule "Combine home and out scores"
+when
+	$result : ScoreKeeper()
+	$home   : HomeScore()
+	$out    : OutScore()
+then
+	$result.add($home.score, $out.score);
 end
