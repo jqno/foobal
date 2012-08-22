@@ -1,0 +1,12 @@
+package drl;
+
+import nl.jqno.foobal.domain.*;
+
+dialect "mvel"
+
+rule "Average of last 6 matches"
+when
+	$result : ScoreKeeper()
+then
+	$result.add(4, 1)
+end
