@@ -20,7 +20,7 @@ trait RuleTester extends FlatSpec with ShouldMatchers with OneInstancePerTest {
   }
   
   def assertLatestOutcome(homeScore: Int, outScore: Int) = {
-    val p = new DroolsPredicter(List("drl/" + FileName))
+    val p = new DroolsPredicter("drl/" + FileName)
     val result = p.predict(history, "NAC", "Willem II", Date)
     
     result should be (Outcome("NAC", "Willem II", homeScore, outScore, Date))

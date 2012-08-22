@@ -13,7 +13,7 @@ class Main(
     clock: DateFactory = new DateFactory,
     files: Files = new Files,
     updater: OutcomesUpdater = new OutcomesUpdater,
-    predicter: Predicter = new DroolsPredicter(List("drl/rules.drl"))) {
+    predicter: Predicter = new DroolsPredicter("drl")) {
   
   def start(args: Array[String]): String = args match {
     case Array("update", url, file) => {
