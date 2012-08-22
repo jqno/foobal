@@ -11,8 +11,9 @@ import nl.jqno.foobal.domain.Outcome
 import nl.jqno.foobal.domain.ScoreKeeper
 import com.nummulus.boite.Empty
 import com.nummulus.boite.Box
+import java.io.File
 
-class DroolsPredicter(inputFiles: List[String], scoreKeeper: Box[ScoreKeeper] = Empty) extends Predicter {
+class DroolsPredicter(source: String, scoreKeeper: Box[ScoreKeeper] = Empty) extends Predicter {
   private val engine = createEngine
   
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
@@ -35,10 +36,10 @@ class DroolsPredicter(inputFiles: List[String], scoreKeeper: Box[ScoreKeeper] = 
   
   private def createBuilder: KnowledgeBuilder = {
     val builder = KnowledgeBuilderFactory.newKnowledgeBuilder
-    inputFiles foreach { file =>
-      val url = getClass.getClassLoader.getResource(file)
-      builder.add(ResourceFactory.newUrlResource(url), ResourceType.DRL)
-    }
+    val file = new File(getClass.getClassLoader.getResource(source).toURI)
+    val files = if (file.isDirectory) file.listFiles.toList else List(file)
+    
+    files foreach { f => builder.add(ResourceFactory.newFileResource(f), ResourceType.DRL) }
     
     if (builder.hasErrors) {
       throw new RuntimeException(builder.getErrors.toString)
