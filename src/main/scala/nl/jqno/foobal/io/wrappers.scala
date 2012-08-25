@@ -53,9 +53,3 @@ class UrlConnection(url: URL) {
 class DateFactory {
   def today: LocalDate = new LocalDate
 }
-
-class Random {
-  private val Random = new scala.util.Random
-  
-  def nextInt(n: Int): Int = Random.nextInt(n)
-}
