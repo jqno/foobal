@@ -53,4 +53,8 @@ class AverageOfLastSixMatchesTest extends RuleTester with OneInstancePerTest {
   }
   
   it should "round averaged scores up" in pending
+  
+  it should "take as much data as is available, if there are no 6 previous matches" in pending
+  
+  it should "predict a score of 0 if no data is available at all" in pending
 }
