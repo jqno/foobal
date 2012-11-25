@@ -1,0 +1,30 @@
+package drl;
+
+import nl.jqno.foobal.domain.*;
+
+dialect "mvel"
+
+rule "Find the distance between the home team and the out team; half that is the score for the stronger team"
+when
+	$result : ScoreKeeper()
+	Ranking( team == $result.homeTeam, $homeRank : position )
+	Ranking( team == $result.outTeam, $outRank : position )
+then
+	insert( new Distance( ($homeRank - $outRank) / 2 ) )
+end
+
+rule "The home team is stronger"
+when
+	$result : ScoreKeeper()
+	Distance( $dist : dist <= 0 )
+then
+	$result.add("Distance on leaderboard", -$dist, 0)
+end
+
+rule "The out team is stronger"
+when
+	$result : ScoreKeeper()
+	Distance( $dist : dist > 0 )
+then
+	$result.add("Distance on leaderboard", 0, $dist)
+end

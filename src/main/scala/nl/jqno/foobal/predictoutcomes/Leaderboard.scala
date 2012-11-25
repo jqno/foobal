@@ -8,6 +8,7 @@ import org.joda.time.LocalDate
 object Leaderboard {
   val Win  = 3
   val Draw = 1
+  val Lose = 0
   
   def apply(date: LocalDate, history: List[Outcome]): List[Ranking] = {
     val currentSeason = history filter { o => 
@@ -16,11 +17,11 @@ object Leaderboard {
     
     val totalPoints = currentSeason.foldLeft(Map[String, Int]()) { (acc, outcome) =>
       if (outcome.homeScore > outcome.outScore)
-        addToMap(acc, outcome.homeTeam, Win)
+        addToMap(addToMap(acc, outcome.homeTeam, Win), outcome.outTeam, Lose)
       else if (outcome.homeScore == outcome.outScore)
         addToMap(addToMap(acc, outcome.homeTeam, Draw), outcome.outTeam, Draw)
       else
-        addToMap(acc, outcome.outTeam, Win)
+        addToMap(addToMap(acc, outcome.homeTeam, Lose), outcome.outTeam, Win)
     }
     
     val orderedDescending = totalPoints.toList sortBy { case (_, points) => -points }

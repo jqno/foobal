@@ -6,16 +6,16 @@ import nl.jqno.foobal.domain.Outcome
 
 object SampleData {
   val MiniSeason =
-      Outcome("NAC",       "Ajax",      4, 0, new LocalDate(2011, 9, 10)) ::
-      Outcome("Ajax",      "NAC",       0, 0, new LocalDate(2011, 9, 11)) ::
-      Outcome("Willem II", "PSV",       0, 1, new LocalDate(2011, 9, 12)) ::
-      Outcome("PSV",       "Willem II", 1, 1, new LocalDate(2011, 9, 13)) ::
-      Outcome("NAC",       "Willem II", 8, 2, new LocalDate(2011, 9, 14)) ::
-      Outcome("Willem II", "NAC",       1, 4, new LocalDate(2011, 9, 15)) ::
-      Outcome("Ajax",      "Willem II", 4, 0, new LocalDate(2011, 9, 16)) ::
-      Outcome("Willem II", "Ajax",      2, 2, new LocalDate(2011, 9, 17)) ::
-      Outcome("NAC",       "PSV",       2, 1, new LocalDate(2011, 9, 18)) ::
-      Outcome("PSV",       "NAC",       1, 6, new LocalDate(2011, 9, 19)) ::
+      Outcome("NAC",       "Ajax",      4, 0, new LocalDate(2012, 9, 10)) ::
+      Outcome("Ajax",      "NAC",       0, 0, new LocalDate(2012, 9, 11)) ::
+      Outcome("Willem II", "PSV",       0, 1, new LocalDate(2012, 9, 12)) ::
+      Outcome("PSV",       "Willem II", 1, 1, new LocalDate(2012, 9, 13)) ::
+      Outcome("NAC",       "Willem II", 8, 2, new LocalDate(2012, 9, 14)) ::
+      Outcome("Willem II", "NAC",       1, 4, new LocalDate(2012, 9, 15)) ::
+      Outcome("Ajax",      "Willem II", 4, 0, new LocalDate(2012, 9, 16)) ::
+      Outcome("Willem II", "Ajax",      2, 2, new LocalDate(2012, 9, 17)) ::
+      Outcome("NAC",       "PSV",       2, 1, new LocalDate(2012, 9, 18)) ::
+      Outcome("PSV",       "NAC",       1, 6, new LocalDate(2012, 9, 19)) ::
       Nil 
   
   val ValidOutcomes_1 = List(

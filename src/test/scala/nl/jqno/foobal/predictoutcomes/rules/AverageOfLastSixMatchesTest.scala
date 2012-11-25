@@ -20,22 +20,22 @@ class AverageOfLastSixMatchesTest extends RuleTester with OneInstancePerTest {
   }
   
   it should "take into account all homeTeam's 6 last matches" in {
-    history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2011, 9, 20)) :: SampleData.MiniSeason
+    history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2012, 9, 20)) :: SampleData.MiniSeason
     assertLatestOutcome(10, 1)
   }
   
   it should "only take into account homeTeam's 6 most recent matches" in {
-    history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2011, 9, 9)) :: SampleData.MiniSeason
+    history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2012, 9, 9)) :: SampleData.MiniSeason
     assertLatestOutcome(4, 1)
   }
   
   it should "take into account all outTeam's 6 last matches" in {
-    history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2011, 9, 20)) :: SampleData.MiniSeason
+    history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2012, 9, 20)) :: SampleData.MiniSeason
     assertLatestOutcome(4, 4)
   }
   
   it should "only take into account outTeam's 6 most recent matches" in {
-    history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2011, 9, 9)) :: SampleData.MiniSeason
+    history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2012, 9, 9)) :: SampleData.MiniSeason
     assertLatestOutcome(4, 1)
   }
   
