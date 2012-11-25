@@ -1,14 +1,14 @@
 package nl.jqno.foobal.io
 
-import nl.jqno.foobal.domain.Outcome
+import org.joda.time.LocalDate
 import org.junit.runner.RunWith
+import org.mockito.Mockito.when
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import org.joda.time.LocalDate
-import SampleData._
 import org.scalatest.mock.MockitoSugar
-import org.mockito.Mockito._
+
+import nl.jqno.foobal.test_data.SampleData._
 
 @RunWith(classOf[JUnitRunner])
 class HtmlParserTest extends FlatSpec with ShouldMatchers with MockitoSugar {
@@ -34,7 +34,7 @@ class HtmlParserTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   }
   
   it should "parse valid data in multiple tables" in {
-    seasonEndYear(2012)
+    seasonEndYear(2013)
     parser.parse(ValidHtml_2) should be (ValidOutcomes_2)
   }
   

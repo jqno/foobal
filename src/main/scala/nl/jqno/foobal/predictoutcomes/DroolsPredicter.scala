@@ -13,15 +13,19 @@ import com.nummulus.boite.Empty
 import com.nummulus.boite.Box
 import java.io.File
 
-class DroolsPredicter(inputFiles: List[String], scoreKeeper: Box[ScoreKeeper] = Empty) extends Predicter {
-  private val engine = createEngine
+class DroolsPredicter(
+    inputFiles: List[String],
+    scoreKeeper: Box[ScoreKeeper] = Empty,
+    engine: Box[KnowledgeBase] = Empty)
+  extends Predicter {
   
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
-    val session = engine.newStatefulKnowledgeSession
+    val session = (engine getOrElse createEngine).newStatefulKnowledgeSession
     val result  = scoreKeeper getOrElse new ScoreKeeper(homeTeam, outTeam, date)
     
     session.insert(result)
     history foreach { session.insert(_) }
+    Leaderboard(date, history) foreach { session.insert(_) }
     session.fireAllRules
     
     result.guess

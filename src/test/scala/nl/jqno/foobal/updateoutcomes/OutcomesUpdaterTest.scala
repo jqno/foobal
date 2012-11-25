@@ -1,30 +1,30 @@
 package nl.jqno.foobal.updateoutcomes
 
+import java.io.FileNotFoundException
+
+import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.mockito.Matchers.any
 import org.mockito.Matchers.anyString
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.when
+import org.scalatest.FlatSpec
+import org.scalatest.OneInstancePerTest
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-import org.scalatest.FlatSpec
-import org.scalatest.OneInstancePerTest
+
+import com.nummulus.boite.Box
 import com.nummulus.boite.Failure
 import com.nummulus.boite.Full
+
 import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.io.SampleData.ValidHtml_1
-import nl.jqno.foobal.io.SampleData.ValidOutcomes_1
-import nl.jqno.foobal.io.SampleData.ValidHtml_2
-import nl.jqno.foobal.io.SampleData.ValidOutcomes_2
 import nl.jqno.foobal.io.Downloader
 import nl.jqno.foobal.io.Files
 import nl.jqno.foobal.io.HtmlParser
-import com.nummulus.boite.Box
 import nl.jqno.foobal.io.Url
-import java.io.FileNotFoundException
-import org.joda.time.LocalDate
+import nl.jqno.foobal.test_data.SampleData._
 
 @RunWith(classOf[JUnitRunner])
 class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstancePerTest with MockitoSugar {

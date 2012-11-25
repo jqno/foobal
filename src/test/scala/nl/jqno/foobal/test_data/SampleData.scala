@@ -1,12 +1,23 @@
-package nl.jqno.foobal.io
+package nl.jqno.foobal.test_data
 
 import scala.xml.Utility.trim
-
 import org.joda.time.LocalDate
-
 import nl.jqno.foobal.domain.Outcome
 
 object SampleData {
+  val MiniSeason =
+      Outcome("NAC",       "Ajax",      4, 0, new LocalDate(2011, 9, 10)) ::
+      Outcome("Ajax",      "NAC",       0, 0, new LocalDate(2011, 9, 11)) ::
+      Outcome("Willem II", "PSV",       0, 1, new LocalDate(2011, 9, 12)) ::
+      Outcome("PSV",       "Willem II", 1, 1, new LocalDate(2011, 9, 13)) ::
+      Outcome("NAC",       "Willem II", 8, 2, new LocalDate(2011, 9, 14)) ::
+      Outcome("Willem II", "NAC",       1, 4, new LocalDate(2011, 9, 15)) ::
+      Outcome("Ajax",      "Willem II", 4, 0, new LocalDate(2011, 9, 16)) ::
+      Outcome("Willem II", "Ajax",      2, 2, new LocalDate(2011, 9, 17)) ::
+      Outcome("NAC",       "PSV",       2, 1, new LocalDate(2011, 9, 18)) ::
+      Outcome("PSV",       "NAC",       1, 6, new LocalDate(2011, 9, 19)) ::
+      Nil 
+  
   val ValidOutcomes_1 = List(
     Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 24)),
     Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
@@ -99,18 +110,18 @@ object SampleData {
   }
   
   val ValidOutcomes_2 = List(
-    Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
-    Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)),
-    Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 5, 24)),
-    Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 5, 25))
+    Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 8, 17)),
+    Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 8, 18)),
+    Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 8, 24)),
+    Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 8, 25))
   )
   
   val ValidXml_2 = trim(
     <outcomes>
-      <outcome><homeTeam>NAC</homeTeam><outTeam>PSV</outTeam><homeScore>2</homeScore><outScore>0</outScore><date>2012-05-17</date></outcome>
-      <outcome><homeTeam>FC Appelmoesboerdonk</homeTeam><outTeam>Willem II</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-05-18</date></outcome>
-      <outcome><homeTeam>PSV</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>1</outScore><date>2012-05-24</date></outcome>
-      <outcome><homeTeam>Willem II</homeTeam><outTeam>FC Appelmoesboerdonk</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-05-25</date></outcome>
+      <outcome><homeTeam>NAC</homeTeam><outTeam>PSV</outTeam><homeScore>2</homeScore><outScore>0</outScore><date>2012-08-17</date></outcome>
+      <outcome><homeTeam>FC Appelmoesboerdonk</homeTeam><outTeam>Willem II</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-08-18</date></outcome>
+      <outcome><homeTeam>PSV</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>1</outScore><date>2012-08-24</date></outcome>
+      <outcome><homeTeam>Willem II</homeTeam><outTeam>FC Appelmoesboerdonk</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-08-25</date></outcome>
     </outcomes>
   )
   
@@ -121,13 +132,13 @@ object SampleData {
         |<body><div id="body"><div id="middle_container">
         |<table cellspacing="1" class="schema">
         |<tr class="odd">
-        |  <td style="font-size: 11px; width:88px;">do 17 mei, 20:00</td>
+        |  <td style="font-size: 11px; width:88px;">do 17 aug, 20:00</td>
         |  <td><a href="/blablabla/nac">NAC</a></td>
         |  <td><a href="/blablabla/psv">PSV</a></td>
         |  <td style="text-align:center;"><a href="/blablabla/nac-psv">2-0</a></td>
         |</tr>
         |<tr class="even">
-        |  <td style="font-size: 11px; width:88px;">vr 18 mei, 18:45</td>
+        |  <td style="font-size: 11px; width:88px;">vr 18 aug, 18:45</td>
         |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
         |  <td><a href="/tralala/willem-ii">Willem II</a></td>
         |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>
@@ -135,13 +146,13 @@ object SampleData {
         |</table>
         |<table cellspacing="1" class="schema">
         |<tr class="odd">
-        |  <td style="font-size: 11px; width:88px;">do 24 mei, 20:00</td>
+        |  <td style="font-size: 11px; width:88px;">do 24 aug, 20:00</td>
         |  <td><a href="/blablabla/psv">PSV</a></td>
         |  <td><a href="/blablabla/nac">NAC</a></td>
         |  <td style="text-align:center;"><a href="/blablabla/nac-psv">1-1</a></td>
         |</tr>
         |<tr class="even">
-        |  <td style="font-size: 11px; width:88px;">vr 25 mei, 18:45</td>
+        |  <td style="font-size: 11px; width:88px;">vr 25 aug, 18:45</td>
         |  <td><a href="/tralala/willem-ii">Willem II</a></td>
         |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
         |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>

@@ -4,16 +4,16 @@ import java.lang.IllegalStateException
 
 import org.drools.runtime.rule.ConsequenceException
 import org.junit.runner.RunWith
-import org.mockito.Mockito.verify
+import org.mockito.Mockito._
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
 
-import com.nummulus.boite.Full
+import com.nummulus.boite._
 
 import nl.jqno.foobal.domain.ScoreKeeper
-import nl.jqno.foobal.io.SampleData.ValidOutcomes_2
+import nl.jqno.foobal.test_data.SampleData._
 
 @RunWith(classOf[JUnitRunner])
 class DroolsPredicterTest extends FlatSpec with ShouldMatchers with MockitoSugar {

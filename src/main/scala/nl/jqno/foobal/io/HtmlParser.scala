@@ -5,6 +5,7 @@ import org.joda.time.LocalDate
 import nl.jqno.foobal.domain.Outcome
 import com.nummulus.boite.Box
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
+import nl.jqno.foobal.domain.DateUtil
 
 class HtmlParser(clock: DateFactory = new DateFactory) {
   def parse(input: String): List[Outcome] = {
@@ -31,21 +32,14 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
   }
   
   private def parseDate(input: String): LocalDate = {
-    val seasonEndYear = determineSeasonEndYear
+    val seasonEndYear = DateUtil.determineSeasonEndYearFor(clock.today)
     val split = input split " |, "
     val day = split(1).toInt
     val month = Months(split(2))
-    val year = if (month > SeasonEndMonth) seasonEndYear - 1 else seasonEndYear
+    val year = if (month > DateUtil.SeasonEndMonth) seasonEndYear - 1 else seasonEndYear
     new LocalDate(year, month, day)
   }
-  
-  private def determineSeasonEndYear: Int = {
-    val today = clock.today
-    val thisYear = today.year.get
-    if (today.monthOfYear.get > SeasonEndMonth) thisYear + 1 else thisYear
-  }
-  
-  private val SeasonEndMonth = 7
+
   private val Months = Map(
       "jan" -> 1, "feb" ->  2, "mrt" ->  3, "apr" ->  4,
       "mei" -> 5, "jun" ->  6, "jul" ->  7, "aug" ->  8,
