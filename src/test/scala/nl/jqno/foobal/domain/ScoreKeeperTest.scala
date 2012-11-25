@@ -26,37 +26,37 @@ class ScoreKeeperTest extends FlatSpec with ShouldMatchers with MockitoSugar wit
   }
   
   it should "guess the one score added to it" in {
-    keeper.add(0, 2)
+    keeper.add("test", 0, 2)
     assertScore(0, 2)
   }
   
   it should "guess the average score if two scores are added to it" in {
-    keeper.add(0, 1)
-    keeper.add(2, 1)
+    keeper.add("test", 0, 1)
+    keeper.add("test", 2, 1)
     
     assertScore(1, 1)
   }
   
   it should "round up the average of two scores" in {
-    keeper.add(0, 1)
-    keeper.add(1, 4)
+    keeper.add("test", 0, 1)
+    keeper.add("test", 1, 4)
     
     assertScore(1, 3)
   }
   
   it should "take the median value of an odd-length list of scores" in {
-    keeper.add(0, 4)
-    keeper.add(2, 0)
-    keeper.add(10, 1)
+    keeper.add("test", 0, 4)
+    keeper.add("test", 2, 0)
+    keeper.add("test", 10, 1)
     
     assertScore(2, 1)
   }
   
   it should "take the median value of an even-length list of scores (which is the average of the two middle values)" in {
-    keeper.add(0, 4)
-    keeper.add(2, 0)
-    keeper.add(3, 3)
-    keeper.add(10, 1)
+    keeper.add("test", 0, 4)
+    keeper.add("test", 2, 0)
+    keeper.add("test", 3, 3)
+    keeper.add("test", 10, 1)
     
     assertScore(3, 2)
   }

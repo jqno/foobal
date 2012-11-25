@@ -78,5 +78,5 @@ when
 	$home   : HomeScore()
 	$out    : OutScore()
 then
-	$result.add($home.score, $out.score);
+	$result.add("Average of last 6 matches", $home.score, $out.score);
 end

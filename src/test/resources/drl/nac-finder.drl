@@ -9,5 +9,5 @@ when
 	$result  : ScoreKeeper()
 	$outcome : Outcome( homeTeam == "NAC" )
 then
-	$result.add($outcome.homeScore, $outcome.outScore);
+	$result.add("NAC finder", $outcome.homeScore, $outcome.outScore);
 end

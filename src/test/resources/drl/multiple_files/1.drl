@@ -8,5 +8,5 @@ rule "Fire 1"
 when
 	$result : ScoreKeeper()
 then
-	$result.add(1, 1)
+	$result.add("Fire 1", 1, 1)
 end

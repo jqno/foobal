@@ -39,8 +39,8 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers with MockitoSugar
     
     p.predict(List(), "", "", null)
     
-    verify (scoreKeeper).add(1, 1)
-    verify (scoreKeeper).add(2, 2)
-    verify (scoreKeeper).add(3, 3)
+    verify (scoreKeeper).add("Fire 1", 1, 1)
+    verify (scoreKeeper).add("Fire 2", 2, 2)
+    verify (scoreKeeper).add("Fire 3", 3, 3)
   }
 }
