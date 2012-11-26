@@ -35,7 +35,7 @@ when
 	not Outcome( outTeam == $result.homeTeam,
 	             millis > $o3Date && millis < $o2Date )
 then
-	insert( new HomeScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore ) / 6 ) )
+	insert( new HomeScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore - 3 ) / 6 ) )
 end
 
 rule "Average of out team's last 6 matches"
@@ -69,7 +69,7 @@ when
 	not Outcome( outTeam == $result.outTeam,
 	             millis > $o3Date && millis < $o2Date )
 then
-	insert( new OutScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore ) / 6 ) )
+	insert( new OutScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore - 3 ) / 6 ) )
 end
 
 rule "Combine home and out scores"
