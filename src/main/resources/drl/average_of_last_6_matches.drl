@@ -20,7 +20,7 @@ when
 	                   millis < $o1Date, $o2Date : millis )
 	$o3     : Outcome( outTeam == $result.homeTeam,
 	                   millis < $o2Date, $o3Date : millis )
-	                   
+	
 	not Outcome( homeTeam == $result.homeTeam,
 	             millis > $h1Date )
 	not Outcome( homeTeam == $result.homeTeam,
@@ -35,6 +35,12 @@ when
 	not Outcome( outTeam == $result.homeTeam,
 	             millis > $o3Date && millis < $o2Date )
 then
+	System.out.println( "H" + $h1.homeScore + " -> " + $h1 )
+	System.out.println( "H" + $h2.homeScore + " -> " + $h2 )
+	System.out.println( "H" + $h3.homeScore + " -> " + $h3 )
+	System.out.println( "H" + $o1.outScore + " -> " + $o1 )
+	System.out.println( "H" + $o2.outScore + " -> " + $o2 )
+	System.out.println( "H" + $o3.outScore + " -> " + $o3 )
 	insert( new HomeScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore - 3 ) / 6 ) )
 end
 
@@ -54,7 +60,7 @@ when
 	                   millis < $o1Date, $o2Date : millis )
 	$o3     : Outcome( outTeam == $result.outTeam,
 	                   millis < $o2Date, $o3Date : millis )
-	                   
+	
 	not Outcome( homeTeam == $result.outTeam,
 	             millis > $h1Date )
 	not Outcome( homeTeam == $result.outTeam,
@@ -69,6 +75,12 @@ when
 	not Outcome( outTeam == $result.outTeam,
 	             millis > $o3Date && millis < $o2Date )
 then
+	System.out.println( "O" + $h1.homeScore + " -> " + $h1 )
+	System.out.println( "O" + $h2.homeScore + " -> " + $h2 )
+	System.out.println( "O" + $h3.homeScore + " -> " + $h3 )
+	System.out.println( "O" + $o1.outScore + " -> " + $o1 )
+	System.out.println( "O" + $o2.outScore + " -> " + $o2 )
+	System.out.println( "O" + $o3.outScore + " -> " + $o3 )
 	insert( new OutScore( ( $h1.homeScore + $h2.homeScore + $h3.homeScore + $o1.outScore + $o2.outScore + $o3.outScore - 3 ) / 6 ) )
 end
 
