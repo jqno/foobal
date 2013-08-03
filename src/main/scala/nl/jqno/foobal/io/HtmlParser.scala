@@ -33,7 +33,7 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
   
   private def parseDate(input: String): LocalDate = {
     val seasonEndYear = DateUtil.determineSeasonEndYearFor(clock.today)
-    val split = input split " |, "
+    val split = input split " +|, "
     val day = split(1).toInt
     val month = Months(split(2))
     val year = if (month > DateUtil.SeasonEndMonth) seasonEndYear - 1 else seasonEndYear

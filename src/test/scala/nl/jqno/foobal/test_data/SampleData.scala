@@ -19,13 +19,13 @@ object SampleData {
       Nil 
   
   val ValidOutcomes_1 = List(
-    Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 24)),
+    Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 9)),
     Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
   )
 
   val ValidXml_1 = trim(
     <outcomes>
-      <outcome><homeTeam>PSV</homeTeam><outTeam>Feyenoord</outTeam><homeScore>10</homeScore><outScore>0</outScore><date>2010-10-24</date></outcome>
+      <outcome><homeTeam>PSV</homeTeam><outTeam>Feyenoord</outTeam><homeScore>10</homeScore><outScore>0</outScore><date>2010-10-09</date></outcome>
       <outcome><homeTeam>Ajax</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>2</outScore><date>2010-11-11</date></outcome>
     </outcomes>
   )
@@ -35,7 +35,7 @@ object SampleData {
         |<html><body><div id=""><div id="">
         |<table cellspacing="1" class="schema">
         |<tr class="odd">
-        |  <td style="">zo 24 okt, 20:00</td>
+        |  <td style="">zo  9 okt, 20:00</td>
         |  <td><a href="">PSV</a></td>
         |  <td><a href="">Feyenoord</a></td>
         |  <td style=""><a href="">10-0</a></td>
@@ -66,7 +66,7 @@ object SampleData {
         |  <th></th>
         |</tr> 
         |<tr class="odd">
-        |  <td style="">zo 24 okt, 20:00</td>
+        |  <td style="">zo  9 okt, 20:00</td>
         |  <td><a href="">PSV</a></td>
         |  <td><a href="">Feyenoord</a></td>
         |  <td style=""><a href="">10-0</a></td>
@@ -91,7 +91,7 @@ object SampleData {
         |<html><body><div id=""><div id="">
         |<table cellspacing="1" class="schema">
         |<tr class="odd">
-        |  <td style="">zo 24 okt, 20:00</td>
+        |  <td style="">zo  9 okt, 20:00</td>
         |  <td><a href="">PSV</a></td>
         |  <td><a href="">Feyenoord</a></td>
         |  <td style=""><a href="">10-0</a></td>
