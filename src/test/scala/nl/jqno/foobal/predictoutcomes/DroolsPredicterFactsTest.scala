@@ -63,7 +63,7 @@ class DroolsPredicterFactsTest extends FlatSpec with ShouldMatchers with Mockito
 
   private def createEngine = {
     val session = mock[StatefulKnowledgeSession]
-    when (session.insert(any())) then (new Answer[FactHandle] {
+    when (session.insert(any())) `then` (new Answer[FactHandle] {
       def answer(invocation: InvocationOnMock) = {
         facts ::= invocation.getArguments()(0)
         null

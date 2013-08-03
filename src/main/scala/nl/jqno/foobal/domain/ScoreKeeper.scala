@@ -19,8 +19,8 @@ class ScoreKeeper(val homeTeam: String, val outTeam: String, val date: LocalDate
       throw new IllegalStateException("No scores found")
     }
     
-    val homeScore = median(scores map { _._1 } sorted)
-    val outScore  = median(scores map { _._2 } sorted)
+    val homeScore = median(scores.map(_._1).sorted)
+    val outScore  = median(scores.map(_._2).sorted)
     Outcome(homeTeam, outTeam, homeScore, outScore, date)
   }
   
@@ -34,7 +34,7 @@ class ScoreKeeper(val homeTeam: String, val outTeam: String, val date: LocalDate
     val mid = xs.size / 2
     val a: Double = xs(mid - 1)
     val b = xs(mid)
-    scala.math.ceil((a + b) / 2) toInt
+    scala.math.ceil((a + b) / 2).toInt
   }
   
   private def oddMedian(xs: IndexedSeq[Int]): Int = xs((xs.size - 1) / 2)

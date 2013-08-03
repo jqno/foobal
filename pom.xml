@@ -9,7 +9,7 @@
 	<description>Predicts the results of next week's soccer match!</description>
 
 	<properties>
-		<scala.version>2.9.0</scala.version>
+		<scala.version>2.10</scala.version>
 		<maven-scala-plugin.version>2.15.2</maven-scala-plugin.version>
 		<maven-source-plugin.version>2.1.2</maven-source-plugin.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
@@ -30,8 +30,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.nummulus</groupId>
-			<artifactId>boite</artifactId>
-			<version>0.2.0</version>
+			<artifactId>boite_${scala.version}</artifactId>
+			<version>0.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ccil.cowan.tagsoup</groupId>
@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-library</artifactId>
-			<version>${scala.version}</version>
+			<version>${scala.version}.0</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -74,7 +74,7 @@
 		<dependency>
 			<groupId>org.scalatest</groupId>
 			<artifactId>scalatest_${scala.version}</artifactId>
-			<version>1.8</version>
+			<version>1.9.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -91,8 +91,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.nummulus</groupId>
-			<artifactId>boite-scalatest</artifactId>
-			<version>0.2.0</version>
+			<artifactId>boite-scalatest_${scala.version}</artifactId>
+			<version>0.3.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

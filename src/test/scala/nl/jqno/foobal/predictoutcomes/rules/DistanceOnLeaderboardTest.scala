@@ -33,10 +33,10 @@ class DistanceOnLeaderboardTest extends RuleTester {
   }
   
   it should "predict distance/2 for stronger team, 0 for weaker team (even, far)" in {
-    val draws = (1 to 15) map { n => Outcome("NAC", n.toString, 0, 0, new LocalDate(2012, 11, n)) } toList
+    val draws = (1 to 15) map { n => Outcome("NAC", n.toString, 0, 0, new LocalDate(2012, 11, n)) }
     val win   = Outcome("NAC", "16", 1, 0, new LocalDate(2012, 11, 16))
     
-    history   = win :: draws
+    history   = win :: draws.toList
     teams = ("NAC", "16")
     
     history should have size 16

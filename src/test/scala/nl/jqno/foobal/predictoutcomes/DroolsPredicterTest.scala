@@ -34,8 +34,8 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers with MockitoSugar
   
   it should "execute multiple files" in {
     val scoreKeeper = mock[ScoreKeeper]
-    val files = (1 to 3) map { "drl/multiple_files/" + _ + ".drl" } toList
-    val p = new DroolsPredicter(files, Full(scoreKeeper))
+    val files = (1 to 3) map { "drl/multiple_files/" + _ + ".drl" }
+    val p = new DroolsPredicter(files.toList, Full(scoreKeeper))
     
     p.predict(List(), "", "", null)
     

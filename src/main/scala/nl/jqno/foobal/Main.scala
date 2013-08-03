@@ -22,7 +22,7 @@ class Main(
     }
     case Array("predict", file, homeTeam, outTeam) => {
       files.importFrom(file) match {
-        case Full(history) => predicter predict (history, homeTeam, outTeam, clock.today) toString
+        case Full(history) => (predicter predict (history, homeTeam, outTeam, clock.today)).toString
         case _ => Main.FileNotFoundText
       }
     }

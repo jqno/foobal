@@ -25,9 +25,10 @@ object Leaderboard {
     }
     
     val orderedDescending = totalPoints.toList sortBy { case (_, points) => -points }
-    val withRanking = orderedDescending map { case (team, _) => team } zipWithIndex
+    val justTheTeams = orderedDescending map { case (team, _) => team }
+    val teamsWithRanking = justTheTeams.zipWithIndex
     
-    withRanking map { case (team, position) => Ranking(team, position) }
+    teamsWithRanking map { case (team, position) => Ranking(team, position) }
   }
   
   private def addToMap(m: Map[String, Int], team: String, points: Int): Map[String, Int] =
