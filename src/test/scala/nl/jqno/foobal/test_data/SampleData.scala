@@ -32,79 +32,47 @@ object SampleData {
   
   val ValidHtml_1 = {
     val result = """
-        |<html><body><div id=""><div id="">
-        |<table cellspacing="1" class="schema">
-        |<tr class="odd">
-        |  <td style="">zo  9 okt, 20:00</td>
-        |  <td><a href="">PSV</a></td>
-        |  <td><a href="">Feyenoord</a></td>
-        |  <td style=""><a href="">10-0</a></td>
-        |  <td style=""><a href="" title=""><img src="" width="" height="" alt="" style="" /></a><a href=""><img src="" width="" height="" alt="" title="" style="" /></a></td>
-        |</tr>
-        |<tr class="even">
-        |  <td style="">vr 11 nov, 18:45</td>
-        |  <td><a href="">Ajax</a></td>
-        |  <td><a href="">NAC</a></td>
-        |  <td style=""><a href="">1-2</a></td>
-        |  <td style=""><a href="" title=""><img src="" width="" height="" alt="" style="" /></a><a href=""><img src="" width="" height="" alt="" title="" style="" /></a></td>
-        |</tr>
-        |</table>
-        |</div></div></body></html>
-      """
-      result.stripMargin
-  }
-  
-  val ValidHtmlWithHeaders_1 = {
-    val result = """
-        |<html><body><div id=""><div id="">
-        |<table cellspacing="1" class="schema">
-        |<tr>
-        |  <th style="width: 85px">Datum</th>
-        |  <th style="width: 138px">Thuis</th>
-        |  <th style="width: 138px">Uit</th>
-        |  <th style="width: 40px; text-align:center;">Uitslag</th>
-        |  <th></th>
-        |</tr> 
-        |<tr class="odd">
-        |  <td style="">zo  9 okt, 20:00</td>
-        |  <td><a href="">PSV</a></td>
-        |  <td><a href="">Feyenoord</a></td>
-        |  <td style=""><a href="">10-0</a></td>
-        |  <td style=""><a href="" title=""><img src="" width="" height="" alt="" style="" /></a><a href=""><img src="" width="" height="" alt="" title="" style="" /></a></td>
-        |</tr>
-        |<tr class="even">
-        |  <td style="">vr 11 nov, 18:45</td>
-        |  <td><a href="">Ajax</a></td>
-        |  <td><a href="">NAC</a></td>
-        |  <td style=""><a href="">1-2</a></td>
-        |  <td style=""><a href="" title=""><img src="" width="" height="" alt="" style="" /></a><a href=""><img src="" width="" height="" alt="" title="" style="" /></a></td>
-        |</tr>
-        |</table>
-        |</div></div></body></html>
+       |<html><body><center>
+       |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
+       |  <td>2010-2011</td>
+       |  <td>2010-10-09</td>
+       |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
+       |  <td nowrap='nowrap'><img src='images/feyenoord.gif' alt='Feyenoord'/> Feyenoord</td>
+       |  <td>10</td>
+       |  <td>0</td>
+       |</tr><tr>
+       |  <td>2010-2011</td>
+       |  <td>2010-11-11</td>
+       |  <td nowrap='nowrap'><img src='images/ajax.gif' alt='Ajax'/> Ajax</td>
+       |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
+       |  <td>1</td>
+       |  <td>2</td>
+       |</tr></table>
+       |</center></body></html>
       """
       result.stripMargin
   }
   
   val ValidButMalformedHtml_1 = {
-    // contains an &nbsp; and a missing </tr> tag
+    // contains an &nbsp;, a missing </tr> tag and a missing </td> tag
     val result = """
-        |<html><body><div id=""><div id="">
-        |<table cellspacing="1" class="schema">
-        |<tr class="odd">
-        |  <td style="">zo  9 okt, 20:00</td>
-        |  <td><a href="">PSV</a></td>
-        |  <td><a href="">Feyenoord</a></td>
-        |  <td style=""><a href="">10-0</a></td>
-        |  <td style="">&nbsp;</td>
-        |<tr class="even">
-        |  <td style="">vr 11 nov, 18:45</td>
-        |  <td><a href="">Ajax</a></td>
-        |  <td><a href="">NAC</a></td>
-        |  <td style=""><a href="">1-2</a></td>
-        |  <td style=""><a href="" title=""><img src="" width="" height="" alt="" style="" /></a><a href=""><img src="" width="" height="" alt="" title="" style="" /></a></td>
-        |</tr>
-        |</table>
-        |</div></div></body></html>
+       |<html><body><center>
+       |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
+       |  <td>&nbsp;</td>
+       |  <td>2010-10-09</td>
+       |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
+       |  <td nowrap='nowrap'><img src='images/feyenoord.gif' alt='Feyenoord'/> Feyenoord</td>
+       |  <td>10</td>
+       |  <td>0</td>
+       |<tr>
+       |  <td>2010-2011</td>
+       |  <td>2010-11-11</td>
+       |  <td nowrap='nowrap'><img src='images/ajax.gif' alt='Ajax'/> Ajax</td>
+       |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
+       |  <td>1
+       |  <td>2</td>
+       |</tr></table>
+       |</center></body></html>
       """
       result.stripMargin
   }
@@ -127,81 +95,83 @@ object SampleData {
   
   val ValidHtml_2 = {
     val result = """
-        |<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl"
-        |  xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
-        |<body><div id="body"><div id="middle_container">
-        |<table cellspacing="1" class="schema">
-        |<tr class="odd">
-        |  <td style="font-size: 11px; width:88px;">do 17 aug, 20:00</td>
-        |  <td><a href="/blablabla/nac">NAC</a></td>
-        |  <td><a href="/blablabla/psv">PSV</a></td>
-        |  <td style="text-align:center;"><a href="/blablabla/nac-psv">2-0</a></td>
-        |</tr>
-        |<tr class="even">
-        |  <td style="font-size: 11px; width:88px;">vr 18 aug, 18:45</td>
-        |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
-        |  <td><a href="/tralala/willem-ii">Willem II</a></td>
-        |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>
-        |</tr>
-        |</table>
-        |<table cellspacing="1" class="schema">
-        |<tr class="odd">
-        |  <td style="font-size: 11px; width:88px;">do 24 aug, 20:00</td>
-        |  <td><a href="/blablabla/psv">PSV</a></td>
-        |  <td><a href="/blablabla/nac">NAC</a></td>
-        |  <td style="text-align:center;"><a href="/blablabla/nac-psv">1-1</a></td>
-        |</tr>
-        |<tr class="even">
-        |  <td style="font-size: 11px; width:88px;">vr 25 aug, 18:45</td>
-        |  <td><a href="/tralala/willem-ii">Willem II</a></td>
-        |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
-        |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>
-        |</tr>
-        |</table>
-        |</div></div></body></html>
+       |<html><body><center>
+       |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
+       |  <td>2012-2013</td>
+       |  <td>2012-08-17</td>
+       |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
+       |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
+       |  <td>2</td>
+       |  <td>0</td>
+       |</tr><tr>
+       |  <td>2012-2013</td>
+       |  <td>2012-08-18</td>
+       |  <td nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</td>
+       |  <td nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</td>
+       |  <td>2</td>
+       |  <td>1</td>
+       |</tr></table>
+       |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
+       |  <td>2012-2013</td>
+       |  <td>2012-08-24</td>
+       |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
+       |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
+       |  <td>1</td>
+       |  <td>1</td>
+       |</tr><tr>
+       |  <td>2012-2013</td>
+       |  <td>2012-08-25</td>
+       |  <td nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</td>
+       |  <td nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</td>
+       |  <td>2</td>
+       |  <td>1</td>
+       |</tr></table>
+       |</center></body></html>
     """
     result.stripMargin
   }
   
-  val OutcomesWithNonSchemaTables = List(
+  val OutcomesWithNonContentTables = List(
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)),
     Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18))
   )
   
-  val HtmlWithNonSchemaTables = {
+  val HtmlWithNonContentTables = {
     val result = """
-        |<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl"
-        |  xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
-        |<body><div id="body"><div id="middle_container">
-        |<table cellspacing="1" class="schema">
-        |<tr class="odd">
-        |  <td style="font-size: 11px; width:88px;">do 17 mei, 20:00</td>
-        |  <td><a href="/blablabla/nac">NAC</a></td>
-        |  <td><a href="/blablabla/psv">PSV</a></td>
-        |  <td style="text-align:center;"><a href="/blablabla/nac-psv">2-0</a></td>
-        |</tr>
-        |<tr class="even">
-        |  <td style="font-size: 11px; width:88px;">vr 18 mei, 18:45</td>
-        |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
-        |  <td><a href="/tralala/willem-ii">Willem II</a></td>
-        |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>
-        |</tr>
-        |</table>
-        |<table cellspacing="1">
-        |<tr class="odd">
-        |  <td style="font-size: 11px; width:88px;">do 24 mei, 20:00</td>
-        |  <td><a href="/blablabla/psv">PSV</a></td>
-        |  <td><a href="/blablabla/nac">NAC</a></td>
-        |  <td style="text-align:center;"><a href="/blablabla/nac-psv">1-1</a></td>
-        |</tr>
-        |<tr class="even">
-        |  <td style="font-size: 11px; width:88px;">vr 25 mei, 18:45</td>
-        |  <td><a href="/tralala/willem-ii">Willem II</a></td>
-        |  <td><a href="/tralala/fc-appelmoesboerdonk">FC Appelmoesboerdonk</a></td>
-        |  <td style="text-align:center;"><a href="/tralala/fc-appelmoesboerdonk-willem-ii">2-1</a></td>
-        |</tr>
-        |</table>
-        |</div></div></body></html>
+       |<html><body><center>
+       |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
+       |  <th>2011-2012</th>
+       |  <th>2012-05-24</th>
+       |  <th nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</th>
+       |  <th nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</th>
+       |  <th>1</th>
+       |  <th>1</th>
+       |</tr><tr>
+       |  <th>2011-2012</th>
+       |  <th>2012-05-25</th>
+       |  <th nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</th>
+       |  <th nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</th>
+       |  <th>2</th>
+       |  <th>1</th>
+       |</tr></table>
+       |<table><tbody><tr><td><script></script></td></tr></table>
+       |<table><tbody><tr><td><script></script></td></tr></table>
+       |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
+       |  <td>2011-2012</td>
+       |  <td>2012-05-17</td>
+       |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
+       |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
+       |  <td>2</td>
+       |  <td>0</td>
+       |</tr><tr>
+       |  <td>2011-2012</td>
+       |  <td>2012-05-18</td>
+       |  <td nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</td>
+       |  <td nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</td>
+       |  <td>2</td>
+       |  <td>1</td>
+       |</tr></table>
+       |</center></body></html>
     """
     result.stripMargin
   }
