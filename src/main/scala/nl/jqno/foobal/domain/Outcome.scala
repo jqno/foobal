@@ -12,7 +12,7 @@ case class Outcome(
     outScore: Int,
     date: LocalDate) {
   
-  def millis: Long = date.toDate.getTime
+  val millis: Long = date.toDate.getTime
     
   def toXml: scala.xml.Node =
     <outcome>
