@@ -51,9 +51,8 @@ class FilesTest extends FlatSpec with ShouldMatchers with OneInstancePerTest wit
     files.importFrom(nonExistingFile) should be (Failure(exception))
   }
   
-  private def writeToFile(content: scala.xml.Node) {
+  def writeToFile(content: scala.xml.Node): Unit =
     when (xml.loadFile(SomeFile)) thenReturn content
-  }
   
   
   behavior of "File.exportTo"

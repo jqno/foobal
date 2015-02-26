@@ -17,16 +17,14 @@ class Main(
     predicter: Predicter = new DroolsPredicter(Main.Files)) {
   
   def start(args: Array[String]): String = args match {
-    case Array("update", url, file) => {
+    case Array("update", url, file) =>
       updater.update(new Url(url), file)
       Main.OkText
-    }
-    case Array("predict", file, homeTeam, outTeam) => {
+    case Array("predict", file, homeTeam, outTeam) =>
       files.importFrom(file) match {
-        case Success(history) => (predicter predict (history, homeTeam, outTeam, clock.today)).toString
+        case Success(history) => predicter.predict(history, homeTeam, outTeam, clock.today).toString
         case Failure(f) => s"${Main.ExceptionOccurred}\n${f.getMessage}"
       }
-    }
     case _ => Main.HelpText
   }
 }

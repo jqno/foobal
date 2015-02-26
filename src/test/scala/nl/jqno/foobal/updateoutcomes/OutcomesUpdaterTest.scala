@@ -34,19 +34,19 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   behavior of "An OutcomesUpdater"
   
   it should "download outcomes and update the XML file" in {
-    createEmptyFile
+    createEmptyFile()
     upload(Success(ValidHtml_1), ValidOutcomes_1)
     
-    update
+    update()
     
     verifyWritten(ValidOutcomes_1)
   }
   
   it should "download other outcomes and update the XML file" in {
-    createEmptyFile
+    createEmptyFile()
     upload(Success(ValidHtml_2), ValidOutcomes_2)
     
-    update
+    update()
     
     verifyWritten(ValidOutcomes_2)
   }
@@ -55,9 +55,9 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     createFile(ValidOutcomes_1)
     upload(Success(ValidHtml_2), ValidOutcomes_2)
     
-    update
+    update()
     
-    verifyWritten(ValidOutcomes_1 ++ ValidOutcomes_2);
+    verifyWritten(ValidOutcomes_1 ++ ValidOutcomes_2)
   }
   
   it should "update an existing XML without duplicates" in {
@@ -66,7 +66,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     createFile(List(anotherOne, ValidOutcomes_1(0)))
     upload(Success(ValidHtml_1), ValidOutcomes_1)
     
-    update
+    update()
     
     verifyWritten(anotherOne :: ValidOutcomes_1)
   }
@@ -75,36 +75,31 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     createEmptyFile
     upload(Failure(new FileNotFoundException))
     
-    update
+    update()
     
-    verifyNothingWritten
+    verifyNothingWritten()
   }
   
-  private val FileName = "/some/filename"
-  private val url = mock[Url]
+  val FileName = "/some/filename"
+  val url = mock[Url]
   
-  private def createEmptyFile {
+  def createEmptyFile(): Unit =
     when (files importFrom FileName) thenReturn Failure(new FileNotFoundException)
-  }
   
-  private def createFile(result: List[Outcome]) {
+  def createFile(result: List[Outcome]): Unit =
     when (files importFrom FileName) thenReturn Success(result)
-  }
   
-  private def upload(content: Try[String], result: List[Outcome] = Nil) {
+  def upload(content: Try[String], result: List[Outcome] = Nil): Unit = {
     when (downloader fetch url) thenReturn content
     content foreach { s => when (parser parse s) thenReturn result }
   }
   
-  private def update {
+  def update(): Unit =
     updater.update(url, FileName)
-  }
   
-  private def verifyWritten(xs: List[Outcome]) {
+  def verifyWritten(xs: List[Outcome]): Unit =
     verify (files).exportTo(FileName, xs)
-  }
   
-  private def verifyNothingWritten {
+  def verifyNothingWritten(): Unit =
     verify (files, never).exportTo(anyString, any(classOf[List[Outcome]]))
-  }
 }

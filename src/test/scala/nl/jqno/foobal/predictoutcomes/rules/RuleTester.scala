@@ -15,18 +15,16 @@ trait RuleTester extends FlatSpec with ShouldMatchers with OneInstancePerTest {
   private var _history: List[Outcome] = List()
   protected[this] def history = _history
   
-  def history_=(h: List[Outcome]) {
+  def history_=(h: List[Outcome]): Unit =
     _history = h
-  }
   
   private var _teams: (String, String) = ("NAC", "Willem II")
   protected[this] def teams = _teams
   
-  def teams_=(t: (String, String)) {
+  def teams_=(t: (String, String)): Unit =
     _teams = t
-  }
   
-  def assertLatestOutcome(homeScore: Int, outScore: Int) = {
+  def assertLatestOutcome(homeScore: Int, outScore: Int): Unit = {
     val (home, out) = teams
     val p = new DroolsPredicter(List("drl/" + FileName))
     val result = p.predict(history, home, out, Date)

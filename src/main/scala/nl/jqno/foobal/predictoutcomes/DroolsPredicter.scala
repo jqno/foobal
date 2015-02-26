@@ -18,13 +18,13 @@ class DroolsPredicter(
   extends Predicter {
   
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
-    val session = (engine getOrElse createEngine).newStatefulKnowledgeSession
-    val result  = scoreKeeper getOrElse new ScoreKeeper(homeTeam, outTeam, date)
+    val session = engine.getOrElse(createEngine).newStatefulKnowledgeSession
+    val result  = scoreKeeper.getOrElse(new ScoreKeeper(homeTeam, outTeam, date))
     
     session.insert(result)
     history foreach { session.insert(_) }
     Leaderboard(date, history) foreach { session.insert(_) }
-    session.fireAllRules
+    session.fireAllRules()
     
     result.guess
   }
@@ -43,11 +43,9 @@ class DroolsPredicter(
       builder.add(ResourceFactory.newUrlResource(url), ResourceType.DRL)
     }
     
-    if (builder.hasErrors) {
+    if (builder.hasErrors)
       throw new RuntimeException(builder.getErrors.toString)
-    }
-    else {
+    else
       builder
-    }
   }
 }

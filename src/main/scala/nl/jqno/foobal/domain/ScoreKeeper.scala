@@ -8,8 +8,8 @@ class ScoreKeeper(val homeTeam: String, val outTeam: String, val date: LocalDate
   
   private val scores = new mutable.ArrayBuffer[(Int, Int)]
   
-  def add(description: String, home: Int, out: Int) {
-    println("Score (" + description + "): " + home + "-" + out)
+  def add(description: String, home: Int, out: Int): Unit = {
+    println(s"Score ($description): $home-$out")
     scores += ((home, out))
   }
   

@@ -18,7 +18,6 @@ object DateUtil {
     new LocalDate(seasonStartYear, SeasonEndMonth, LastDayOfSeasonEndMonth)
   }
   
-  def determineSeasonEndYearFor(date: LocalDate): Int = {
+  def determineSeasonEndYearFor(date: LocalDate): Int =
     determineSeasonEndDateFor(date).year.get
-  }
 }

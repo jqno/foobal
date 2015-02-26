@@ -39,7 +39,7 @@ class DownloaderTest extends FlatSpec with ShouldMatchers with OneInstancePerTes
   }
   
   it should "return None when the connection times out" in {
-    timeout
+    timeout()
 
     val Failure(f) = downloader.fetch(url)
     f.getClass should be (classOf[SocketTimeoutException])
@@ -48,11 +48,9 @@ class DownloaderTest extends FlatSpec with ShouldMatchers with OneInstancePerTes
     verify (con).setReadTimeout(3000)
   }
   
-  private def upload(s: String) {
+  def upload(s: String): Unit =
     when (con.getInputStream) thenReturn (new ByteArrayInputStream(s.getBytes))
-  }
   
-  private def timeout {
+  def timeout(): Unit =
     when (con.getInputStream) thenThrow (new SocketTimeoutException)
-  }
 }

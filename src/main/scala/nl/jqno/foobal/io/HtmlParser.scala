@@ -13,7 +13,7 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
     
     val rows = xml \\ "table" \\ "tr"
     val result = rows map { e =>
-      val data = (e \\ "td") map (_.text.trim)
+      val data = (e \\ "td").map(_.text.trim)
       if (data.size <= 5)
         None
       else
@@ -28,7 +28,7 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
   }
 
   private def parseDate(input: String): LocalDate = {
-    val split = input split "-"
+    val split = input.split("-")
     val day = split(2).toInt
     val month = split(1).toInt
     val year = split(0).toInt

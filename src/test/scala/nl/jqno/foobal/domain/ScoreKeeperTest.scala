@@ -65,7 +65,6 @@ class ScoreKeeperTest extends FlatSpec with ShouldMatchers with MockitoSugar wit
     evaluating { keeper.guess } should produce [IllegalStateException]
   }
   
-  private def assertScore(homeScore: Int, outScore: Int) {
+  def assertScore(homeScore: Int, outScore: Int): Unit =
     keeper.guess should be (Outcome(HomeTeam, OutTeam, homeScore, outScore, Date))
-  }
 }

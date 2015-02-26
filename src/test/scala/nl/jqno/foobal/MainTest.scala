@@ -69,7 +69,6 @@ class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     main.start(Array("update", "one", "two", "three")) should be (Main.HelpText)
   }
   
-  private def predict(homeTeam: String, outTeam: String, homeScore: Int, outScore: Int) {
+  def predict(homeTeam: String, outTeam: String, homeScore: Int, outScore: Int): Unit =
     when (predicter.predict(List(), homeTeam, outTeam, Today)) thenReturn Outcome(homeTeam, outTeam, homeScore, outScore, Today)
-  }
 }

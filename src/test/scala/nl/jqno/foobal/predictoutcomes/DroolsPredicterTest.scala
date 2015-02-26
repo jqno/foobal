@@ -24,7 +24,7 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers with MockitoSugar
   it should "generate output based on input" in {
     val result = ValidOutcomes_2(0)
     val p = new DroolsPredicter(List("drl/nac-finder.drl"))
-    val out = p.predict(ValidOutcomes_2, result.homeTeam, result.outTeam, result.date);
+    val out = p.predict(ValidOutcomes_2, result.homeTeam, result.outTeam, result.date)
     out should be (result)
   }
   

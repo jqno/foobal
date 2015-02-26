@@ -16,9 +16,8 @@ class Xml {
     XML.loadFile(fileName)
   
   @throws(classOf[IOException])
-  def saveFile(fileName: String, node: scala.xml.Node) {
+  def saveFile(fileName: String, node: scala.xml.Node): Unit =
     XML.save(fileName, node)
-  }
 }
 
 class Url(private val spec: String) {
@@ -35,15 +34,13 @@ class Url(private val spec: String) {
 }
 
 class UrlConnection(url: URL) {
-  private val Connection = url.openConnection
+  private val Connection = url.openConnection()
   
-  def setConnectTimeout(millis: Int) {
+  def setConnectTimeout(millis: Int): Unit =
     Connection.setConnectTimeout(millis)
-  }
   
-  def setReadTimeout(millis: Int) {
+  def setReadTimeout(millis: Int): Unit =
     Connection.setReadTimeout(millis)
-  }
   
   @throws(classOf[IOException])
   def getInputStream: InputStream =

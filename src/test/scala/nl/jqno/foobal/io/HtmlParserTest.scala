@@ -42,7 +42,6 @@ class HtmlParserTest extends FlatSpec with ShouldMatchers with MockitoSugar {
     parser.parse(HtmlWithDtd)
   }
 
-  def seasonEndYear(year: Int) {
+  def seasonEndYear(year: Int): Unit =
     when (clock.today) thenReturn (new LocalDate(year, 1, 1))
-  }
 }

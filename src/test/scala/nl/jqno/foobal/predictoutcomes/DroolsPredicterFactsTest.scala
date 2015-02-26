@@ -57,9 +57,9 @@ class DroolsPredicterFactsTest extends FlatSpec with ShouldMatchers with Mockito
     leaderboardFacts should have size 2
   }
   
-  private def leaderboardFacts = facts filter (_.isInstanceOf[Ranking])
+  def leaderboardFacts: List[Object] = facts.filter(_.isInstanceOf[Ranking])
 
-  private def createEngine = {
+  def createEngine: KnowledgeBase = {
     val session = mock[StatefulKnowledgeSession]
     when (session.insert(any())) `then` (new Answer[FactHandle] {
       def answer(invocation: InvocationOnMock) = {
@@ -72,7 +72,7 @@ class DroolsPredicterFactsTest extends FlatSpec with ShouldMatchers with Mockito
     engine
   }
   
-  private def insertTheFacts(date: LocalDate, initalFacts: List[Outcome]) {
+  def insertTheFacts(date: LocalDate, initalFacts: List[Outcome]): Unit = {
     val p = new DroolsPredicter(Nil, Some(scoreKeeper), Some(engine))
     p.predict(initalFacts, "", "", date)
   }
