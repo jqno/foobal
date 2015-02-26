@@ -1,5 +1,10 @@
 package nl.jqno.foobal
 
+import java.io.IOException
+
+import scala.util.Failure
+import scala.util.Success
+
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.mockito.Mockito.verify
@@ -8,15 +13,13 @@ import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-import com.nummulus.boite.Full
+
 import nl.jqno.foobal.domain.Outcome
 import nl.jqno.foobal.io.DateFactory
 import nl.jqno.foobal.io.Files
 import nl.jqno.foobal.io.Url
 import nl.jqno.foobal.predictoutcomes.Predicter
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
-import com.nummulus.boite.Failure
-import java.io.IOException
 
 @RunWith(classOf[JUnitRunner])
 class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
@@ -31,7 +34,7 @@ class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   val main      = new Main(clock, files, updater, predicter)
   
   when (clock.today) thenReturn Today
-  when (files.importFrom(Outfile)) thenReturn Full(List())
+  when (files.importFrom(Outfile)) thenReturn Success(List())
   
   
   behavior of "Main"
@@ -51,7 +54,7 @@ class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
   it should "fail when the predicter can't find the file" in {
     val nonExistentFile = "/tmp/does_not_exist"
     when (files.importFrom(nonExistentFile)) thenReturn Failure(new IOException)
-    main.start(Array("predict", nonExistentFile, "NAC", "PSV")) should be (Main.FileNotFoundText)
+    main.start(Array("predict", nonExistentFile, "NAC", "PSV")) should startWith (Main.ExceptionOccurred)
   }
   
   it should "fail when the first parameter is incorrect" in {

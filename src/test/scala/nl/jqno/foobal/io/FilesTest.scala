@@ -3,6 +3,9 @@ package nl.jqno.foobal.io
 import java.io.FileNotFoundException
 import java.io.IOException
 
+import scala.util.Failure
+import scala.util.Success
+
 import org.junit.runner.RunWith
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.when
@@ -11,8 +14,6 @@ import org.scalatest.OneInstancePerTest
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-
-import com.nummulus.boite.scalatest.BoiteMatchers._
 
 import nl.jqno.foobal.test_data.SampleData._
 
@@ -28,23 +29,26 @@ class FilesTest extends FlatSpec with ShouldMatchers with OneInstancePerTest wit
   
   it should "import the contents of a valid file" in {
     writeToFile(ValidXml_1)
-    files.importFrom(SomeFile) should be a (full containing ValidOutcomes_1)
+    files.importFrom(SomeFile) should be (Success(ValidOutcomes_1))
   }
   
   it should "import the contents of another valid file" in {
     writeToFile(ValidXml_2)
-    files.importFrom(SomeFile) should be a (full containing ValidOutcomes_2)
+    files.importFrom(SomeFile) should be (Success(ValidOutcomes_2))
   }
   
   it should "not import the contents of an invalid file" in {
     writeToFile(<wrong>Invalid</wrong>)
-    files.importFrom(SomeFile) should be (empty)
+    val Failure(f) = files.importFrom(SomeFile)
+    f.getClass should be (classOf[IllegalStateException])
+    f.getMessage should startWith ("No history found")
   }
   
   it should "result in a Failure if the file could not be found" in {
     val nonExistingFile = "does not exist"
-    when(xml.loadFile(nonExistingFile)) thenThrow (new FileNotFoundException)
-    files.importFrom(nonExistingFile) should be a (failure containing classOf[FileNotFoundException])
+    val exception = new FileNotFoundException
+    when(xml.loadFile(nonExistingFile)) thenThrow (exception)
+    files.importFrom(nonExistingFile) should be (Failure(exception))
   }
   
   private def writeToFile(content: scala.xml.Node) {

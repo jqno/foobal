@@ -7,16 +7,14 @@ import org.drools.builder.KnowledgeBuilderFactory
 import org.drools.builder.ResourceType
 import org.drools.io.ResourceFactory
 import org.joda.time.LocalDate
+
 import nl.jqno.foobal.domain.Outcome
 import nl.jqno.foobal.domain.ScoreKeeper
-import com.nummulus.boite.Empty
-import com.nummulus.boite.Box
-import java.io.File
 
 class DroolsPredicter(
     inputFiles: List[String],
-    scoreKeeper: Box[ScoreKeeper] = Empty,
-    engine: Box[KnowledgeBase] = Empty)
+    scoreKeeper: Option[ScoreKeeper] = None,
+    engine: Option[KnowledgeBase] = None)
   extends Predicter {
   
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {

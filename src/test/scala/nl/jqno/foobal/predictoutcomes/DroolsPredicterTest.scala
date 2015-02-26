@@ -1,7 +1,5 @@
 package nl.jqno.foobal.predictoutcomes
 
-import java.lang.IllegalStateException
-
 import org.drools.runtime.rule.ConsequenceException
 import org.junit.runner.RunWith
 import org.mockito.Mockito._
@@ -9,8 +7,6 @@ import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-
-import com.nummulus.boite._
 
 import nl.jqno.foobal.domain.ScoreKeeper
 import nl.jqno.foobal.test_data.SampleData._
@@ -35,7 +31,7 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers with MockitoSugar
   it should "execute multiple files" in {
     val scoreKeeper = mock[ScoreKeeper]
     val files = (1 to 3) map { "drl/multiple_files/" + _ + ".drl" }
-    val p = new DroolsPredicter(files.toList, Full(scoreKeeper))
+    val p = new DroolsPredicter(files.toList, Some(scoreKeeper))
     
     p.predict(List(), "", "", null)
     

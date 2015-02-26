@@ -1,6 +1,7 @@
 package nl.jqno.foobal
 
-import com.nummulus.boite.Full
+import scala.util.Failure
+import scala.util.Success
 
 import nl.jqno.foobal.io.DateFactory
 import nl.jqno.foobal.io.Files
@@ -22,8 +23,8 @@ class Main(
     }
     case Array("predict", file, homeTeam, outTeam) => {
       files.importFrom(file) match {
-        case Full(history) => (predicter predict (history, homeTeam, outTeam, clock.today)).toString
-        case _ => Main.FileNotFoundText
+        case Success(history) => (predicter predict (history, homeTeam, outTeam, clock.today)).toString
+        case Failure(f) => s"${Main.ExceptionOccurred}\n${f.getMessage}"
       }
     }
     case _ => Main.HelpText
@@ -34,7 +35,7 @@ object Main {
   val Files = List("last_year", "average_of_last_6_matches", "distance_on_leaderboard") map { "drl/" + _ + ".drl" }
   
   val OkText = "OK"
-  val FileNotFoundText = "Could not find file!"
+  val ExceptionOccurred = "A problem occurred!"
   val HelpText = {
     val s = """foobal.sh
       |  update <url> <file>

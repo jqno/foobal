@@ -3,14 +3,13 @@ package nl.jqno.foobal.io
 import java.io.IOException
 
 import scala.io.Source
-
-import com.nummulus.boite._
+import scala.util.Try
 
 class Downloader {
   private val ConnectTimeout = 3000
   private val ReadTimeout = 3000
   
-  def fetch(url: Url): Box[String] = Box wrap {
+  def fetch(url: Url): Try[String] = Try {
     val con = createConnection(url)
     val stream = Source.fromInputStream(con.getInputStream)
     stream.getLines mkString "\n"

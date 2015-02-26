@@ -15,8 +15,6 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
 
-import com.nummulus.boite._
-
 import nl.jqno.foobal.domain.Outcome
 import nl.jqno.foobal.domain.Ranking
 import nl.jqno.foobal.domain.ScoreKeeper
@@ -75,7 +73,7 @@ class DroolsPredicterFactsTest extends FlatSpec with ShouldMatchers with Mockito
   }
   
   private def insertTheFacts(date: LocalDate, initalFacts: List[Outcome]) {
-    val p = new DroolsPredicter(Nil, Full(scoreKeeper), Full(engine))
+    val p = new DroolsPredicter(Nil, Some(scoreKeeper), Some(engine))
     p.predict(initalFacts, "", "", date)
   }
 }

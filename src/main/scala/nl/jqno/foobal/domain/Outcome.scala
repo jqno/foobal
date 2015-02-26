@@ -1,9 +1,9 @@
 package nl.jqno.foobal.domain
 
+import scala.util.Try
+
 import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
-
-import com.nummulus.boite.Box
 
 case class Outcome(
     homeTeam: String,
@@ -25,7 +25,7 @@ case class Outcome(
 }
 
 object Outcome {
-  def apply(xml: scala.xml.Node): Box[Outcome] = Box wrap {
+  def apply(xml: scala.xml.Node): Try[Outcome] = Try {
     val outcome   = xml \\ "outcome"
     val homeTeam  = (outcome \\ "homeTeam").text
     val outTeam   = (outcome \\ "outTeam").text

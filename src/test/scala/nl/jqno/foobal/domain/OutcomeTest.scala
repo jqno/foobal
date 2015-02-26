@@ -1,12 +1,14 @@
 package nl.jqno.foobal.domain
 
-import com.nummulus.boite.scalatest.BoiteMatchers._
+import scala.util.Failure
+import scala.util.Success
+import scala.xml.Utility.trim
+
+import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
-import org.joda.time.LocalDate
-import scala.xml.Utility.trim
 
 @RunWith(classOf[JUnitRunner])
 class OutcomeTest extends FlatSpec with ShouldMatchers {
@@ -29,10 +31,11 @@ class OutcomeTest extends FlatSpec with ShouldMatchers {
   }
   
   it should "convert from xml" in {
-    Outcome(Xml) should be a (full containing Example)
+    Outcome(Xml) should be (Success(Example))
   }
   
   it should "fail to convert from invalid xml" in {
-    Outcome(<outcome>0</outcome>) should not be a (full)
+    val Failure(f) = Outcome(<outcome>0</outcome>)
+    f.getClass should be (classOf[NumberFormatException])
   }
 }

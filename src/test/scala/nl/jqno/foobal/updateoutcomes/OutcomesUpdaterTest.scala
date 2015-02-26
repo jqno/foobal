@@ -1,7 +1,6 @@
 package nl.jqno.foobal.updateoutcomes
 
 import java.io.FileNotFoundException
-
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.mockito.Matchers.any
@@ -14,17 +13,15 @@ import org.scalatest.OneInstancePerTest
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-
-import com.nummulus.boite.Box
-import com.nummulus.boite.Failure
-import com.nummulus.boite.Full
-
 import nl.jqno.foobal.domain.Outcome
 import nl.jqno.foobal.io.Downloader
 import nl.jqno.foobal.io.Files
 import nl.jqno.foobal.io.HtmlParser
 import nl.jqno.foobal.io.Url
 import nl.jqno.foobal.test_data.SampleData._
+import scala.util.Try
+import scala.util.Failure
+import scala.util.Success
 
 @RunWith(classOf[JUnitRunner])
 class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstancePerTest with MockitoSugar {
@@ -38,7 +35,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   
   it should "download outcomes and update the XML file" in {
     createEmptyFile
-    upload(Full(ValidHtml_1), ValidOutcomes_1)
+    upload(Success(ValidHtml_1), ValidOutcomes_1)
     
     update
     
@@ -47,7 +44,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   
   it should "download other outcomes and update the XML file" in {
     createEmptyFile
-    upload(Full(ValidHtml_2), ValidOutcomes_2)
+    upload(Success(ValidHtml_2), ValidOutcomes_2)
     
     update
     
@@ -56,7 +53,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   
   it should "update the XML if a file is already present" in {
     createFile(ValidOutcomes_1)
-    upload(Full(ValidHtml_2), ValidOutcomes_2)
+    upload(Success(ValidHtml_2), ValidOutcomes_2)
     
     update
     
@@ -67,7 +64,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
     val anotherOne = Outcome("Club A", "Club B", 2, 2, new LocalDate(2012, 7, 23))
     
     createFile(List(anotherOne, ValidOutcomes_1(0)))
-    upload(Full(ValidHtml_1), ValidOutcomes_1)
+    upload(Success(ValidHtml_1), ValidOutcomes_1)
     
     update
     
@@ -76,7 +73,7 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   
   it should "not update the XML if the downloader fails" in {
     createEmptyFile
-    upload(Failure("uh-oh"))
+    upload(Failure(new FileNotFoundException))
     
     update
     
@@ -91,10 +88,10 @@ class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstanceP
   }
   
   private def createFile(result: List[Outcome]) {
-    when (files importFrom FileName) thenReturn Full(result)
+    when (files importFrom FileName) thenReturn Success(result)
   }
   
-  private def upload(content: Box[String], result: List[Outcome] = Nil) {
+  private def upload(content: Try[String], result: List[Outcome] = Nil) {
     when (downloader fetch url) thenReturn content
     content foreach { s => when (parser parse s) thenReturn result }
   }
