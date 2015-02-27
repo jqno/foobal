@@ -13,7 +13,7 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
     
     val rows = xml \\ "table" \\ "tr"
     val result = rows map { e =>
-      val data = (e \\ "td").map(_.text.trim)
+      val data = (e \\ "td") map (_.text.trim)
       if (data.size <= 5)
         None
       else
