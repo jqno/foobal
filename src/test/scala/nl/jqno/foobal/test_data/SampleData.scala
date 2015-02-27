@@ -70,7 +70,34 @@ object SampleData {
     |</tr></table>
     |</center></body></html>
     """.stripMargin
-  
+
+  val ValidHtmlWithInvalidIgnoreableEntry_1 = """
+    |<html><body><center>
+    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
+    |  <td>2010-2011</td>
+    |  <td>2010-10-09</td>
+    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
+    |  <td nowrap='nowrap'><img src='images/feyenoord.gif' alt='Feyenoord'/> Feyenoord</td>
+    |  <td>10</td>
+    |  <td>0</td>
+    |</tr><tr>
+    |  <td>2010-2011</td>
+    |  <td>2010-11-11</td>
+    |  <td nowrap='nowrap'><img src='images/ajax.gif' alt='Ajax'/> Ajax</td>
+    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
+    |  <td>1</td>
+    |  <td>2</td>
+    |</tr><tr>
+    |  <td>2010-2011</td>
+    |  <td>0000-00-00</td>
+    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
+    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
+    |  <td>1</td>
+    |  <td>2</td>
+    |</tr></table>
+    |</center></body></html>
+    """.stripMargin 
+ 
   val ValidOutcomes_2 =
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 8, 17)) ::
     Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 8, 18)) ::
