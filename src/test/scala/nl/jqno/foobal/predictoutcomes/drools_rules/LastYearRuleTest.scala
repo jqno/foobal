@@ -1,4 +1,4 @@
-package nl.jqno.foobal.predictoutcomes.rules
+package nl.jqno.foobal.predictoutcomes.drools_rules
 
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
