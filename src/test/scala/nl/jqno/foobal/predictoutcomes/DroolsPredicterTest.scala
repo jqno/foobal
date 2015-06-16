@@ -1,6 +1,7 @@
 package nl.jqno.foobal.predictoutcomes
 
 import org.drools.runtime.rule.ConsequenceException
+import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.mockito.Mockito._
 import org.scalatest.FlatSpec
@@ -29,14 +30,14 @@ class DroolsPredicterTest extends FlatSpec with ShouldMatchers with MockitoSugar
   }
   
   it should "execute multiple files" in {
-    val scoreKeeper = mock[ScoreKeeper]
+    val (home, out, date) = ("home", "out", new LocalDate(2015, 6, 16))
+    val scoreKeeper = new ScoreKeeper(home, out, date)
     val files = (1 to 3) map { "drl/multiple_files/" + _ + ".drl" }
     val p = new DroolsPredicter(files.toList, Some(scoreKeeper))
     
-    p.predict(List(), "", "", null)
-    
-    verify (scoreKeeper).add("Fire 1", 1, 1)
-    verify (scoreKeeper).add("Fire 2", 2, 2)
-    verify (scoreKeeper).add("Fire 3", 3, 3)
+    p.predict(List(), home, out, date)
+
+    val scores = scoreKeeper.theScores
+    scores should be ((3, 3) :: (2, 2) :: (1, 1) :: Nil)
   }
 }

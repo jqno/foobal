@@ -7,7 +7,8 @@ import org.joda.time.LocalDate
 class ScoreKeeper(val homeTeam: String, val outTeam: String, val date: LocalDate) {
   
   private val scores = new mutable.ArrayBuffer[(Int, Int)]
-  
+  def theScores: List[(Int, Int)] = scores.toList
+
   def add(description: String, home: Int, out: Int): Unit = {
     println(s"Score ($description): $home-$out")
     scores += ((home, out))

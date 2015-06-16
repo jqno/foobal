@@ -3,6 +3,7 @@ package nl.jqno.foobal.io
 import java.io.IOException
 
 import scala.util.Try
+import scala.xml._
 import scala.xml.Utility.trim
 
 import nl.jqno.foobal.domain.Outcome

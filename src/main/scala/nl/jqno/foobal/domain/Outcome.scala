@@ -1,6 +1,7 @@
 package nl.jqno.foobal.domain
 
 import scala.util.Try
+import scala.xml._
 
 import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
