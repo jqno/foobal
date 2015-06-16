@@ -14,9 +14,10 @@ libraryDependencies ++= Seq(
   "org.drools" % "drools-core" % "5.4.0.Final",
   "org.drools" % "drools-compiler" % "5.4.0.Final",
   "org.scala-lang.modules" %% "scala-xml" % "1.0.4",
-  "junit" % "junit" % "4.10" % "test",
-  "org.scalatest" %% "scalatest" % "2.2.0" % "test",
-  "org.mockito" % "mockito-all" % "1.9.0" % "test",
-  "nl.jqno.equalsverifier" % "equalsverifier" % "1.1.3" % "test"
+
+  "junit" % "junit" % "4.10" % Test,
+  "org.scalatest" %% "scalatest" % "2.2.0" % Test,
+  "org.mockito" % "mockito-all" % "1.9.0" % Test,
+  "nl.jqno.equalsverifier" % "equalsverifier" % "1.1.3" % Test
 )
 
