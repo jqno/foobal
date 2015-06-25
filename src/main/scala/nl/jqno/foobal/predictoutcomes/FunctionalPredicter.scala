@@ -18,3 +18,26 @@ object LastYearPredicter extends Predicter {
     }
   }
 }
+
+object AverageOfLastMatchesPredicter extends Predicter {
+  override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
+    val homeScore = predictSingleScore(history, homeTeam)
+    val outScore = predictSingleScore(history, outTeam)
+    Outcome(homeTeam, outTeam, homeScore, outScore, date)
+  }
+
+  private def predictSingleScore(history: List[Outcome], team: String) = {
+    val total = history
+      .filter(o => o.homeTeam == team || o.outTeam == team)
+      .sortWith((a, b) => a.date isAfter b.date)
+      .take(6)
+      .foldLeft(0)((acc, o) => acc + getScore(o, team))
+    (total - 3) / 6
+  }
+
+  private def getScore(outcome: Outcome, team: String) = outcome match {
+    case Outcome(t, _, score, _, _) if t == team => score
+    case Outcome(_, t, _, score, _) if t == team => score
+    case _ => throw new IllegalStateException("Can't happen")
+  }
+}
