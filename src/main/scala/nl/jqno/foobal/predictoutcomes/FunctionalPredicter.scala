@@ -1,6 +1,6 @@
 package nl.jqno.foobal.predictoutcomes
 
-import nl.jqno.foobal.domain.Outcome
+import nl.jqno.foobal.domain.{Ranking, Outcome}
 import org.joda.time.LocalDate
 
 object LastYearPredicter extends Predicter {
@@ -39,5 +39,20 @@ object AverageOfLastMatchesPredicter extends Predicter {
     case Outcome(t, _, score, _, _) if t == team => score
     case Outcome(_, t, _, score, _) if t == team => score
     case _ => throw new IllegalStateException("Can't happen")
+  }
+}
+
+object DistanceOnLeaderboardPredicter extends Predicter {
+  override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
+    val rankings = Leaderboard(date, history)
+    
+    val homePosition = (rankings find (_.team == homeTeam)).get.position
+    val outPosition = (rankings find (_.team == outTeam)).get.position
+    val distance = (homePosition - outPosition) / 2
+
+    if (distance > 0)
+      Outcome(homeTeam, outTeam, 0, distance, date)
+    else
+      Outcome(homeTeam, outTeam, -distance, 0, date)
   }
 }
