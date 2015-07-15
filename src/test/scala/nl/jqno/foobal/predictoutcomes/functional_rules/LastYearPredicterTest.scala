@@ -1,16 +1,21 @@
-package nl.jqno.foobal.predictoutcomes.rules
+package nl.jqno.foobal.predictoutcomes.functional_rules
 
+import nl.jqno.foobal.domain.Outcome
+import nl.jqno.foobal.predictoutcomes.LastYearPredicter
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-
-import nl.jqno.foobal.domain.Outcome
+import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
 
 @RunWith(classOf[JUnitRunner])
-class LastYearRuleTest extends RuleTester {
-  override val FileName = "last_year.drl"
-  
-  
+class LastYearPredicterTest extends FlatSpec with Matchers with OneInstancePerTest {
+
+  var history: List[Outcome] = Nil
+
+  val homeTeam = "NAC"
+  val outTeam = "Willem II"
+  val date = new LocalDate(2012, 9, 10)
+
   behavior of """Rule "Last year's outcome""""
   
   it should "predict a previous outcome" in {
@@ -25,6 +30,7 @@ class LastYearRuleTest extends RuleTester {
   
   it should "select only the most recent outcome" in {
     history =
+      Outcome("NAC", "Willem II", 3, 0, new LocalDate(2009, 9, 10)) ::
       Outcome("NAC", "Willem II", 1, 0, new LocalDate(2011, 9, 10)) ::
       Outcome("NAC", "Willem II", 2, 0, new LocalDate(2010, 9, 10)) ::
       Nil
@@ -68,5 +74,10 @@ class LastYearRuleTest extends RuleTester {
       Nil
     
     assertLatestOutcome(0, 0)
+  }
+
+  private def assertLatestOutcome(homeScore: Int, outScore: Int) = {
+    val actual = LastYearPredicter.predict(history, homeTeam, outTeam, date)
+    actual should be (Outcome(homeTeam, outTeam, homeScore, outScore, date))
   }
 }

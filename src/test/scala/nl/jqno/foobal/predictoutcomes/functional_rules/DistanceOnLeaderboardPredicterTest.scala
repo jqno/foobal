@@ -1,17 +1,20 @@
-package nl.jqno.foobal.predictoutcomes.rules
+package nl.jqno.foobal.predictoutcomes.functional_rules
 
+import nl.jqno.foobal.domain.Outcome
+import nl.jqno.foobal.predictoutcomes.{DistanceOnLeaderboardPredicter, LastYearPredicter}
+import nl.jqno.foobal.test_data.SampleData
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-
-import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.test_data.SampleData
+import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
 
 @RunWith(classOf[JUnitRunner])
-class DistanceOnLeaderboardTest extends RuleTester {
-  override val FileName = "distance_on_leaderboard.drl"
-  
-  
+class DistanceOnLeaderboardPredicterTest extends FlatSpec with Matchers with OneInstancePerTest {
+
+  var history: List[Outcome] = Nil
+  var teams: (String, String) = ("NAC", "Willem II")
+  val date = new LocalDate(2012, 9, 10)
+
   behavior of """Rule "Distance on leaderboard""""
   
   it should "predict 0-0 for teams with distance of 1 in leaderboard" in {
@@ -41,5 +44,11 @@ class DistanceOnLeaderboardTest extends RuleTester {
     
     history should have size 16
     assertLatestOutcome(8, 0)
+  }
+
+  private def assertLatestOutcome(homeScore: Int, outScore: Int) = {
+    val (homeTeam, outTeam) = teams
+    val actual = DistanceOnLeaderboardPredicter.predict(history, homeTeam, outTeam, date)
+    actual should be (Outcome(homeTeam, outTeam, homeScore, outScore, date))
   }
 }

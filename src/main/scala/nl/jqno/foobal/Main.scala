@@ -1,20 +1,16 @@
 package nl.jqno.foobal
 
-import scala.util.Failure
-import scala.util.Success
-
-import nl.jqno.foobal.io.DateFactory
-import nl.jqno.foobal.io.Files
-import nl.jqno.foobal.io.Url
-import nl.jqno.foobal.predictoutcomes.DroolsPredicter
-import nl.jqno.foobal.predictoutcomes.Predicter
+import nl.jqno.foobal.io.{DateFactory, Files, Url}
+import nl.jqno.foobal.predictoutcomes._
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
+
+import scala.util.{Failure, Success}
 
 class Main(
     clock: DateFactory = new DateFactory,
     files: Files = new Files,
     updater: OutcomesUpdater = new OutcomesUpdater,
-    predicter: Predicter = new DroolsPredicter(Main.Files)) {
+    predicter: Predicter = Main.aggregatePredicter) {
   
   def start(args: Array[String]): String = args match {
     case Array("update", url, file) =>
@@ -30,6 +26,9 @@ class Main(
 }
 
 object Main {
+  val aggregatePredicter = new AggregatePredicter(Vector(
+    AverageOfLastMatchesPredicter, DistanceOnLeaderboardPredicter, LastYearPredicter
+  ))
   val Files = List("last_year", "average_of_last_6_matches", "distance_on_leaderboard") map { "drl/" + _ + ".drl" }
   
   val OkText = "OK"
