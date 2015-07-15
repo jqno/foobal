@@ -1,14 +1,13 @@
 package nl.jqno.foobal.predictoutcomes
 
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import org.joda.time.LocalDate
 import nl.jqno.foobal.domain.Outcome
+import org.joda.time.LocalDate
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.{FlatSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class NilNilPredicterTest extends FlatSpec with ShouldMatchers {
+class NilNilPredicterTest extends FlatSpec with Matchers {
   val Date = LocalDate.now
   val predicter = new NilNilPredicter
   

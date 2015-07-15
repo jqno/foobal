@@ -1,30 +1,22 @@
 package nl.jqno.foobal.updateoutcomes
 
 import java.io.FileNotFoundException
+
+import nl.jqno.foobal.domain.Outcome
+import nl.jqno.foobal.io.{Downloader, Files, HtmlParser, Url}
+import nl.jqno.foobal.test_data.SampleData._
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
-import org.mockito.Matchers.any
-import org.mockito.Matchers.anyString
-import org.mockito.Mockito.never
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.when
-import org.scalatest.FlatSpec
-import org.scalatest.OneInstancePerTest
+import org.mockito.Matchers.{any, anyString}
+import org.mockito.Mockito.{never, verify, when}
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.io.Downloader
-import nl.jqno.foobal.io.Files
-import nl.jqno.foobal.io.HtmlParser
-import nl.jqno.foobal.io.Url
-import nl.jqno.foobal.test_data.SampleData._
-import scala.util.Try
-import scala.util.Failure
-import scala.util.Success
+import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
+
+import scala.util.{Failure, Success, Try}
 
 @RunWith(classOf[JUnitRunner])
-class OutcomesUpdaterTest extends FlatSpec with ShouldMatchers with OneInstancePerTest with MockitoSugar {
+class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest with MockitoSugar {
   val files = mock[Files]
   val parser = mock[HtmlParser]
   val downloader = mock[Downloader]

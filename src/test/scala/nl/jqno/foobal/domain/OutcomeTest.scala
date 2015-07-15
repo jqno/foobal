@@ -1,17 +1,15 @@
 package nl.jqno.foobal.domain
 
-import scala.util.Failure
-import scala.util.Success
-import scala.xml.Utility.trim
-
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FlatSpec, Matchers}
+
+import scala.util.{Failure, Success}
+import scala.xml.Utility.trim
 
 @RunWith(classOf[JUnitRunner])
-class OutcomeTest extends FlatSpec with ShouldMatchers {
+class OutcomeTest extends FlatSpec with Matchers {
   
   val Example = Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11))
   val Xml = 

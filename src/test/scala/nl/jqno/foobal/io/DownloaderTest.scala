@@ -1,24 +1,18 @@
 package nl.jqno.foobal.io
 
 import java.io.ByteArrayInputStream
-
-import java.io.IOException
 import java.net.SocketTimeoutException
 
-import scala.util.Failure
-import scala.util.Success
-
 import org.junit.runner.RunWith
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.when
-import org.scalatest.FlatSpec
-import org.scalatest.OneInstancePerTest
+import org.mockito.Mockito.{verify, when}
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
+import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
+
+import scala.util.{Failure, Success}
 
 @RunWith(classOf[JUnitRunner])
-class DownloaderTest extends FlatSpec with ShouldMatchers with OneInstancePerTest with MockitoSugar {
+class DownloaderTest extends FlatSpec with Matchers with OneInstancePerTest with MockitoSugar {
   val url = mock[Url]
   val con = mock[UrlConnection]
   val downloader = new Downloader

@@ -1,8 +1,9 @@
 package nl.jqno.foobal.test_data
 
-import scala.xml.Utility.trim
-import org.joda.time.LocalDate
 import nl.jqno.foobal.domain.Outcome
+import org.joda.time.LocalDate
+
+import scala.xml.Utility.trim
 
 object SampleData {
   val MiniSeason =

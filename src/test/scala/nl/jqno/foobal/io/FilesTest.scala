@@ -1,24 +1,18 @@
 package nl.jqno.foobal.io
 
-import java.io.FileNotFoundException
-import java.io.IOException
-
-import scala.util.Failure
-import scala.util.Success
-
-import org.junit.runner.RunWith
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.when
-import org.scalatest.FlatSpec
-import org.scalatest.OneInstancePerTest
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
+import java.io.{FileNotFoundException, IOException}
 
 import nl.jqno.foobal.test_data.SampleData._
+import org.junit.runner.RunWith
+import org.mockito.Mockito.{verify, when}
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
+
+import scala.util.{Failure, Success}
 
 @RunWith(classOf[JUnitRunner])
-class FilesTest extends FlatSpec with ShouldMatchers with OneInstancePerTest with MockitoSugar {
+class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with MockitoSugar {
   val SomeFile = ""
     
   val xml = mock[Xml]

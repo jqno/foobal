@@ -1,14 +1,13 @@
 package nl.jqno.foobal.domain
 
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
+import nl.jqno.foobal.domain.DateUtil._
 import org.joda.time.LocalDate
-import DateUtil._
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.{FlatSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class DateUtilTest extends FlatSpec with ShouldMatchers {
+class DateUtilTest extends FlatSpec with Matchers {
   
   behavior of "determineSeasonStartDateFor"
   

@@ -1,16 +1,14 @@
 package nl.jqno.foobal.predictoutcomes
 
+import nl.jqno.foobal.domain.{Outcome, Ranking}
+import nl.jqno.foobal.test_data.SampleData
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import nl.jqno.foobal.domain.Ranking
-import nl.jqno.foobal.test_data.SampleData
-import nl.jqno.foobal.domain.Outcome
+import org.scalatest.{FlatSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class LeaderboardTest extends FlatSpec with ShouldMatchers {
+class LeaderboardTest extends FlatSpec with Matchers {
   behavior of "Leaderboard"
   
   it should "return an empty list on empty data" in {

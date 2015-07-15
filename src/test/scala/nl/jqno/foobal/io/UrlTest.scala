@@ -1,14 +1,14 @@
 package nl.jqno.foobal.io
 
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import nl.jqno.equalsverifier.EqualsVerifier
 import java.net.URL
 
+import nl.jqno.equalsverifier.EqualsVerifier
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.{FlatSpec, Matchers}
+
 @RunWith(classOf[JUnitRunner])
-class UrlTest extends FlatSpec with ShouldMatchers {
+class UrlTest extends FlatSpec with Matchers {
   behavior of "A Url"
   
   it should "have a correct implementation of equals and hashCode" in {

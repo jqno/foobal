@@ -1,17 +1,15 @@
 package nl.jqno.foobal.io
 
+import nl.jqno.foobal.test_data.SampleData._
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
 import org.mockito.Mockito.when
-import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-
-import nl.jqno.foobal.test_data.SampleData._
+import org.scalatest.{FlatSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class HtmlParserTest extends FlatSpec with ShouldMatchers with MockitoSugar {
+class HtmlParserTest extends FlatSpec with Matchers with MockitoSugar {
   val clock = mock[DateFactory]
   val parser = new HtmlParser(clock)
   

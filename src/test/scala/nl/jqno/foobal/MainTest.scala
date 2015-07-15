@@ -2,27 +2,21 @@ package nl.jqno.foobal
 
 import java.io.IOException
 
-import scala.util.Failure
-import scala.util.Success
-
-import org.joda.time.LocalDate
-import org.junit.runner.RunWith
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.when
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
-
 import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.io.DateFactory
-import nl.jqno.foobal.io.Files
-import nl.jqno.foobal.io.Url
+import nl.jqno.foobal.io.{DateFactory, Files, Url}
 import nl.jqno.foobal.predictoutcomes.Predicter
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
+import org.joda.time.LocalDate
+import org.junit.runner.RunWith
+import org.mockito.Mockito.{verify, when}
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.{FlatSpec, Matchers}
+
+import scala.util.{Failure, Success}
 
 @RunWith(classOf[JUnitRunner])
-class MainTest extends FlatSpec with ShouldMatchers with MockitoSugar {
+class MainTest extends FlatSpec with Matchers with MockitoSugar {
   val Today     = new LocalDate(2012, 7, 20)
   val Url       = "http://www.google.com"
   val Outfile   = "/tmp/foobal.xml"
