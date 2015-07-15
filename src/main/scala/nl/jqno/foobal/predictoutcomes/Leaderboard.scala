@@ -1,8 +1,7 @@
 package nl.jqno.foobal.predictoutcomes
 
 import nl.jqno.foobal.domain.DateUtil._
-import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.domain.Ranking
+import nl.jqno.foobal.domain.{Outcome, Ranking}
 import org.joda.time.LocalDate
 
 object Leaderboard {

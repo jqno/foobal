@@ -1,12 +1,6 @@
 package nl.jqno.foobal.updateoutcomes
 
-import scala.collection.mutable
-
-import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.io.Downloader
-import nl.jqno.foobal.io.Files
-import nl.jqno.foobal.io.HtmlParser
-import nl.jqno.foobal.io.Url
+import nl.jqno.foobal.io.{Downloader, Files, HtmlParser, Url}
 
 class OutcomesUpdater(
     downloader: Downloader = new Downloader,

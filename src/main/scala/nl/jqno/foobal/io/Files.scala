@@ -1,12 +1,9 @@
 package nl.jqno.foobal.io
 
-import java.io.IOException
+import nl.jqno.foobal.domain.Outcome
 
 import scala.util.Try
-import scala.xml._
 import scala.xml.Utility.trim
-
-import nl.jqno.foobal.domain.Outcome
 
 class Files(xml: Xml = new Xml) {
   def importFrom(fileName: String): Try[List[Outcome]] = Try {

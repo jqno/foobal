@@ -29,7 +29,6 @@ object Main {
   val aggregatePredicter = new AggregatePredicter(Vector(
     AverageOfLastMatchesPredicter, DistanceOnLeaderboardPredicter, LastYearPredicter
   ))
-  val Files = List("last_year", "average_of_last_6_matches", "distance_on_leaderboard") map { "drl/" + _ + ".drl" }
   
   val OkText = "OK"
   val ExceptionOccurred = "A problem occurred!"

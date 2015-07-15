@@ -1,13 +1,11 @@
 package nl.jqno.foobal.io
 
-import java.io.IOException
-
-import java.io.InputStream
+import java.io.{IOException, InputStream}
 import java.net.URL
 
-import scala.xml.XML
-
 import org.joda.time.LocalDate
+
+import scala.xml.XML
 
 
 class Xml {

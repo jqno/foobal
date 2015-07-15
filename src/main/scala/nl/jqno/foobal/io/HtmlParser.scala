@@ -1,10 +1,11 @@
 package nl.jqno.foobal.io
 
-import scala.xml.XML
+import nl.jqno.foobal.domain.Outcome
 import org.ccil.cowan.tagsoup.jaxp.SAXFactoryImpl
 import org.joda.time.LocalDate
-import nl.jqno.foobal.domain.Outcome
+
 import scala.util.Try
+import scala.xml.XML
 
 class HtmlParser(clock: DateFactory = new DateFactory) {
   def parse(input: String): List[Outcome] = {

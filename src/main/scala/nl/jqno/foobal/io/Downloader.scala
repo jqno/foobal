@@ -1,7 +1,5 @@
 package nl.jqno.foobal.io
 
-import java.io.IOException
-
 import scala.io.Source
 import scala.util.Try
 

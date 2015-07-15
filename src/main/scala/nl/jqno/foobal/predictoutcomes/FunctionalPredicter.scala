@@ -1,6 +1,6 @@
 package nl.jqno.foobal.predictoutcomes
 
-import nl.jqno.foobal.domain.{Ranking, Outcome}
+import nl.jqno.foobal.domain.Outcome
 import org.joda.time.LocalDate
 
 object LastYearPredicter extends Predicter {
