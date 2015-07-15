@@ -27,40 +27,40 @@ class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest
   
   it should "download outcomes and update the XML file" in {
     createEmptyFile()
-    upload(Success(ValidHtml_1), ValidOutcomes_1)
+    upload(Success(validHtml_1), validOutcomes_1)
     
     update()
     
-    verifyWritten(ValidOutcomes_1)
+    verifyWritten(validOutcomes_1)
   }
   
   it should "download other outcomes and update the XML file" in {
     createEmptyFile()
-    upload(Success(ValidHtml_2), ValidOutcomes_2)
+    upload(Success(validHtml_2), validOutcomes_2)
     
     update()
     
-    verifyWritten(ValidOutcomes_2)
+    verifyWritten(validOutcomes_2)
   }
   
   it should "update the XML if a file is already present" in {
-    createFile(ValidOutcomes_1)
-    upload(Success(ValidHtml_2), ValidOutcomes_2)
+    createFile(validOutcomes_1)
+    upload(Success(validHtml_2), validOutcomes_2)
     
     update()
     
-    verifyWritten(ValidOutcomes_1 ++ ValidOutcomes_2)
+    verifyWritten(validOutcomes_1 ++ validOutcomes_2)
   }
   
   it should "update an existing XML without duplicates" in {
     val anotherOne = Outcome("Club A", "Club B", 2, 2, new LocalDate(2012, 7, 23))
     
-    createFile(List(anotherOne, ValidOutcomes_1(0)))
-    upload(Success(ValidHtml_1), ValidOutcomes_1)
+    createFile(List(anotherOne, validOutcomes_1(0)))
+    upload(Success(validHtml_1), validOutcomes_1)
     
     update()
     
-    verifyWritten(anotherOne :: ValidOutcomes_1)
+    verifyWritten(anotherOne :: validOutcomes_1)
   }
   
   it should "not update the XML if the downloader fails" in {
@@ -72,14 +72,14 @@ class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest
     verifyNothingWritten()
   }
   
-  val FileName = "/some/filename"
+  val someFileName = "/some/filename"
   val url = mock[Url]
   
   def createEmptyFile(): Unit =
-    when (files importFrom FileName) thenReturn Failure(new FileNotFoundException)
+    when (files importFrom someFileName) thenReturn Failure(new FileNotFoundException)
   
   def createFile(result: List[Outcome]): Unit =
-    when (files importFrom FileName) thenReturn Success(result)
+    when (files importFrom someFileName) thenReturn Success(result)
   
   def upload(content: Try[String], result: List[Outcome] = Nil): Unit = {
     when (downloader fetch url) thenReturn content
@@ -87,10 +87,10 @@ class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest
   }
   
   def update(): Unit =
-    updater.update(url, FileName)
+    updater.update(url, someFileName)
   
   def verifyWritten(xs: List[Outcome]): Unit =
-    verify (files).exportTo(FileName, xs)
+    verify (files).exportTo(someFileName, xs)
   
   def verifyNothingWritten(): Unit =
     verify (files, never).exportTo(anyString, any(classOf[List[Outcome]]))

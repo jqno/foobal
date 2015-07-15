@@ -1,7 +1,7 @@
 package nl.jqno.foobal.predictoutcomes.functional_rules
 
 import nl.jqno.foobal.domain.Outcome
-import nl.jqno.foobal.predictoutcomes.{DistanceOnLeaderboardPredicter, LastYearPredicter}
+import nl.jqno.foobal.predictoutcomes.DistanceOnLeaderboardPredicter
 import nl.jqno.foobal.test_data.SampleData
 import org.joda.time.LocalDate
 import org.junit.runner.RunWith
@@ -18,19 +18,19 @@ class DistanceOnLeaderboardPredicterTest extends FlatSpec with Matchers with One
   behavior of """Rule "Distance on leaderboard""""
   
   it should "predict 0-0 for teams with distance of 1 in leaderboard" in {
-    history = SampleData.MiniSeason
+    history = SampleData.miniSeason
     teams = ("Ajax", "PSV")
     assertLatestOutcome(0, 0)
   }
   
   it should "predict 0-0 for teams with distance of 1; but reversed from previous test" in {
-    history = SampleData.MiniSeason
+    history = SampleData.miniSeason
     teams = ("PSV", "Ajax")
     assertLatestOutcome(0, 0)
   }
   
   it should "predict distance/2 for stronger team, 0 for weaker team (odd, close)" in {
-    history = SampleData.MiniSeason
+    history = SampleData.miniSeason
     teams = ("Willem II", "NAC")
     assertLatestOutcome(0, 1)
   }

@@ -13,7 +13,7 @@ import scala.util.{Failure, Success}
 
 @RunWith(classOf[JUnitRunner])
 class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with MockitoSugar {
-  val SomeFile = ""
+  val someFile = ""
     
   val xml = mock[Xml]
   val files = new Files(xml)
@@ -22,18 +22,18 @@ class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with Mock
   behavior of "Files.importFrom"
   
   it should "import the contents of a valid file" in {
-    writeToFile(ValidXml_1)
-    files.importFrom(SomeFile) should be (Success(ValidOutcomes_1))
+    writeToFile(validXml_1)
+    files.importFrom(someFile) should be (Success(validOutcomes_1))
   }
   
   it should "import the contents of another valid file" in {
-    writeToFile(ValidXml_2)
-    files.importFrom(SomeFile) should be (Success(ValidOutcomes_2))
+    writeToFile(validXml_2)
+    files.importFrom(someFile) should be (Success(validOutcomes_2))
   }
   
   it should "not import the contents of an invalid file" in {
     writeToFile(<wrong>Invalid</wrong>)
-    val Failure(f) = files.importFrom(SomeFile)
+    val Failure(f) = files.importFrom(someFile)
     f.getClass should be (classOf[IllegalStateException])
     f.getMessage should startWith ("No history found")
   }
@@ -46,26 +46,26 @@ class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with Mock
   }
   
   def writeToFile(content: scala.xml.Node): Unit =
-    when (xml.loadFile(SomeFile)) thenReturn content
+    when (xml.loadFile(someFile)) thenReturn content
   
   
   behavior of "File.exportTo"
   
   it should "export XML data to a file" in {
-    files.exportTo(SomeFile, ValidOutcomes_1)
-    verify (xml).saveFile(SomeFile, ValidXml_1)
+    files.exportTo(someFile, validOutcomes_1)
+    verify (xml).saveFile(someFile, validXml_1)
   }
   
   it should "export other XML data to a file" in {
-    files.exportTo(SomeFile, ValidOutcomes_2)
-    verify (xml).saveFile(SomeFile, ValidXml_2)
+    files.exportTo(someFile, validOutcomes_2)
+    verify (xml).saveFile(someFile, validXml_2)
   }
   
   it should "throw an IOException if the file could not be written to" in {
     val failingFile = "will fail"
-    when (xml.saveFile(failingFile, ValidXml_1)) thenThrow (new IOException)
+    when (xml.saveFile(failingFile, validXml_1)) thenThrow (new IOException)
     intercept[IOException] {
-      files.exportTo(failingFile, ValidOutcomes_1)
+      files.exportTo(failingFile, validOutcomes_1)
     }
   }
 }

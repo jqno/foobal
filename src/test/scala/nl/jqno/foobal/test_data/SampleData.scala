@@ -6,7 +6,7 @@ import org.joda.time.LocalDate
 import scala.xml.Utility.trim
 
 object SampleData {
-  val MiniSeason =
+  val miniSeason =
     Outcome("NAC",       "Ajax",      4, 0, new LocalDate(2012, 9, 10)) ::
     Outcome("Ajax",      "NAC",       0, 0, new LocalDate(2012, 9, 11)) ::
     Outcome("Willem II", "PSV",       0, 1, new LocalDate(2012, 9, 12)) ::
@@ -19,19 +19,19 @@ object SampleData {
     Outcome("PSV",       "NAC",       1, 6, new LocalDate(2012, 9, 19)) ::
     Nil 
   
-  val ValidOutcomes_1 =
+  val validOutcomes_1 =
     Outcome("PSV", "Feyenoord", 10, 0, new LocalDate(2010, 10, 9)) ::
     Outcome("Ajax", "NAC", 1, 2, new LocalDate(2010, 11, 11)) ::
     Nil
 
-  val ValidXml_1 = trim(
+  val validXml_1 = trim(
     <outcomes>
       <outcome><homeTeam>PSV</homeTeam><outTeam>Feyenoord</outTeam><homeScore>10</homeScore><outScore>0</outScore><date>2010-10-09</date></outcome>
       <outcome><homeTeam>Ajax</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>2</outScore><date>2010-11-11</date></outcome>
     </outcomes>
   )
   
-  val ValidHtml_1 = """
+  val validHtml_1 = """
     |<html><body><center>
     |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
     |  <td>2010-2011</td>
@@ -52,7 +52,7 @@ object SampleData {
     """.stripMargin
   
   // contains an &nbsp;, a missing </tr> tag and a missing </td> tag
-  val ValidButMalformedHtml_1 = """
+  val validButMalformedHtml_1 = """
     |<html><body><center>
     |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
     |  <td>&nbsp;</td>
@@ -72,7 +72,7 @@ object SampleData {
     |</center></body></html>
     """.stripMargin
 
-  val ValidHtmlWithInvalidIgnoreableEntry_1 = """
+  val validHtmlWithInvalidIgnoreableEntry_1 = """
     |<html><body><center>
     |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
     |  <td>2010-2011</td>
@@ -99,14 +99,14 @@ object SampleData {
     |</center></body></html>
     """.stripMargin 
  
-  val ValidOutcomes_2 =
+  val validOutcomes_2 =
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 8, 17)) ::
     Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 8, 18)) ::
     Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 8, 24)) ::
     Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 8, 25)) ::
     Nil
   
-  val ValidXml_2 = trim(
+  val validXml_2 = trim(
     <outcomes>
       <outcome><homeTeam>NAC</homeTeam><outTeam>PSV</outTeam><homeScore>2</homeScore><outScore>0</outScore><date>2012-08-17</date></outcome>
       <outcome><homeTeam>FC Appelmoesboerdonk</homeTeam><outTeam>Willem II</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-08-18</date></outcome>
@@ -115,7 +115,7 @@ object SampleData {
     </outcomes>
   )
   
-  val ValidHtml_2 = """
+  val validHtml_2 = """
     |<html><body><center>
     |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
     |  <td>2012-2013</td>
@@ -150,12 +150,12 @@ object SampleData {
     |</center></body></html>
     """.stripMargin
  
-  val OutcomesWithNonContentTables =
+  val outcomesWithNonContentTables =
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)) ::
     Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)) ::
     Nil
   
-  val HtmlWithNonContentTables = """
+  val htmlWithNonContentTables = """
     |<html><body><center>
     |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
     |  <th>2011-2012</th>
@@ -192,7 +192,7 @@ object SampleData {
     |</center></body></html>
     """.stripMargin
  
-  val HtmlWithDtd = """|<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  val htmlWithDtd = """|<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     |<body><table></table></body>
     """.stripMargin
 }

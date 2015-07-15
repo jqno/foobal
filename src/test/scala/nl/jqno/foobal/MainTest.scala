@@ -17,32 +17,32 @@ import scala.util.{Failure, Success}
 
 @RunWith(classOf[JUnitRunner])
 class MainTest extends FlatSpec with Matchers with MockitoSugar {
-  val Today     = new LocalDate(2012, 7, 20)
-  val Url       = "http://www.google.com"
-  val Outfile   = "/tmp/foobal.xml"
+  val today       = new LocalDate(2012, 7, 20)
+  val someUrl     = "http://www.google.com"
+  val someOutfile = "/tmp/foobal.xml"
 
-  val clock     = mock[DateFactory]
-  val files     = mock[Files]
-  val predicter = mock[Predicter]
-  val updater   = mock[OutcomesUpdater]
-  val main      = new Main(clock, files, updater, predicter)
+  val clock       = mock[DateFactory]
+  val files       = mock[Files]
+  val predicter   = mock[Predicter]
+  val updater     = mock[OutcomesUpdater]
+  val main        = new Main(clock, files, updater, predicter)
   
-  when (clock.today) thenReturn Today
-  when (files.importFrom(Outfile)) thenReturn Success(List())
+  when (clock.today) thenReturn today
+  when (files.importFrom(someOutfile)) thenReturn Success(List())
   
   
   behavior of "Main"
   
   it should "be able to start the updater" in {
-    main.start(Array("update", Url, Outfile)) should be ("OK")
-    verify (updater).update(new Url(Url), Outfile)
+    main.start(Array("update", someUrl, someOutfile)) should be ("OK")
+    verify (updater).update(new Url(someUrl), someOutfile)
   }
   
   it should "be able to start the predicter" in {
     predict("NAC", "PSV", 10, 10)
-    main.start(Array("predict", Outfile, "NAC", "PSV")) should be (Outcome("NAC", "PSV", 10, 10, Today).toString)
-    verify (files).importFrom(Outfile)
-    verify (predicter).predict(List(), "NAC", "PSV", Today)
+    main.start(Array("predict", someOutfile, "NAC", "PSV")) should be (Outcome("NAC", "PSV", 10, 10, today).toString)
+    verify (files).importFrom(someOutfile)
+    verify (predicter).predict(List(), "NAC", "PSV", today)
   }
   
   it should "fail when the predicter can't find the file" in {
@@ -64,5 +64,5 @@ class MainTest extends FlatSpec with Matchers with MockitoSugar {
   }
   
   def predict(homeTeam: String, outTeam: String, homeScore: Int, outScore: Int): Unit =
-    when (predicter.predict(List(), homeTeam, outTeam, Today)) thenReturn Outcome(homeTeam, outTeam, homeScore, outScore, Today)
+    when (predicter.predict(List(), homeTeam, outTeam, today)) thenReturn Outcome(homeTeam, outTeam, homeScore, outScore, today)
 }

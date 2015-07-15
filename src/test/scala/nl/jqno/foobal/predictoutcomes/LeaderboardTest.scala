@@ -18,22 +18,22 @@ class LeaderboardTest extends FlatSpec with Matchers {
   it should "return an ordered list of WINNERS" in {
     val date = new LocalDate(2012, 10, 1)
     val expected = Ranking("NAC", 0) :: Ranking("Ajax", 1) :: Ranking("PSV", 2) :: Ranking("Willem II", 3) :: Nil
-    Leaderboard(date, SampleData.MiniSeason) should be (expected)
+    Leaderboard(date, SampleData.miniSeason) should be (expected)
   }
   
   it should "ignore last season's outcomes" in {
     val date = new LocalDate(2013, 10, 1)
-    Leaderboard(date, SampleData.MiniSeason) should be (Nil)
+    Leaderboard(date, SampleData.miniSeason) should be (Nil)
   }
   
   it should "ignore next season's outcomes" in {
     val date = new LocalDate(2011, 10, 1)
-    Leaderboard(date, SampleData.MiniSeason) should be (Nil)
+    Leaderboard(date, SampleData.miniSeason) should be (Nil)
   }
   
   it should "include the team that never wins" in {
     val date = new LocalDate(2012, 10, 1)
-    val history = Outcome("NAC", "losers", 1, 0, new LocalDate(2012, 9, 30)) :: SampleData.MiniSeason
+    val history = Outcome("NAC", "losers", 1, 0, new LocalDate(2012, 9, 30)) :: SampleData.miniSeason
     Leaderboard(date, history) should contain (Ranking("losers", 4))
   }
   

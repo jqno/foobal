@@ -18,31 +18,31 @@ class HtmlParserTest extends FlatSpec with Matchers with MockitoSugar {
   
   it should "parse valid data" in {
     seasonEndYear(2011)
-    parser.parse(ValidHtml_1) should be (ValidOutcomes_1)
+    parser.parse(validHtml_1) should be (validOutcomes_1)
   }
   
   it should "be able to cope with slightly malformed html" in {
     seasonEndYear(2011)
-    parser.parse(ValidButMalformedHtml_1) should be (ValidOutcomes_1)
+    parser.parse(validButMalformedHtml_1) should be (validOutcomes_1)
   }
   
   it should "be able to cope with invalid individual entries" in {
     seasonEndYear(2011)
-    parser.parse(ValidHtmlWithInvalidIgnoreableEntry_1) should be (ValidOutcomes_1)
+    parser.parse(validHtmlWithInvalidIgnoreableEntry_1) should be (validOutcomes_1)
   }
   
   it should "parse valid data in multiple tables" in {
     seasonEndYear(2013)
-    parser.parse(ValidHtml_2) should be (ValidOutcomes_2)
+    parser.parse(validHtml_2) should be (validOutcomes_2)
   }
   
   it should "ignore table elements in <th> tags" in {
     seasonEndYear(2012)
-    parser.parse(HtmlWithNonContentTables) should be (OutcomesWithNonContentTables)
+    parser.parse(htmlWithNonContentTables) should be (outcomesWithNonContentTables)
   }
   
   it should "not fail on the dtd" in {
-    parser.parse(HtmlWithDtd)
+    parser.parse(htmlWithDtd)
   }
 
   def seasonEndYear(year: Int): Unit =
