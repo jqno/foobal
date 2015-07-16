@@ -10,7 +10,7 @@ class Downloader {
   def fetch(url: Url): Try[String] = Try {
     val con = createConnection(url)
     val stream = Source.fromInputStream(con.getInputStream)
-    stream.getLines.mkString("\n")
+    stream.getLines().mkString("\n")
   }
   
   private def createConnection(url: Url) = {

@@ -14,6 +14,6 @@ class UrlTest extends FlatSpec with Matchers {
   it should "have a correct implementation of equals and hashCode" in {
     EqualsVerifier.forClass(classOf[Url])
         .withPrefabValues(classOf[URL], new URL("http://google.com"), new URL("http://yahoo.com"))
-        .verify
+        .verify()
   }
 }

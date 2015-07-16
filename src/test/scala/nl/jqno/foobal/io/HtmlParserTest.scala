@@ -46,5 +46,5 @@ class HtmlParserTest extends FlatSpec with Matchers with MockitoSugar {
   }
 
   def seasonEndYear(year: Int): Unit =
-    when (clock.today) thenReturn (new LocalDate(year, 1, 1))
+    when (clock.today) thenReturn new LocalDate(year, 1, 1)
 }

@@ -41,7 +41,7 @@ class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with Mock
   it should "result in a Failure if the file could not be found" in {
     val nonExistingFile = "does not exist"
     val exception = new FileNotFoundException
-    when(xml.loadFile(nonExistingFile)) thenThrow (exception)
+    when(xml.loadFile(nonExistingFile)) thenThrow exception
     files.importFrom(nonExistingFile) should be (Failure(exception))
   }
   
@@ -63,7 +63,7 @@ class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with Mock
   
   it should "throw an IOException if the file could not be written to" in {
     val failingFile = "will fail"
-    when (xml.saveFile(failingFile, validXml1)) thenThrow (new IOException)
+    when (xml.saveFile(failingFile, validXml1)) thenThrow new IOException
     intercept[IOException] {
       files.exportTo(failingFile, validOutcomes1)
     }

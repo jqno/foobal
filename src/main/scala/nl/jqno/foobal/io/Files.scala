@@ -10,7 +10,7 @@ class Files(xml: Xml = new Xml) {
     val content = xml.loadFile(fileName)
     val outcomes = (content \\ "outcomes" \\ "outcome") flatMap (Outcome(_).toOption.toList)
     
-    if (outcomes.size == 0)
+    if (outcomes.isEmpty)
       throw new IllegalStateException(s"No history found in $fileName")
     else
       outcomes.toList

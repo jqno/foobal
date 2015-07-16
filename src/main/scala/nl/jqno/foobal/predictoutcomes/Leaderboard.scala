@@ -32,7 +32,7 @@ object Leaderboard {
   
   private def addToMap(m: Map[String, Int], team: String, points: Int): Map[String, Int] =
     if (m contains team)
-      m map { case (k, v) => if (k == team) (team -> (m(team) + points)) else (k -> v) }
+      m.updated(team, m(team) + points)
     else
       m + (team -> points)
 }

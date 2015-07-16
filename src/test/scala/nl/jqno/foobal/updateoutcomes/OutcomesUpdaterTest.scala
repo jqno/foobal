@@ -64,7 +64,7 @@ class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest
   }
   
   it should "not update the XML if the downloader fails" in {
-    createEmptyFile
+    createEmptyFile()
     upload(Failure(new FileNotFoundException))
     
     update()

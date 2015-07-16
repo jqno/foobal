@@ -60,7 +60,7 @@ class AggregatePredicterTest extends FlatSpec with Matchers with OneInstancePerT
 
   def predict(predictions: (Int, Int)*): Unit =
     for (((h, o), i) <- predictions.zipWithIndex) {
-      when (predicters(i).predict(someHistory, someHomeTeam, someOutTeam, someDate)) thenReturn (outcome(h, o))
+      when (predicters(i).predict(someHistory, someHomeTeam, someOutTeam, someDate)) thenReturn outcome(h, o)
     }
 
   def makePrediction(ap: AggregatePredicter): Outcome =

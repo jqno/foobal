@@ -43,8 +43,8 @@ class DownloaderTest extends FlatSpec with Matchers with OneInstancePerTest with
   }
   
   def upload(s: String): Unit =
-    when (con.getInputStream) thenReturn (new ByteArrayInputStream(s.getBytes))
+    when (con.getInputStream) thenReturn new ByteArrayInputStream(s.getBytes)
   
   def timeout(): Unit =
-    when (con.getInputStream) thenThrow (new SocketTimeoutException)
+    when (con.getInputStream) thenThrow new SocketTimeoutException
 }
