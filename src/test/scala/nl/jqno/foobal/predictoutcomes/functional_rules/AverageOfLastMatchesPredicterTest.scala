@@ -11,8 +11,6 @@ import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
 @RunWith(classOf[JUnitRunner])
 class AverageOfLastMatchesPredicterTest extends FlatSpec with Matchers with OneInstancePerTest {
 
-  var history: List[Outcome] = Nil
-
   val homeTeam = "NAC"
   val outTeam = "Willem II"
   val date = new LocalDate(2012, 9, 10)
@@ -20,28 +18,28 @@ class AverageOfLastMatchesPredicterTest extends FlatSpec with Matchers with OneI
   behavior of """Rule "Average of last 6 matches""""
   
   it should "take the average of the last 6 matches for each team" in {
-    history = SampleData.miniSeason
-    assertLatestOutcome(3, 0)
+    val history = SampleData.miniSeason
+    assertLatestOutcome(history, 3, 0)
   }
   
   it should "take into account all homeTeam's 6 last matches" in {
-    history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2012, 9, 20)) :: SampleData.miniSeason
-    assertLatestOutcome(9, 0)
+    val history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2012, 9, 20)) :: SampleData.miniSeason
+    assertLatestOutcome(history, 9, 0)
   }
   
   it should "only take into account homeTeam's 6 most recent matches" in {
-    history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2012, 9, 9)) :: SampleData.miniSeason
-    assertLatestOutcome(3, 0)
+    val history = Outcome("NAC", "FC Twente", 40, 0, new LocalDate(2012, 9, 9)) :: SampleData.miniSeason
+    assertLatestOutcome(history, 3, 0)
   }
   
   it should "take into account all outTeam's 6 last matches" in {
-    history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2012, 9, 20)) :: SampleData.miniSeason
-    assertLatestOutcome(3, 3)
+    val history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2012, 9, 20)) :: SampleData.miniSeason
+    assertLatestOutcome(history, 3, 3)
   }
   
   it should "only take into account outTeam's 6 most recent matches" in {
-    history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2012, 9, 9)) :: SampleData.miniSeason
-    assertLatestOutcome(3, 0)
+    val history = Outcome("FC Twente", "Willem II", 0, 19, new LocalDate(2012, 9, 9)) :: SampleData.miniSeason
+    assertLatestOutcome(history, 3, 0)
   }
   
   it should "subtract 'pessimism factor', then round down" in pending
@@ -50,7 +48,7 @@ class AverageOfLastMatchesPredicterTest extends FlatSpec with Matchers with OneI
   
   it should "predict a score of 0 if no data is available at all" in pending
 
-  private def assertLatestOutcome(homeScore: Int, outScore: Int) = {
+  private def assertLatestOutcome(history: List[Outcome], homeScore: Int, outScore: Int) = {
     val actual = AverageOfLastMatchesPredicter.predict(history, homeTeam, outTeam, date)
     actual should be (Outcome(homeTeam, outTeam, homeScore, outScore, date))
   }
