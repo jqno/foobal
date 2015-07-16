@@ -4,8 +4,8 @@ import scala.io.Source
 import scala.util.Try
 
 class Downloader {
-  private val ConnectTimeout = 3000
-  private val ReadTimeout = 3000
+  private val connectTimeout = 3000
+  private val readTimeout = 3000
   
   def fetch(url: Url): Try[String] = Try {
     val con = createConnection(url)
@@ -15,8 +15,8 @@ class Downloader {
   
   private def createConnection(url: Url) = {
     val con = url.openConnection
-    con.setConnectTimeout(ConnectTimeout)
-    con.setReadTimeout(ReadTimeout)
+    con.setConnectTimeout(connectTimeout)
+    con.setReadTimeout(readTimeout)
     con
   }
 }

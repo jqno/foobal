@@ -15,13 +15,13 @@ class Main(
   def start(args: Array[String]): String = args match {
     case Array("update", url, file) =>
       updater.update(new Url(url), file)
-      Main.OkText
+      Main.okText
     case Array("predict", file, homeTeam, outTeam) =>
       files.importFrom(file) match {
         case Success(history) => predicter.predict(history, homeTeam, outTeam, clock.today).toString
-        case Failure(f) => s"${Main.ExceptionOccurred}\n${f.getMessage}"
+        case Failure(f) => s"${Main.exceptionOccurred}\n${f.getMessage}"
       }
-    case _ => Main.HelpText
+    case _ => Main.helpText
   }
 }
 
@@ -30,9 +30,9 @@ object Main {
     AverageOfLastMatchesPredicter, DistanceOnLeaderboardPredicter, LastYearPredicter
   ))
   
-  val OkText = "OK"
-  val ExceptionOccurred = "A problem occurred!"
-  val HelpText = {
+  val okText = "OK"
+  val exceptionOccurred = "A problem occurred!"
+  val helpText = {
     val s = """foobal.sh
       |  update <url> <file>
       |  predict <file> "<homeTeam>" "<outTeam>"

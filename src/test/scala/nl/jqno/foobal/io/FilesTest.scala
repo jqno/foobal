@@ -22,13 +22,13 @@ class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with Mock
   behavior of "Files.importFrom"
   
   it should "import the contents of a valid file" in {
-    writeToFile(validXml_1)
-    files.importFrom(someFile) should be (Success(validOutcomes_1))
+    writeToFile(validXml1)
+    files.importFrom(someFile) should be (Success(validOutcomes1))
   }
   
   it should "import the contents of another valid file" in {
-    writeToFile(validXml_2)
-    files.importFrom(someFile) should be (Success(validOutcomes_2))
+    writeToFile(validXml2)
+    files.importFrom(someFile) should be (Success(validOutcomes2))
   }
   
   it should "not import the contents of an invalid file" in {
@@ -52,20 +52,20 @@ class FilesTest extends FlatSpec with Matchers with OneInstancePerTest with Mock
   behavior of "File.exportTo"
   
   it should "export XML data to a file" in {
-    files.exportTo(someFile, validOutcomes_1)
-    verify (xml).saveFile(someFile, validXml_1)
+    files.exportTo(someFile, validOutcomes1)
+    verify (xml).saveFile(someFile, validXml1)
   }
   
   it should "export other XML data to a file" in {
-    files.exportTo(someFile, validOutcomes_2)
-    verify (xml).saveFile(someFile, validXml_2)
+    files.exportTo(someFile, validOutcomes2)
+    verify (xml).saveFile(someFile, validXml2)
   }
   
   it should "throw an IOException if the file could not be written to" in {
     val failingFile = "will fail"
-    when (xml.saveFile(failingFile, validXml_1)) thenThrow (new IOException)
+    when (xml.saveFile(failingFile, validXml1)) thenThrow (new IOException)
     intercept[IOException] {
-      files.exportTo(failingFile, validOutcomes_1)
+      files.exportTo(failingFile, validOutcomes1)
     }
   }
 }

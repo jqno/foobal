@@ -32,17 +32,17 @@ class Url(private val spec: String) {
 }
 
 class UrlConnection(url: URL) {
-  private val Connection = url.openConnection()
+  private val connection = url.openConnection()
   
   def setConnectTimeout(millis: Int): Unit =
-    Connection.setConnectTimeout(millis)
+    connection.setConnectTimeout(millis)
   
   def setReadTimeout(millis: Int): Unit =
-    Connection.setReadTimeout(millis)
+    connection.setReadTimeout(millis)
   
   @throws(classOf[IOException])
   def getInputStream: InputStream =
-    Connection.getInputStream
+    connection.getInputStream
 }
 
 class DateFactory {

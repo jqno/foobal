@@ -18,22 +18,22 @@ class HtmlParserTest extends FlatSpec with Matchers with MockitoSugar {
   
   it should "parse valid data" in {
     seasonEndYear(2011)
-    parser.parse(validHtml_1) should be (validOutcomes_1)
+    parser.parse(validHtml1) should be (validOutcomes1)
   }
   
   it should "be able to cope with slightly malformed html" in {
     seasonEndYear(2011)
-    parser.parse(validButMalformedHtml_1) should be (validOutcomes_1)
+    parser.parse(validButMalformedHtml1) should be (validOutcomes1)
   }
   
   it should "be able to cope with invalid individual entries" in {
     seasonEndYear(2011)
-    parser.parse(validHtmlWithInvalidIgnoreableEntry_1) should be (validOutcomes_1)
+    parser.parse(validHtmlWithInvalidIgnoreableEntry1) should be (validOutcomes1)
   }
   
   it should "parse valid data in multiple tables" in {
     seasonEndYear(2013)
-    parser.parse(validHtml_2) should be (validOutcomes_2)
+    parser.parse(validHtml2) should be (validOutcomes2)
   }
   
   it should "ignore table elements in <th> tags" in {

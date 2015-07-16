@@ -27,40 +27,40 @@ class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest
   
   it should "download outcomes and update the XML file" in {
     createEmptyFile()
-    upload(Success(validHtml_1), validOutcomes_1)
+    upload(Success(validHtml1), validOutcomes1)
     
     update()
     
-    verifyWritten(validOutcomes_1)
+    verifyWritten(validOutcomes1)
   }
   
   it should "download other outcomes and update the XML file" in {
     createEmptyFile()
-    upload(Success(validHtml_2), validOutcomes_2)
+    upload(Success(validHtml2), validOutcomes2)
     
     update()
     
-    verifyWritten(validOutcomes_2)
+    verifyWritten(validOutcomes2)
   }
   
   it should "update the XML if a file is already present" in {
-    createFile(validOutcomes_1)
-    upload(Success(validHtml_2), validOutcomes_2)
+    createFile(validOutcomes1)
+    upload(Success(validHtml2), validOutcomes2)
     
     update()
     
-    verifyWritten(validOutcomes_1 ++ validOutcomes_2)
+    verifyWritten(validOutcomes1 ++ validOutcomes2)
   }
   
   it should "update an existing XML without duplicates" in {
     val anotherOne = Outcome("Club A", "Club B", 2, 2, new LocalDate(2012, 7, 23))
     
-    createFile(List(anotherOne, validOutcomes_1(0)))
-    upload(Success(validHtml_1), validOutcomes_1)
+    createFile(List(anotherOne, validOutcomes1(0)))
+    upload(Success(validHtml1), validOutcomes1)
     
     update()
     
-    verifyWritten(anotherOne :: validOutcomes_1)
+    verifyWritten(anotherOne :: validOutcomes1)
   }
   
   it should "not update the XML if the downloader fails" in {

@@ -48,19 +48,19 @@ class MainTest extends FlatSpec with Matchers with MockitoSugar {
   it should "fail when the predicter can't find the file" in {
     val nonExistentFile = "/tmp/does_not_exist"
     when (files.importFrom(nonExistentFile)) thenReturn Failure(new IOException)
-    main.start(Array("predict", nonExistentFile, "NAC", "PSV")) should startWith (Main.ExceptionOccurred)
+    main.start(Array("predict", nonExistentFile, "NAC", "PSV")) should startWith (Main.exceptionOccurred)
   }
   
   it should "fail when the first parameter is incorrect" in {
-    main.start(Array("this", "should", "fail")) should be (Main.HelpText)
+    main.start(Array("this", "should", "fail")) should be (Main.helpText)
   }
   
   it should "fail when not enough parameters are given" in {
-    main.start(Array()) should be (Main.HelpText)
+    main.start(Array()) should be (Main.helpText)
   }
   
   it should "fail when too many parameters are given" in {
-    main.start(Array("update", "one", "two", "three")) should be (Main.HelpText)
+    main.start(Array("update", "one", "two", "three")) should be (Main.helpText)
   }
   
   def predict(homeTeam: String, outTeam: String, homeScore: Int, outScore: Int): Unit =
