@@ -46,13 +46,15 @@ object DistanceOnLeaderboardPredicter extends Predicter {
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
     val rankings = Leaderboard(date, history)
     
-    val homePosition = (rankings find (_.team == homeTeam)).get.position
-    val outPosition = (rankings find (_.team == outTeam)).get.position
-    val distance = (homePosition - outPosition) / 2
+    val distance = for {
+      home <- rankings find (_.team == homeTeam)
+      out <- rankings find (_.team == outTeam)
+    } yield (home.position - out.position) / 2
 
-    if (distance > 0)
-      Outcome(homeTeam, outTeam, 0, distance, date)
-    else
-      Outcome(homeTeam, outTeam, -distance, 0, date)
+    distance match {
+      case Some(d) if d > 0 => Outcome(homeTeam, outTeam, 0, d, date)
+      case Some(d) =>          Outcome(homeTeam, outTeam, -d, 0, date)
+      case None =>             Outcome(homeTeam, outTeam, 0, 0, date)
+    }
   }
 }
