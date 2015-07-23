@@ -32,167 +32,115 @@ object SampleData {
   )
   
   val validHtml1 = """
-    |<html><body><center>
-    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
-    |  <td>2010-2011</td>
-    |  <td>2010-10-09</td>
-    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
-    |  <td nowrap='nowrap'><img src='images/feyenoord.gif' alt='Feyenoord'/> Feyenoord</td>
-    |  <td>10</td>
-    |  <td>0</td>
-    |</tr><tr>
-    |  <td>2010-2011</td>
-    |  <td>2010-11-11</td>
-    |  <td nowrap='nowrap'><img src='images/ajax.gif' alt='Ajax'/> Ajax</td>
-    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
-    |  <td>1</td>
-    |  <td>2</td>
-    |</tr></table>
-    |</center></body></html>
+    |<html><body>
+    |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
+    |<b>9 oktober 2010</b>
+    |<div class="line even">
+    |  <div class="center-score"><span><a>10 - 0</a></span></div>
+    |  <div class="float-left-club"><a>PSV <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> Feyenoord</a></div>
+    |</div>
+    |<b>11 november 2010</b>
+    |<div class="line odd">
+    |  <div class="center-score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left-club"><a>Ajax <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |</div>
+    |</div></div></div></div></div></div>
+    |</body></html>
     """.stripMargin
   
-  // contains an &nbsp;, a missing </tr> tag and a missing </td> tag
+  // contains an &nbsp;, a missing </span> tag and a missing </a> tag
   val validButMalformedHtml1 = """
-    |<html><body><center>
-    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
-    |  <td>&nbsp;</td>
-    |  <td>2010-10-09</td>
-    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
-    |  <td nowrap='nowrap'><img src='images/feyenoord.gif' alt='Feyenoord'/> Feyenoord</td>
-    |  <td>10</td>
-    |  <td>0</td>
-    |<tr>
-    |  <td>2010-2011</td>
-    |  <td>2010-11-11</td>
-    |  <td nowrap='nowrap'><img src='images/ajax.gif' alt='Ajax'/> Ajax</td>
-    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
-    |  <td>1
-    |  <td>2</td>
-    |</tr></table>
-    |</center></body></html>
+    |<html><body>
+    |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
+    |<b>9 oktober 2010</b>
+    |<div class="line even">
+    |  <div class="center-score"><span><a>10 - 0</a></div>
+    |  <div class="float-left-club"><a>PSV <img></img></a></div>
+    |  <div class="float-right-club"><img></img> Feyenoord</a></div>
+    |</div>
+    |<b>11 november 2010</b>
+    |<div class="line odd">
+    |  <div class="center-score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left-club"><a>Ajax <img></img></a></div>&nbsp;
+    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |</div>
+    |</div></div></div></div></div></div>
+    |</body></html>
     """.stripMargin
 
   val validHtmlWithInvalidIgnoreableEntry1 = """
-    |<html><body><center>
-    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
-    |  <td>2010-2011</td>
-    |  <td>2010-10-09</td>
-    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
-    |  <td nowrap='nowrap'><img src='images/feyenoord.gif' alt='Feyenoord'/> Feyenoord</td>
-    |  <td>10</td>
-    |  <td>0</td>
-    |</tr><tr>
-    |  <td>2010-2011</td>
-    |  <td>2010-11-11</td>
-    |  <td nowrap='nowrap'><img src='images/ajax.gif' alt='Ajax'/> Ajax</td>
-    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
-    |  <td>1</td>
-    |  <td>2</td>
-    |</tr><tr>
-    |  <td>2010-2011</td>
-    |  <td>0000-00-00</td>
-    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
-    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
-    |  <td>1</td>
-    |  <td>2</td>
-    |</tr></table>
-    |</center></body></html>
-    """.stripMargin 
+    |<html><body>
+    |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
+    |<b>9 oktober 2010</b>
+    |<div class="line even">
+    |  <div class="center-score"><span><a>10 - 0</a></span></div>
+    |  <div class="float-left-club"><a>PSV <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> Feyenoord</a></div>
+    |</div>
+    |<b>11 november 2010</b>
+    |<div class="line odd">
+    |  <div class="center-score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left-club"><a>Ajax <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |</div>
+    |<b>00 november 0000</b>
+    |<div class="line even">
+    |  <div class="center-score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left-club"><a>PSV <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |</div>
+    |</div></div></div></div></div></div>
+    |</body></html>
+    """.stripMargin
  
   val validOutcomes2 =
     Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 8, 17)) ::
-    Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 8, 18)) ::
+    Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 8, 17)) ::
     Outcome("PSV", "NAC", 1, 1, new LocalDate(2012, 8, 24)) ::
-    Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 8, 25)) ::
+    Outcome("Willem II", "FC Appelmoesboerdonk", 2, 1, new LocalDate(2012, 8, 24)) ::
     Nil
   
   val validXml2 = trim(
     <outcomes>
       <outcome><homeTeam>NAC</homeTeam><outTeam>PSV</outTeam><homeScore>2</homeScore><outScore>0</outScore><date>2012-08-17</date></outcome>
-      <outcome><homeTeam>FC Appelmoesboerdonk</homeTeam><outTeam>Willem II</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-08-18</date></outcome>
+      <outcome><homeTeam>FC Appelmoesboerdonk</homeTeam><outTeam>Willem II</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-08-17</date></outcome>
       <outcome><homeTeam>PSV</homeTeam><outTeam>NAC</outTeam><homeScore>1</homeScore><outScore>1</outScore><date>2012-08-24</date></outcome>
-      <outcome><homeTeam>Willem II</homeTeam><outTeam>FC Appelmoesboerdonk</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-08-25</date></outcome>
+      <outcome><homeTeam>Willem II</homeTeam><outTeam>FC Appelmoesboerdonk</outTeam><homeScore>2</homeScore><outScore>1</outScore><date>2012-08-24</date></outcome>
     </outcomes>
   )
   
   val validHtml2 = """
-    |<html><body><center>
-    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
-    |  <td>2012-2013</td>
-    |  <td>2012-08-17</td>
-    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
-    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
-    |  <td>2</td>
-    |  <td>0</td>
-    |</tr><tr>
-    |  <td>2012-2013</td>
-    |  <td>2012-08-18</td>
-    |  <td nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</td>
-    |  <td nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</td>
-    |  <td>2</td>
-    |  <td>1</td>
-    |</tr></table>
-    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
-    |  <td>2012-2013</td>
-    |  <td>2012-08-24</td>
-    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
-    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
-    |  <td>1</td>
-    |  <td>1</td>
-    |</tr><tr>
-    |  <td>2012-2013</td>
-    |  <td>2012-08-25</td>
-    |  <td nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</td>
-    |  <td nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</td>
-    |  <td>2</td>
-    |  <td>1</td>
-    |</tr></table>
-    |</center></body></html>
-    """.stripMargin
- 
-  val outcomesWithNonContentTables =
-    Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 5, 17)) ::
-    Outcome("FC Appelmoesboerdonk", "Willem II", 2, 1, new LocalDate(2012, 5, 18)) ::
-    Nil
-  
-  val htmlWithNonContentTables = """
-    |<html><body><center>
-    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
-    |  <th>2011-2012</th>
-    |  <th>2012-05-24</th>
-    |  <th nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</th>
-    |  <th nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</th>
-    |  <th>1</th>
-    |  <th>1</th>
-    |</tr><tr>
-    |  <th>2011-2012</th>
-    |  <th>2012-05-25</th>
-    |  <th nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</th>
-    |  <th nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</th>
-    |  <th>2</th>
-    |  <th>1</th>
-    |</tr></table>
-    |<table><tbody><tr><td><script></script></td></tr></table>
-    |<table><tbody><tr><td><script></script></td></tr></table>
-    |<table border='0' cellpadding='5' cellspacing='5' align='center'><tr>
-    |  <td>2011-2012</td>
-    |  <td>2012-05-17</td>
-    |  <td nowrap='nowrap'><img src='images/nac.gif' alt='NAC'/> NAC</td>
-    |  <td nowrap='nowrap'><img src='images/psv.gif' alt='PSV'/> PSV</td>
-    |  <td>2</td>
-    |  <td>0</td>
-    |</tr><tr>
-    |  <td>2011-2012</td>
-    |  <td>2012-05-18</td>
-    |  <td nowrap='nowrap'><img src='images/fc%20appelmoesboerdonk.gif' alt='FC Appelmoesboerdonk'/> FC Appelmoesboerdonk</td>
-    |  <td nowrap='nowrap'><img src='images/willem%20ii.gif' alt='Willem II'/> Willem II</td>
-    |  <td>2</td>
-    |  <td>1</td>
-    |</tr></table>
-    |</center></body></html>
+    |<html><body>
+    |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
+    |<b>17 augustus 2012</b>
+    |<div class="line even">
+    |  <div class="center-score"><span><a>2 - 0</a></span></div>
+    |  <div class="float-left-club"><a>NAC <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> PSV</a></div>
+    |</div>
+    |<div class="line odd">
+    |  <div class="center-score"><span><a>2 - 1</a></span></div>
+    |  <div class="float-left-club"><a>FC Appelmoesboerdonk <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> Willem II</a></div>
+    |</div>
+    |<b>24 augustus 2012</b>
+    |<div class="line even">
+    |  <div class="center-score"><span><a>1 - 1</a></span></div>
+    |  <div class="float-left-club"><a>PSV <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |</div>
+    |<div class="line odd">
+    |  <div class="center-score"><span><a>2 - 1</a></span></div>
+    |  <div class="float-left-club"><a>Willem II <img></img></a></div>
+    |  <div class="float-right-club"><a><img></img> FC Appelmoesboerdonk</a></div>
+    |</div>
+    |</div></div></div></div></div></div>
+    |</body></html>
     """.stripMargin
  
   val htmlWithDtd = """|<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-    |<body><table></table></body>
+    |<body><div></div></body>
     """.stripMargin
 }
