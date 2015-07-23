@@ -2,15 +2,17 @@ package nl.jqno.foobal.updateoutcomes
 
 import nl.jqno.foobal.io.{Downloader, Files, HtmlParser, Url}
 
+import scala.util.Try
+
 class OutcomesUpdater(
     downloader: Downloader = new Downloader,
     parser: HtmlParser = new HtmlParser,
     files: Files = new Files) {
   
-  def update(url: Url, fileName: String): Unit = {
+  def update(url: Url, fileName: String): Try[Unit] = {
     val existing = files.importFrom(fileName).getOrElse(Nil)
     
-    downloader.fetch(url).foreach { html =>
+    downloader.fetch(url).map { html =>
       val incoming = parser.parse(html)
       val outcomes = existing ++ incoming
       files.exportTo(fileName, outcomes.distinct)

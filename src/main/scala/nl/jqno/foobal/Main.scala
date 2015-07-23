@@ -1,5 +1,7 @@
 package nl.jqno.foobal
 
+import java.io.{PrintWriter, StringWriter}
+
 import nl.jqno.foobal.io.{DateFactory, Files, Url}
 import nl.jqno.foobal.predictoutcomes._
 import nl.jqno.foobal.updateoutcomes.OutcomesUpdater
@@ -14,12 +16,14 @@ class Main(
   
   def start(args: Array[String]): String = args match {
     case Array("update", url, file) =>
-      updater.update(new Url(url), file)
-      Main.okText
+      updater.update(new Url(url), file) match {
+        case Success(_) => Main.okText
+        case Failure(f) => Main.stackTraceToString(f)
+      }
     case Array("predict", file, homeTeam, outTeam) =>
       files.importFrom(file) match {
         case Success(history) => predicter.predict(history, homeTeam, outTeam, clock.today).toString
-        case Failure(f) => s"${Main.exceptionOccurred}\n${f.getMessage}"
+        case Failure(f) => Main.stackTraceToString(f)
       }
     case _ => Main.helpText
   }
@@ -31,13 +35,20 @@ object Main {
   ))
   
   val okText = "OK"
-  val exceptionOccurred = "A problem occurred!"
   val helpText = {
     val s = """foobal.sh
       |  update <url> <file>
       |  predict <file> "<homeTeam>" "<outTeam>"
       |"""
     s.stripMargin
+  }
+
+  val exceptionOccurred = "A problem occurred!"
+  def stackTraceToString(e: Throwable) = {
+    val sw = new StringWriter
+    val pw = new PrintWriter(sw)
+    e.printStackTrace(pw)
+    s"$exceptionOccurred\n${sw.toString}"
   }
   
   def main(args: Array[String]) {

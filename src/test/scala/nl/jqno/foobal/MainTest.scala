@@ -29,6 +29,7 @@ class MainTest extends FlatSpec with Matchers with MockitoSugar {
   
   when (clock.today) thenReturn today
   when (files.importFrom(someOutfile)) thenReturn Success(List())
+  when (updater.update(new Url(someUrl), someOutfile)) thenReturn Success(())
   
   
   behavior of "Main"
@@ -43,6 +44,11 @@ class MainTest extends FlatSpec with Matchers with MockitoSugar {
     main.start(Array("predict", someOutfile, "NAC", "PSV")) should be (Outcome("NAC", "PSV", 10, 10, today).toString)
     verify (files).importFrom(someOutfile)
     verify (predicter).predict(List(), "NAC", "PSV", today)
+  }
+
+  it should "fail when the updater fails" in {
+    when (updater.update(new Url(someUrl), someOutfile)) thenReturn Failure(new IOException)
+    main.start(Array("update", someUrl, someOutfile)) should startWith (Main.exceptionOccurred)
   }
   
   it should "fail when the predicter can't find the file" in {

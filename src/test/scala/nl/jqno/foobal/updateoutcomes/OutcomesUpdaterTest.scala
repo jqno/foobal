@@ -67,9 +67,13 @@ class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest
     createEmptyFile()
     upload(Failure(new FileNotFoundException))
     
-    update()
+    val result = update()
     
     verifyNothingWritten()
+    result match {
+      case Failure(e) => e.getClass should be (classOf[FileNotFoundException])
+      case _ => fail()
+    }
   }
   
   val someFileName = "/some/filename"
@@ -86,7 +90,7 @@ class OutcomesUpdaterTest extends FlatSpec with Matchers with OneInstancePerTest
     content foreach { s => when (parser parse s) thenReturn result }
   }
   
-  def update(): Unit =
+  def update(): Try[Unit] =
     updater.update(url, someFileName)
   
   def verifyWritten(xs: List[Outcome]): Unit =
