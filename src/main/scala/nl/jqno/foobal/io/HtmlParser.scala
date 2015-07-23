@@ -17,19 +17,20 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
     val result = (past \ "_").map { e =>
       e.label match {
         case "b" =>
-          date = Try { parseDate(e.text) }.toOption
+          date = Try { parseDate(e.text.trim) }.toOption
           None
         case "div" =>
-          val rawScore = (e \\ "div") filter hasAttributeWith("center-score")
+          val rawScore = (e \\ "div") filter hasAttributeWith("center score")
           val scores = rawScore.text.split("-").map(_.trim)
-          val rawHomeTeam = (e \\ "div") filter hasAttributeWith("float-left-club")
+          val rawHomeTeam = (e \\ "div") filter hasAttributeWith("float-left club")
           val homeTeam = rawHomeTeam.text.trim
-          val rawOutTeam = (e \\ "div") filter hasAttributeWith("float-right-club")
+          val rawOutTeam = (e \\ "div") filter hasAttributeWith("float-right club")
           val outTeam = rawOutTeam.text.trim
 
           for {
             d <- date
           } yield Outcome(homeTeam, outTeam, scores(0).toInt, scores(1).toInt, d)
+        case _ => None
       }
     }
 

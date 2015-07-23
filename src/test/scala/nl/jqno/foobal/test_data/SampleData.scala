@@ -34,37 +34,39 @@ object SampleData {
   val validHtml1 = """
     |<html><body>
     |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
-    |<b>9 oktober 2010</b>
+    |<h3></h3>
+    |<b> 9 oktober 2010</b>
     |<div class="line even">
-    |  <div class="center-score"><span><a>10 - 0</a></span></div>
-    |  <div class="float-left-club"><a>PSV <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> Feyenoord</a></div>
+    |  <div class="center score"><span><a>10 - 0</a></span></div>
+    |  <div class="float-left club"><a>PSV <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> Feyenoord</a></div>
     |</div>
     |<b>11 november 2010</b>
     |<div class="line odd">
-    |  <div class="center-score"><span><a>1 - 2</a></span></div>
-    |  <div class="float-left-club"><a>Ajax <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |  <div class="center score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left club"><a>Ajax <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> NAC</a></div>
     |</div>
     |</div></div></div></div></div></div>
     |</body></html>
     """.stripMargin
   
-  // contains an &nbsp;, a missing </span> tag and a missing </a> tag
+  // contains an &nbsp;, a missing </span> and a missing </a> tag
   val validButMalformedHtml1 = """
     |<html><body>
     |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
-    |<b>9 oktober 2010</b>
+    |<h3></h3>
+    |<b> 9 oktober 2010</b>
     |<div class="line even">
-    |  <div class="center-score"><span><a>10 - 0</a></div>
-    |  <div class="float-left-club"><a>PSV <img></img></a></div>
-    |  <div class="float-right-club"><img></img> Feyenoord</a></div>
+    |  <div class="center score"><span><a>10 - 0</a></div>
+    |  <div class="float-left club"><a>PSV <img></img></a></div>
+    |  <div class="float-right club"><img></img> Feyenoord</a></div>
     |</div>
     |<b>11 november 2010</b>
     |<div class="line odd">
-    |  <div class="center-score"><span><a>1 - 2</a></span></div>
-    |  <div class="float-left-club"><a>Ajax <img></img></a></div>&nbsp;
-    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |  <div class="center score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left club"><a>Ajax <img></img></a></div>&nbsp;
+    |  <div class="float-right club"><a><img></img> NAC</a></div>
     |</div>
     |</div></div></div></div></div></div>
     |</body></html>
@@ -73,23 +75,24 @@ object SampleData {
   val validHtmlWithInvalidIgnoreableEntry1 = """
     |<html><body>
     |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
-    |<b>9 oktober 2010</b>
+    |<h3></h3>
+    |<b> 9 oktober 2010</b>
     |<div class="line even">
-    |  <div class="center-score"><span><a>10 - 0</a></span></div>
-    |  <div class="float-left-club"><a>PSV <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> Feyenoord</a></div>
+    |  <div class="center score"><span><a>10 - 0</a></span></div>
+    |  <div class="float-left club"><a>PSV <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> Feyenoord</a></div>
     |</div>
     |<b>11 november 2010</b>
     |<div class="line odd">
-    |  <div class="center-score"><span><a>1 - 2</a></span></div>
-    |  <div class="float-left-club"><a>Ajax <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |  <div class="center score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left club"><a>Ajax <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> NAC</a></div>
     |</div>
     |<b>00 november 0000</b>
     |<div class="line even">
-    |  <div class="center-score"><span><a>1 - 2</a></span></div>
-    |  <div class="float-left-club"><a>PSV <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |  <div class="center score"><span><a>1 - 2</a></span></div>
+    |  <div class="float-left club"><a>PSV <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> NAC</a></div>
     |</div>
     |</div></div></div></div></div></div>
     |</body></html>
@@ -114,27 +117,28 @@ object SampleData {
   val validHtml2 = """
     |<html><body>
     |<div id="content-wrap"><div id="content"><div id="main"><div id="contentBlock"><div id="events"><div id="past">
+    |<h3></h3>
     |<b>17 augustus 2012</b>
     |<div class="line even">
-    |  <div class="center-score"><span><a>2 - 0</a></span></div>
-    |  <div class="float-left-club"><a>NAC <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> PSV</a></div>
+    |  <div class="center score"><span><a>2 - 0</a></span></div>
+    |  <div class="float-left club"><a>NAC <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> PSV</a></div>
     |</div>
     |<div class="line odd">
-    |  <div class="center-score"><span><a>2 - 1</a></span></div>
-    |  <div class="float-left-club"><a>FC Appelmoesboerdonk <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> Willem II</a></div>
+    |  <div class="center score"><span><a>2 - 1</a></span></div>
+    |  <div class="float-left club"><a>FC Appelmoesboerdonk <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> Willem II</a></div>
     |</div>
     |<b>24 augustus 2012</b>
     |<div class="line even">
-    |  <div class="center-score"><span><a>1 - 1</a></span></div>
-    |  <div class="float-left-club"><a>PSV <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> NAC</a></div>
+    |  <div class="center score"><span><a>1 - 1</a></span></div>
+    |  <div class="float-left club"><a>PSV <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> NAC</a></div>
     |</div>
     |<div class="line odd">
-    |  <div class="center-score"><span><a>2 - 1</a></span></div>
-    |  <div class="float-left-club"><a>Willem II <img></img></a></div>
-    |  <div class="float-right-club"><a><img></img> FC Appelmoesboerdonk</a></div>
+    |  <div class="center score"><span><a>2 - 1</a></span></div>
+    |  <div class="float-left club"><a>Willem II <img></img></a></div>
+    |  <div class="float-right club"><a><img></img> FC Appelmoesboerdonk</a></div>
     |</div>
     |</div></div></div></div></div></div>
     |</body></html>
