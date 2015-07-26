@@ -8,6 +8,11 @@ class AggregatePredicter(predicters: IndexedSeq[Predicter]) extends Predicter {
     val outcomes = predicters map (_.predict(history, homeTeam, outTeam, date))
     val homeScore = median(outcomes.map(_.homeScore).sorted)
     val outScore = median(outcomes.map(_.outScore).sorted)
+
+    (predicters zip outcomes) foreach { case (p, o) =>
+        println(s"${p.getClass.getSimpleName}: ${o.homeScore}-${o.outScore}")
+    }
+
     Outcome(homeTeam, outTeam, homeScore, outScore, date)
   }
 

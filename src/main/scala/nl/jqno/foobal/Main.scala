@@ -22,7 +22,9 @@ class Main(
       }
     case Array("predict", file, homeTeam, outTeam) =>
       files.importFrom(file) match {
-        case Success(history) => predicter.predict(history, homeTeam, outTeam, clock.today).toString
+        case Success(history) =>
+          val o = predicter.predict(history, homeTeam, outTeam, clock.today)
+          s"Prediction: ${o.homeTeam} ${o.homeScore} - ${o.outScore} ${o.outTeam}"
         case Failure(f) => Main.stackTraceToString(f)
       }
     case _ => Main.helpText

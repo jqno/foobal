@@ -41,7 +41,7 @@ class MainTest extends FlatSpec with Matchers with MockitoSugar {
   
   it should "be able to start the predicter" in {
     predict("NAC", "PSV", 10, 10)
-    main.start(Array("predict", someOutfile, "NAC", "PSV")) should be (Outcome("NAC", "PSV", 10, 10, today).toString)
+    main.start(Array("predict", someOutfile, "NAC", "PSV")) should be ("Prediction: NAC 10 - 10 PSV")
     verify (files).importFrom(someOutfile)
     verify (predicter).predict(List(), "NAC", "PSV", today)
   }
