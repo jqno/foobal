@@ -36,22 +36,22 @@ class LastYearPredicterTest extends FlatSpec with Matchers with OneInstancePerTe
     assertLatestOutcome(history, 1, 0)
   }
   
-  it should "return 0-1 when the home team has no matches last year" in {
+  it should "return 1-0 when the home team has no matches last year" in {
     val history =
       Outcome("Willem II", "Ajax", 1, 0, new LocalDate(2011, 9, 10)) ::
       Outcome("PSV", "Willem II", 2, 0, new LocalDate(2010, 9, 10)) ::
       Nil
     
-    assertLatestOutcome(history, 0, 1)
+    assertLatestOutcome(history, 1, 0)
   }
   
-  it should "return 1-0 when the out team has no matches last year" in {
+  it should "return 0-1 when the out team has no matches last year" in {
     val history =
       Outcome("NAC", "Ajax", 1, 0, new LocalDate(2011, 9, 10)) ::
       Outcome("PSV", "NAC", 2, 0, new LocalDate(2010, 9, 10)) ::
       Nil
     
-    assertLatestOutcome(history, 1, 0)
+    assertLatestOutcome(history, 0, 1)
   }
   
   it should "return 0-0 if both teams have played, but not against each other (which never happens but still)" in {

@@ -11,8 +11,8 @@ object LastYearPredicter extends Predicter {
 
     (lastYearHome, lastYearOut) match {
       case (Nil, Nil)                 => Outcome(homeTeam, outTeam, 0, 0, date)
-      case (Nil, _)                   => Outcome(homeTeam, outTeam, 0, 1, date)
-      case (_, Nil)                   => Outcome(homeTeam, outTeam, 1, 0, date)
+      case (Nil, _)                   => Outcome(homeTeam, outTeam, 1, 0, date)
+      case (_, Nil)                   => Outcome(homeTeam, outTeam, 0, 1, date)
       case (_, _) if intersect == Nil => Outcome(homeTeam, outTeam, 0, 0, date)
       case (_, _)                     => intersect.sortWith((a, b) => a.date isAfter b.date).head.copy(date = date)
     }
