@@ -14,8 +14,9 @@ class OutcomesUpdater(
     
     downloader.fetch(url).map { html =>
       val incoming = parser.parse(html)
-      val outcomes = existing ++ incoming
-      files.exportTo(fileName, outcomes.distinct)
+      val outcomes = (existing ++ incoming).distinct
+      println(s"New outcomes: ${outcomes.size - existing.size}")
+      files.exportTo(fileName, outcomes)
     }
   }
 }
