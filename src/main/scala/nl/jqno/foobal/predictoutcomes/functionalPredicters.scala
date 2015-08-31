@@ -1,12 +1,12 @@
 package nl.jqno.foobal.predictoutcomes
 
-import nl.jqno.foobal.domain.Outcome
+import nl.jqno.foobal.domain.{DateUtil, Outcome}
 import org.joda.time.LocalDate
 
 object LastYearPredicter extends Predicter {
   override def predict(history: List[Outcome], homeTeam: String, outTeam: String, date: LocalDate): Outcome = {
-    val lastYearHome = history filter (_.homeTeam == homeTeam)
-    val lastYearOut = history filter (_.outTeam == outTeam)
+    val lastYearHome = history filter (_.homeTeam == homeTeam) filter (o => isInPreviousSeason(o.date, date))
+    val lastYearOut = history filter (_.outTeam == outTeam) filter (o => isInPreviousSeason(o.date, date))
     val intersect = lastYearHome intersect lastYearOut
 
     (lastYearHome, lastYearOut) match {
@@ -16,6 +16,11 @@ object LastYearPredicter extends Predicter {
       case (_, _) if intersect == Nil => Outcome(homeTeam, outTeam, 0, 0, date)
       case (_, _)                     => intersect.sortWith((a, b) => a.date isAfter b.date).head.copy(date = date)
     }
+  }
+  
+  private def isInPreviousSeason(historyDate: LocalDate, currentDate: LocalDate) = {
+    (historyDate isBefore DateUtil.determineSeasonStartDateFor(currentDate)) &&
+      (historyDate isAfter DateUtil.determineSeasonStartDateFor(currentDate.minusYears(1)))
   }
 }
 

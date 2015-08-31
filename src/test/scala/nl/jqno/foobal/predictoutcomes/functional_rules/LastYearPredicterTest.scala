@@ -18,48 +18,68 @@ class LastYearPredicterTest extends FlatSpec with Matchers with OneInstancePerTe
   
   it should "predict a previous outcome" in {
     val history =
-      Outcome("NAC", "Willem II", 1, 0, new LocalDate(2011, 9, 10)) ::
+      Outcome("NAC", "Willem II", 4, 0, new LocalDate(2011, 9, 10)) ::
       Outcome("PSV", "Willem II", 2, 0, new LocalDate(2011, 9, 11)) ::
       Outcome("NAC", "PSV", 0, 1, new LocalDate(2011, 9, 12)) ::
       Nil
     
-    assertLatestOutcome(history, 1, 0)
+    assertLatestOutcome(history, 4, 0)
   }
   
   it should "select only the most recent outcome" in {
     val history =
       Outcome("NAC", "Willem II", 3, 0, new LocalDate(2009, 9, 10)) ::
-      Outcome("NAC", "Willem II", 1, 0, new LocalDate(2011, 9, 10)) ::
+      Outcome("NAC", "Willem II", 4, 0, new LocalDate(2011, 9, 10)) ::
       Outcome("NAC", "Willem II", 2, 0, new LocalDate(2010, 9, 10)) ::
       Nil
     
-    assertLatestOutcome(history, 1, 0)
+    assertLatestOutcome(history, 4, 0)
   }
   
-  it should "return 1-0 when the home team has no matches last year" in {
+  it should "return 1-0 when the home team has no matches against the out team last year" in {
     val history =
       Outcome("Willem II", "Ajax", 1, 0, new LocalDate(2011, 9, 10)) ::
-      Outcome("PSV", "Willem II", 2, 0, new LocalDate(2010, 9, 10)) ::
+      Outcome("PSV", "Willem II", 2, 0, new LocalDate(2011, 9, 10)) ::
       Nil
     
     assertLatestOutcome(history, 1, 0)
   }
-  
-  it should "return 0-1 when the out team has no matches last year" in {
+
+  it should "return 1-0 when the home team has no matches against the out team last year, but it has matches this year" in {
+    val history =
+      Outcome("Willem II", "Ajax", 1, 0, new LocalDate(2011, 9, 10)) ::
+      Outcome("PSV", "Willem II", 2, 0, new LocalDate(2011, 9, 10)) ::
+      Outcome("NAC", "PSV", 2, 0, new LocalDate(2012, 9, 5)) ::
+      Nil
+
+    assertLatestOutcome(history, 1, 0)
+  }
+
+  it should "return 0-1 when the out team has no matches against the home team last year" in {
     val history =
       Outcome("NAC", "Ajax", 1, 0, new LocalDate(2011, 9, 10)) ::
-      Outcome("PSV", "NAC", 2, 0, new LocalDate(2010, 9, 10)) ::
+      Outcome("PSV", "NAC", 2, 0, new LocalDate(2011, 9, 10)) ::
       Nil
     
     assertLatestOutcome(history, 0, 1)
   }
-  
+
+  it should "return 0-1 when the out team has no matches against the home team last year, but it has matches this year" in {
+    val history =
+      Outcome("NAC", "Ajax", 1, 0, new LocalDate(2011, 9, 10)) ::
+      Outcome("PSV", "NAC", 2, 0, new LocalDate(2011, 9, 10)) ::
+      Outcome("Ajax", "Willem II", 2, 0, new LocalDate(2012, 9, 5)) ::
+      Nil
+
+    assertLatestOutcome(history, 0, 1)
+  }
+
   it should "return 0-0 if both teams have played, but not against each other (which never happens but still)" in {
     val history =
       Outcome("NAC", "Ajax", 1, 0, new LocalDate(2011, 9, 10)) ::
-      Outcome("Willem II", "Ajax", 2, 0, new LocalDate(2010, 9, 10)) ::
+      Outcome("Willem II", "Ajax", 2, 0, new LocalDate(2011, 9, 10)) ::
       Outcome("Ajax", "NAC", 1, 0, new LocalDate(2011, 9, 10)) ::
-      Outcome("Ajax", "Willem II", 2, 0, new LocalDate(2010, 9, 10)) ::
+      Outcome("Ajax", "Willem II", 2, 0, new LocalDate(2011, 9, 10)) ::
       Nil
     
     assertLatestOutcome(history, 0, 0)
