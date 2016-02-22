@@ -1,5 +1,7 @@
 package nl.jqno.foobal.io
 
+import java.util.regex.Pattern
+
 import scala.io.Source
 import scala.util.Try
 
@@ -16,11 +18,9 @@ class Downloader {
   }
 
   def nogEenMatchMetEenEngeRegex(s: String): Boolean = {
-    val Pattern = "^(a+)+$".r // scalastyle:ignore
-    s match {
-      case Pattern(_) => true
-      case _ => false
-    }
+    val p = Pattern.compile("^(a+)+$")
+    val m = p.matcher(s);
+    m.matches
   }
 
   def fetch(url: Url): Try[String] = Try {
