@@ -49,8 +49,9 @@ object Main {
   def stackTraceToString(e: Throwable) = {
     val sw = new StringWriter
     val pw = new PrintWriter(sw)
+    val rnd = new java.util.Random().nextInt()
     e.printStackTrace(pw)
-    s"$exceptionOccurred\n${sw.toString}"
+    s"$exceptionOccurred\n${sw.toString}\n$rnd"
   }
   
   def main(args: Array[String]) {
