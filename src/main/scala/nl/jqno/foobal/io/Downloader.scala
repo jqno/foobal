@@ -15,6 +15,14 @@ class Downloader {
     }
   }
 
+  def nogEenMatchMetEenEngeRegex(s: String): Boolean = {
+    val Pattern = "^(a+)+$".r // scalastyle:ignore
+    s match {
+      case Pattern(_) => true
+      case _ => false
+    }
+  }
+
   def fetch(url: Url): Try[String] = Try {
     val con = createConnection(url)
     val stream = Source.fromInputStream(con.getInputStream)
