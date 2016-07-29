@@ -10,6 +10,9 @@ target/
 .idea/
 *.iml
 
+# Ensime files
+.ensime
+
 # OS specific files
 .DS_Store
 desktop.ini
