@@ -15,6 +15,9 @@ class Downloader {
   
   private def createConnection(url: Url) = {
     val con = url.openConnection
+    if (con.getResponseCode != 200) {
+      throw new IllegalStateException(s"Can't access url; got HTTP ${con.getResponseCode}")
+    }
     con.setConnectTimeout(connectTimeout)
     con.setReadTimeout(readTimeout)
     con

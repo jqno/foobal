@@ -1,7 +1,7 @@
 package nl.jqno.foobal.io
 
 import java.io.{IOException, InputStream}
-import java.net.URL
+import java.net.{HttpURLConnection, URL}
 
 import org.joda.time.LocalDate
 
@@ -43,6 +43,9 @@ class UrlConnection(url: URL) {
   @throws(classOf[IOException])
   def getInputStream: InputStream =
     connection.getInputStream
+
+  def getResponseCode: Int =
+    connection.asInstanceOf[HttpURLConnection].getResponseCode
 }
 
 class DateFactory {

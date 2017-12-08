@@ -18,6 +18,7 @@ class DownloaderTest extends FlatSpec with Matchers with OneInstancePerTest with
   val downloader = new Downloader
   
   when (url.openConnection) thenReturn con
+  when (con.getResponseCode) thenReturn 200
   
   
   behavior of "A Downloader"
@@ -41,9 +42,20 @@ class DownloaderTest extends FlatSpec with Matchers with OneInstancePerTest with
     verify (con).setConnectTimeout(3000)
     verify (con).setReadTimeout(3000)
   }
+
+  it should "fail when the connection doesn't respond with HTTP 200" in {
+    val failingUrl = mock[Url]
+    val failingCon = mock[UrlConnection]
+    when (failingUrl.openConnection) thenReturn failingCon
+    when (failingCon.getResponseCode) thenReturn 301
+    upload("Hello world", failingCon)
+
+    val Failure(f) = downloader.fetch(failingUrl)
+    f.getClass should be (classOf[IllegalStateException])
+  }
   
-  def upload(s: String): Unit =
-    when (con.getInputStream) thenReturn new ByteArrayInputStream(s.getBytes)
+  def upload(s: String, c: UrlConnection = con): Unit =
+    when (c.getInputStream) thenReturn new ByteArrayInputStream(s.getBytes)
   
   def timeout(): Unit =
     when (con.getInputStream) thenThrow new SocketTimeoutException
