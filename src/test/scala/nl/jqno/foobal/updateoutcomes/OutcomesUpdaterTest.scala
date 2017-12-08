@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import org.mockito.Matchers.{any, anyString}
 import org.mockito.Mockito.{never, verify, when}
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
 
 import scala.util.{Failure, Success, Try}

@@ -6,7 +6,7 @@ import java.net.SocketTimeoutException
 import org.junit.runner.RunWith
 import org.mockito.Mockito.{verify, when}
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers, OneInstancePerTest}
 
 import scala.util.{Failure, Success}
