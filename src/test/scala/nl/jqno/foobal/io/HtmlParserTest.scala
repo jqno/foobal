@@ -18,6 +18,10 @@ class HtmlParserTest extends FlatSpec with Matchers with MockitoSugar {
     parser.parse(validHtml1) should be (validOutcomes1)
   }
 
+  it should "not crash on a cancellation" in {
+    parser.parse(validHtmlWithCancellation) should be (validOutcomes1.drop(1))
+  }
+
   it should "be able to cope with slightly malformed html" in {
     parser.parse(validButMalformedHtml1) should be (validOutcomes1)
   }

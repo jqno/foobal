@@ -26,10 +26,14 @@ class HtmlParser(clock: DateFactory = new DateFactory) {
           val homeTeam = rawHomeTeam.text.trim
           val rawOutTeam = (e \\ "div") filter hasAttributeWith("float-right club")
           val outTeam = rawOutTeam.text.trim
+          val homeScore = Try(scores(0).toInt).toOption
+          val outScore = Try(scores(1).toInt).toOption
 
           for {
+            h <- homeScore
+            o <- outScore
             d <- date
-          } yield Outcome(homeTeam, outTeam, scores(0).toInt, scores(1).toInt, d)
+          } yield Outcome(homeTeam, outTeam, h, o, d)
         case _ => None
       }
     }
